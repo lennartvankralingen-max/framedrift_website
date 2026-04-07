@@ -64,10 +64,10 @@
     .menu-overlay.open{opacity:1;visibility:visible}
     .menu-overlay__links{list-style:none;display:flex;flex-direction:column;gap:1.6rem}
     .menu-overlay__links li{overflow:hidden}
-    .menu-overlay__links a{display:block;font-size:6rem;font-weight:300;letter-spacing:-.02em;text-transform:lowercase;color:var(--color-ivory);text-decoration:none;transform:translateY(110%);transition:transform 1.2s var(--ease-out-expo),color .3s ease}
+    .menu-overlay__links a{display:block;font-family:'Joyride',"Azeret Mono",monospace;font-size:6rem;font-weight:400;letter-spacing:.05em;text-transform:uppercase;color:var(--color-ivory);text-decoration:none;transform:translateY(110%);transition:transform 1.2s var(--ease-out-expo),color .3s ease}
     .menu-overlay.open .menu-overlay__links a{transform:translateY(0)}
     .menu-overlay__links a:hover{color:var(--color-sun)}
-    .menu-overlay__footer{position:absolute;bottom:4rem;left:4.8rem;right:4.8rem;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(255,251,242,.1);padding-top:2.4rem;opacity:0;transition:opacity .6s ease .4s}
+    .menu-overlay__footer{position:absolute;bottom:4rem;left:4.8rem;right:4.8rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,251,242,.1);padding-top:2.4rem;opacity:0;transition:opacity .6s ease .4s}
     .menu-overlay.open .menu-overlay__footer{opacity:1}
     .menu-overlay__contact{font-size:1.4rem;font-weight:300;color:rgba(255,251,242,.4);text-decoration:none;transition:color .3s}
     .menu-overlay__contact:hover{color:var(--color-sun)}
@@ -136,15 +136,15 @@
     /* Responsive */
     @media(max-width:768px){
       html{font-size:1.8vw}
-      .nav{padding:2.4rem}
-      .nav__left,.nav__links{display:none}
+      .nav{padding:2.4rem}.nav__logo img{height:22vw}.nav__menu-btn{width:28px;height:28px}
+      .nav__links{display:none}
       .nav__menu-btn{display:flex}
       .project-hero__content{padding:2.4rem;padding-bottom:5.6rem}
       .project-intro{grid-template-columns:1fr;gap:4rem;padding:5.6rem 2.4rem}
       .gallery-row--2,.gallery-row--4{grid-template-columns:1fr 1fr}
       .gallery-row--8{grid-template-columns:repeat(4,1fr)}
       .project-credits{padding:5.6rem 2.4rem}
-      footer{flex-direction:column;gap:2.4rem;text-align:center;padding:3.2rem 2.4rem}
+      footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.6rem 0;padding:3.2rem 2.4rem;text-align:left}.footer__logo{order:-1;flex:0 0 100%;display:flex;justify-content:center;position:static;transform:none}.footer__copy{order:1}.footer__links{order:1;justify-content:flex-end}
     }
     @media(min-width:769px) and (max-width:1200px){
       html{font-size:.7vw}
@@ -195,12 +195,14 @@
     <ul class="menu-overlay__links">
       <li><a href="../index.html" data-menu-link>Home</a></li>
       <li><a href="../#work"     data-menu-link>Work</a></li>
+      <li><a href="projects.html" data-menu-link>Projects</a></li>
+      <li><a href="keyart.html" data-menu-link>Keyart</a></li>
       <li><a href="../about.html"    data-menu-link>About</a></li>
       <li><a href="../contact.html"  data-menu-link>Contact</a></li>
     </ul>
     <div class="menu-overlay__footer">
       <a href="mailto:info@framedrift.com" class="menu-overlay__contact">info@framedrift.com</a>
-      <div class="menu-overlay__offices">New York<br>Amsterdam<br>Toronto</div>
+      <div class="menu-overlay__offices"><img src="../brand_assets/FD_LOGO.png" alt="Framedrift" style="height:6rem;width:auto;filter:invert(1) url(#logo-yellow);mix-blend-mode:screen;opacity:0.6" /></div>
     </div>
   </div>
 

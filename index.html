@@ -254,10 +254,11 @@
     .menu-overlay__links li { overflow: hidden; }
     .menu-overlay__links a {
       display: block;
+      font-family: 'Joyride', "Azeret Mono", monospace;
       font-size: 6rem;
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      text-transform: lowercase;
+      font-weight: 400;
+      letter-spacing: .05em;
+      text-transform: uppercase;
       color: var(--color-ivory);
       text-decoration: none;
       transform: translateY(110%);
@@ -272,7 +273,7 @@
       bottom: 4rem; left: 4.8rem; right: 4.8rem;
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: center;
       border-top: 1px solid rgba(255,251,242,0.1);
       padding-top: 2.4rem;
       opacity: 0;
@@ -583,7 +584,7 @@
     .work__header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: center;
       margin-bottom: 6.4rem;
     }
 
@@ -729,7 +730,7 @@
     .services__header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: center;
       margin-bottom: 7.2rem;
     }
 
@@ -921,7 +922,7 @@
     .thoughts__header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: center;
       margin-bottom: 6.4rem;
     }
 
@@ -1233,8 +1234,9 @@
     }
     @media (max-width: 768px) {
       .brands { padding: 4.8rem 2.4rem; }
+      .brands__grid { flex-wrap: wrap; }
       .brands__item { flex: 0 0 33.333%; padding: 2rem; }
-      .brands__item img { height: 4rem; }
+      .brands__item img { height: 3.2rem; }
     }
 
     .footer__logo img {
@@ -1267,12 +1269,13 @@
     @media (max-width: 768px) {
       html { font-size: 1.4vw; }
       .nav { padding: 2.4rem; }
+      .nav__logo img { height: 22vw; }
+      .nav__menu-btn { display: flex; width: 28px; height: 28px; }
       .nav__links { display: none; }
-      .nav__menu-btn { display: flex; }
       .section { padding: 8rem 2.4rem; }
       #contact { padding: 10rem 2.4rem; }
       .hero__content { padding: 0 2.4rem 5.6rem; }
-      .hero__headline { font-size: clamp(3.2rem, 8.5vw, 7rem); }
+      .hero__headline { font-size: 32vw; }
       .work__grid { grid-template-columns: 1fr; }
       .work__item:nth-child(n) { grid-column: span 12; }
       .services__header { flex-direction: column; align-items: flex-start; gap: 3.2rem; }
@@ -1280,9 +1283,7 @@
       .how__grid { grid-template-columns: 1fr 1fr; gap: 4.8rem; }
       .how__step { border-right: none; padding: 0 !important; }
       .thoughts__grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 2.4rem; text-align: center; }
-      .footer__links { justify-content: center; flex-wrap: wrap; }
-      .menu-overlay__links a { font-size: clamp(2.8rem, 7vw, 4.5rem); }
+      footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.6rem 0;padding:3.2rem 2.4rem;text-align:left}.footer__logo{order:-1;flex:0 0 100%;display:flex;justify-content:center;position:static;transform:none}.footer__copy{order:1}.footer__links{order:1;justify-content:flex-end}
     }
     @media (max-width: 480px) {
       html { font-size: 2vw; }
@@ -1350,6 +1351,8 @@
     <ul class="menu-overlay__links">
       <li><a href="#"        data-menu-link>Home</a></li>
       <li><a href="#work"    data-menu-link>Work</a></li>
+      <li><a href="work/projects.html" data-menu-link>Projects</a></li>
+      <li><a href="work/keyart.html" data-menu-link>Keyart</a></li>
       <li><a href="about.html"   data-menu-link>About</a></li>
       <li><a href="contact.html" data-menu-link>Contact</a></li>
     </ul>
@@ -1358,7 +1361,7 @@
         info@framedrift.com
       </a>
       <div class="menu-overlay__offices">
-        New York<br>Amsterdam<br>Toronto
+        <img src="brand_assets/FD_LOGO.png" alt="Framedrift" style="height:6rem;width:auto;filter:invert(1) url(#logo-yellow);mix-blend-mode:screen;opacity:0.6" />
       </div>
     </div>
   </div>
