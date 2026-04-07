@@ -87,6 +87,7 @@
     .gallery-row--2{grid-template-columns:1fr 1fr}
     .gallery-row--3{grid-template-columns:1fr 1fr 1fr}
     .gallery-img{width:100%;display:block;object-fit:cover;aspect-ratio:16/9}
+    .vimeo-wrap{position:relative;width:100%;aspect-ratio:16/9}.vimeo-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
     .gallery-img--wide{aspect-ratio:auto;max-height:75vh}
     .gallery-img--logo{aspect-ratio:auto;padding:6rem;background:rgba(255,255,255,.04);object-fit:contain;height:24rem}
     .gallery-label{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,251,242,.18);padding:3.2rem 3.2rem 1.6rem}
@@ -126,6 +127,13 @@
     .credit-role{color:rgba(36,36,36,.35);min-width:22rem}
     .credit-name{color:var(--color-coal)}
     .project-awards{padding:6.4rem 4.8rem;background:var(--color-sun)}
+    .project-awards__label{font-family:'Azeret Mono',monospace;font-size:1.1rem;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(0,0,0,.4);display:flex;align-items:center;gap:.8rem;margin-bottom:3.2rem}
+    .project-awards__label::after{content:'';display:none}
+    .award-row{display:flex;align-items:center;justify-content:space-between;padding:2rem 0;border-top:1px solid rgba(0,0,0,.1)}
+    .award-row__left{display:flex;align-items:center;gap:1.6rem}
+    .award-badge{font-family:'Azeret Mono',monospace;font-size:1rem;font-weight:300;letter-spacing:.1em;text-transform:uppercase;color:#000;border:1px solid rgba(0,0,0,.3);padding:.4rem 1rem;white-space:nowrap}
+    .award-row__title{font-family:'Azeret Mono',monospace;font-size:1.6rem;font-weight:300;color:#000}
+    .award-row__event{font-family:'Azeret Mono',monospace;font-size:1.2rem;font-weight:300;color:rgba(0,0,0,.4);white-space:nowrap}
     .project-awards__heading{font-size:1.1rem;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(0,0,0,.35);margin-bottom:3.2rem}
     .awards-list{list-style:none}
     .award-item{display:flex;gap:2.4rem;align-items:baseline;padding:1.8rem 0;border-bottom:1px solid rgba(0,0,0,.1);font-size:1.4rem;font-weight:300;flex-wrap:wrap}
@@ -253,47 +261,46 @@
           <span class="meta-label">Commissioned by</span>
           <span class="meta-value">Warner Bros. Discovery</span>
         </div>
-        <div>
-          <span class="meta-label">Award</span>
-          <span class="meta-value">Promax Europe 2021 — Finalist</span>
-        </div>
       </div>
       <p class="project-desc reveal reveal-d1">Discovery Ultra, A 4K channel. The new channel brand identity was managed and produced in-house in just 3 months! Taking inspiration from movement of light, Discovery Ultra's look is very contemporary. With a dynamic logo and accompanying audio signature, infinite colour palette and sharp scalable package, the result is a premium 4K brand toolkit.</p>
     </div>
 
+    <div class="project-awards reveal">
+      <p class="project-awards__label">Awards</p>
+      <div class="award-row">
+        <div class="award-row__left">
+          <span class="award-badge">Finalist</span>
+          <span class="award-row__title">General Brand Design Package · Discovery Ultra</span>
+        </div>
+        <span class="award-row__event">Promax Europe 2021</span>
+      </div>
+      <div class="award-row">
+        <div class="award-row__left">
+          <span class="award-badge">Finalist</span>
+          <span class="award-row__title">On Air Ident (Out of House) · Discovery Ultra</span>
+        </div>
+        <span class="award-row__event">Promax Europe 2021</span>
+      </div>
+    </div>
+
     <div class="project-gallery">
 
-      <p class="gallery-label">Logo</p>
       <div class="gallery-row gallery-row--1">
-        <img class="gallery-img gallery-img--logo" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/02/DU_LOGO_Ultra_Violet_Gradient_RGB-768x301.png" alt="Discovery Ultra — Logo" />
-      </div>
-
-      <p class="gallery-label">On Air Idents</p>
-      <div class="gallery-row gallery-row--1">
-        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/12/discovery-ultra-ident-off-vimeo-thumbnail-1024x576.jpg" alt="Discovery Ultra — Ident: Off" />
+        <div class="vimeo-wrap"><iframe src="https://player.vimeo.com/video/1033857968?title=0&byline=0&portrait=0" allowfullscreen></iframe></div>
       </div>
       <div class="gallery-row gallery-row--2">
-        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/11/discovery-ident-turbo-vimeo-thumbnail-1024x576.jpg" alt="Discovery Ultra — Ident: Turbo" />
-        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/12/discovery-ultra-ident-survival-vimeo-thumbnail-1024x576.jpg" alt="Discovery Ultra — Ident: Survival" />
+        <div class="vimeo-wrap"><iframe src="https://player.vimeo.com/video/1033858601?title=0&byline=0&portrait=0" allowfullscreen></iframe></div>
+        <div class="vimeo-wrap"><iframe src="https://player.vimeo.com/video/1033858442?title=0&byline=0&portrait=0" allowfullscreen></iframe></div>
       </div>
       <div class="gallery-row gallery-row--2">
-        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/12/discovery-ident-science-vimeo-thumbnail-1024x576.jpg" alt="Discovery Ultra — Ident: Science" />
-        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/12/discovery-ultra-ident-nature-vimeo-thumbnail-1024x576.jpg" alt="Discovery Ultra — Ident: Nature" />
+        <div class="vimeo-wrap"><iframe src="https://player.vimeo.com/video/1033858194?title=0&byline=0&portrait=0" allowfullscreen></iframe></div>
+        <div class="vimeo-wrap"><iframe src="https://player.vimeo.com/video/1033857487?title=0&byline=0&portrait=0" allowfullscreen></iframe></div>
       </div>
-
-      <p class="gallery-label">Bumps</p>
       <div class="gallery-row gallery-row--2">
-        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/12/discovery-ultra-bump-northernlights-vimeo-thumbnail-1024x576.jpg" alt="Discovery Ultra — Bump: Northern Lights" />
-        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/12/discovery-ultra-bump-space-vimeo-thumbnail-1024x576.jpg" alt="Discovery Ultra — Bump: Space" />
+        <div class="vimeo-wrap"><iframe src="https://player.vimeo.com/video/1035531950?title=0&byline=0&portrait=0" allowfullscreen></iframe></div>
+        <div class="vimeo-wrap"><iframe src="https://player.vimeo.com/video/1035532465?title=0&byline=0&portrait=0" allowfullscreen></iframe></div>
       </div>
 
-      <p class="gallery-label">Banners</p>
-      <div class="gallery-row gallery-row--2">
-        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/02/D_Ultra_FACEBOOK_Header_2364x875_TEXTURE_TEMPLATE.jpg" alt="Discovery Ultra — Banner Texture" />
-        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/02/D_Ultra_FACEBOOK_Header_2364x875_ZOOM_TEMPLATE.jpg" alt="Discovery Ultra — Banner Zoom" />
-      </div>
-
-      <p class="gallery-label">Brand Guidelines</p>
       <div class="book-wrap">
         <div class="book-stage">
           <div class="book-track" id="bookTrack">
