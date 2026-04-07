@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discovery Ultra — Framedrift</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <style>
+    @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideSTD.otf') format('opentype'); font-weight:400; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideSTDItalic.otf') format('opentype'); font-weight:400; font-style:italic; font-display:swap; }
+    @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideEXT.otf') format('opentype'); font-weight:700; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideEXTItalic.otf') format('opentype'); font-weight:700; font-style:italic; font-display:swap; }
+  </style>
+  <style>
+    html,body,div,span,h1,h2,h3,h4,p,a,ul,li,article,aside,footer,header,nav,section,em,strong{border:0;font:inherit;font-size:100%;margin:0;padding:0;vertical-align:baseline}
+    *,*::after,*::before{box-sizing:border-box}
+    ::-webkit-scrollbar{display:none}
+    :root{--color-ivory:#fffbf2;--color-sun:#daff00;--color-coal:#000;--color-void:#000;--ease-out-expo:cubic-bezier(0.19,1,0.22,1);--ease-out-cubic:cubic-bezier(0.215,0.61,0.355,1)}
+    html{background:var(--color-void);font-size:.5208333333vw;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+    body{font:1.6rem/1.3 "Azeret Mono",monospace;background:var(--color-void);opacity:0;transition:opacity .6s ease;cursor:none;overflow-x:clip}
+    body.loaded{opacity:1}
+    .cursor{position:fixed;top:0;left:0;z-index:9999;width:7px;height:7px;background:var(--color-sun);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);mix-blend-mode:exclusion;will-change:transform;transition:width .25s ease,height .25s ease}
+    .cursor.big{width:48px;height:48px}
+    .cursor-ring{position:fixed;top:0;left:0;z-index:9998;width:28px;height:28px;border:1px solid rgba(255,254,0,.35);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);will-change:transform;transition:width .3s ease,height .3s ease,opacity .3s ease}
+    .cursor-ring.hovering{width:50px;height:50px;opacity:.45}
+    .cursor-ring.hidden{opacity:0}
+    .nav{position:absolute;top:0;left:0;width:100%;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:3.2rem 4.8rem;transition:padding .6s var(--ease-out-expo)}
+
+    .nav__logo{text-decoration:none;opacity:0;transform:translateY(-8px);transition:opacity .6s ease,transform .6s var(--ease-out-expo);display:flex;justify-content:center}
+    .nav__logo.in{opacity:1;transform:translateY(0)}
+    .nav__logo img{height:16rem;width:auto;display:block;filter:invert(1) url(#logo-yellow);mix-blend-mode:screen;transition:filter .6s ease}
+    .nav__left{display:flex;align-items:center}
+    .nav__links{display:flex;align-items:center;justify-content:flex-end;gap:.8rem;list-style:none}
+    .nav__links li{opacity:0;transform:translateY(-8px);transition:opacity .6s ease,transform .6s var(--ease-out-expo)}
+    .nav__links li.in{opacity:1;transform:translateY(0)}
+    .nav__links a{display:inline-block;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(218,255,0,.45);text-decoration:none;padding:.9rem 1.4rem;position:relative;transition:color .5s var(--ease-out-expo)}
+    .nav__links a::after{content:'';position:absolute;bottom:4px;left:1.4rem;right:1.4rem;height:1px;background:var(--color-sun);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease-out-expo)}
+    .nav__links a:hover{color:var(--color-sun)}
+    .nav__links a:hover::after{transform:scaleX(1);transform-origin:left}
+    .nav__dropdown{position:relative}
+    .nav__dropdown__menu{position:absolute;top:100%;left:1.4rem;transform:translateY(-6px);list-style:none;min-width:10rem;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .3s var(--ease-out-expo);z-index:200;padding-top:.8rem}
+    .nav__dropdown:hover .nav__dropdown__menu{opacity:1;pointer-events:all;transform:translateY(0)}
+    .nav__dropdown__menu a{display:inline-block;padding:.5rem 0;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(218,255,0,.45);text-decoration:none;transition:color .2s}
+    .nav__dropdown__menu a::after{left:0;right:0;bottom:0}
+    .nav__dropdown__menu a:hover{color:var(--color-sun)}
+    .nav__menu-btn{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;background:none;border:none;cursor:none;padding:0}
+    .nav__menu-btn span{display:block;width:100%;height:1px;background:var(--color-ivory);transition:transform .5s var(--ease-out-expo),opacity .3s ease}
+    .nav--open .nav__menu-btn span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+    .nav--open .nav__menu-btn span:nth-child(2){opacity:0;transform:scaleX(0)}
+    .nav--open .nav__menu-btn span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+    .menu-overlay{position:fixed;inset:0;z-index:190;background:var(--color-void);display:flex;flex-direction:column;justify-content:center;padding:4.8rem;opacity:0;visibility:hidden;transition:opacity .5s var(--ease-out-expo),visibility .5s ease}
+    .menu-overlay.open{opacity:1;visibility:visible}
+    .menu-overlay__links{list-style:none;display:flex;flex-direction:column;gap:1.6rem}
+    .menu-overlay__links li{overflow:hidden}
+    .menu-overlay__links a{display:block;font-size:6rem;font-weight:300;letter-spacing:-.02em;text-transform:lowercase;color:var(--color-ivory);text-decoration:none;transform:translateY(110%);transition:transform 1.2s var(--ease-out-expo),color .3s ease}
+    .menu-overlay.open .menu-overlay__links a{transform:translateY(0)}
+    .menu-overlay__links a:hover{color:var(--color-sun)}
+    .menu-overlay__footer{position:absolute;bottom:4rem;left:4.8rem;right:4.8rem;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(255,251,242,.1);padding-top:2.4rem;opacity:0;transition:opacity .6s ease .4s}
+    .menu-overlay.open .menu-overlay__footer{opacity:1}
+    .menu-overlay__contact{font-size:1.4rem;font-weight:300;color:rgba(255,251,242,.4);text-decoration:none;transition:color .3s}
+    .menu-overlay__contact:hover{color:var(--color-sun)}
+    .menu-overlay__offices{font-size:1.2rem;font-weight:300;color:rgba(255,251,242,.25);text-align:right;line-height:1.8}
+    .project-hero{height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+    .project-hero__image{position:absolute;inset:0;background-size:cover;background-position:center}
+    .project-hero__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.12) 55%,rgba(0,0,0,.42) 100%);z-index:2}
+    .project-hero__content{position:relative;z-index:3;padding:4.8rem;padding-bottom:7.2rem}
+    .project-hero__num{font-size:1.1rem;font-weight:300;letter-spacing:.15em;color:rgba(218,255,0,.5);display:block;margin-bottom:2.4rem;text-transform:uppercase}
+    .project-hero__tags{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2.8rem}
+    .project-hero__tag{font-size:1rem;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(218,255,0,.8);border:1px solid rgba(218,255,0,.3);padding:.5rem 1.2rem}
+    .project-hero__title{font-family:'Joyride',"Azeret Mono",monospace;font-size:clamp(4rem,6.5vw,11.2rem);font-weight:400;line-height:.92;letter-spacing:.01em;text-transform:uppercase;color:var(--color-ivory);max-width:90rem}
+    .project-content{background:var(--color-ivory);position:relative;z-index:5;border-radius:2.4rem 2.4rem 0 0;margin-top:0;overflow:clip}
+    .project-intro{padding:8rem 4.8rem;display:grid;grid-template-columns:28rem 1fr;gap:8rem;border-bottom:1px solid rgba(36,36,36,.08)}
+    .project-meta{display:flex;flex-direction:column;gap:3.2rem}
+    .meta-label{display:block;font-size:1rem;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(36,36,36,.3);margin-bottom:.6rem}
+    .meta-value{display:block;font-size:1.4rem;font-weight:300;color:var(--color-coal)}
+    .client-logo{height:3.2rem;width:auto;display:block;margin-top:.6rem;filter:brightness(0) invert(1) url(#logo-yellow)}
+    .project-desc{font-size:clamp(1.8rem,1.5vw,2.6rem);font-weight:300;line-height:1.7;color:rgba(36,36,36,.65)}
+    .project-gallery{background:var(--color-void);padding:.8rem;display:flex;flex-direction:column;gap:.8rem}
+    .gallery-row{display:grid;gap:.8rem}
+    .gallery-row--1{grid-template-columns:1fr}
+    .gallery-row--2{grid-template-columns:1fr 1fr}
+    .gallery-row--3{grid-template-columns:1fr 1fr 1fr}
+    .gallery-img{width:100%;display:block;object-fit:cover;aspect-ratio:16/9}
+    .gallery-img--wide{aspect-ratio:auto;max-height:75vh}
+    .gallery-img--logo{aspect-ratio:auto;padding:6rem;background:rgba(255,255,255,.04);object-fit:contain;height:24rem}
+    .gallery-label{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,251,242,.18);padding:3.2rem 3.2rem 1.6rem}
+
+    /* Styleguide Book */
+    .book-wrap{position:relative;background:#0a0a0a;padding:.8rem}
+    .book-stage{position:relative;overflow:hidden;aspect-ratio:16/9}
+    .book-track{display:flex;height:100%;transition:transform .5s cubic-bezier(0.19,1,0.22,1)}
+    .book-slide{flex:0 0 100%;height:100%}
+    .book-slide img{width:100%;height:100%;object-fit:contain;display:block}
+    .book-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.12);color:#fff;width:5.6rem;height:5.6rem;display:flex;align-items:center;justify-content:center;cursor:none;transition:background .2s,border-color .2s;font-size:2rem}
+    .book-btn:hover{background:rgba(218,255,0,.15);border-color:rgba(218,255,0,.4)}
+    .book-btn svg{pointer-events:none}
+    .book-prev{left:2rem}
+    .book-next{right:2rem}
+    .book-btn:disabled{opacity:.2;pointer-events:none}
+    .book-footer{display:flex;align-items:center;justify-content:space-between;padding:1.6rem 2.4rem}
+    .book-counter{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;letter-spacing:.12em;color:rgba(255,251,242,.3)}
+    .book-dots{display:flex;gap:.6rem;flex-wrap:wrap;max-width:60rem}
+    .book-dot{width:.6rem;height:.6rem;background:rgba(255,251,242,.15);border-radius:50%;cursor:pointer;transition:background .2s,transform .2s;flex-shrink:0}
+    .book-dot.active{background:var(--color-sun);transform:scale(1.4)}
+    .book-fullscreen-btn{font-family:'Joyride',"Azeret Mono",monospace;font-size:1rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(218,255,0,.5);background:none;border:1px solid rgba(218,255,0,.2);padding:.7rem 1.6rem;cursor:none;transition:color .2s,border-color .2s}
+    .book-fullscreen-btn:hover{color:var(--color-sun);border-color:rgba(218,255,0,.5)}
+    .book-lightbox{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s ease}
+    .book-lightbox.open{opacity:1;pointer-events:all}
+    .book-lightbox__inner{position:relative;width:90vw;max-width:140rem;aspect-ratio:16/9}
+    .book-lightbox__inner img{width:100%;height:100%;object-fit:contain;display:block}
+    .book-lightbox__close{position:absolute;top:2rem;right:2rem;background:none;border:1px solid rgba(255,255,255,.2);color:#fff;width:4.8rem;height:4.8rem;font-size:2.4rem;cursor:none;display:flex;align-items:center;justify-content:center;transition:border-color .2s}
+    .book-lightbox__close:hover{border-color:rgba(218,255,0,.5);color:var(--color-sun)}
+    .book-lightbox__nav{display:flex;gap:1.6rem;margin-top:2rem;align-items:center}
+    .book-lightbox__counter{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.2rem;letter-spacing:.1em;color:rgba(255,251,242,.4);min-width:8rem;text-align:center}
+    .project-credits{padding:8rem 4.8rem;background:var(--color-ivory);border-top:1px solid rgba(36,36,36,.08)}
+    .project-credits__heading{font-size:1.1rem;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(36,36,36,.25);margin-bottom:3.2rem}
+    .credits-list{list-style:none}
+    .credit-item{display:flex;gap:3.2rem;padding:1.8rem 0;border-bottom:1px solid rgba(36,36,36,.06);font-size:1.4rem;font-weight:300}
+    .credit-item:first-child{border-top:1px solid rgba(36,36,36,.06)}
+    .credit-role{color:rgba(36,36,36,.35);min-width:22rem}
+    .credit-name{color:var(--color-coal)}
+    .project-awards{padding:6.4rem 4.8rem;background:var(--color-sun)}
+    .project-awards__heading{font-size:1.1rem;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(0,0,0,.35);margin-bottom:3.2rem}
+    .awards-list{list-style:none}
+    .award-item{display:flex;gap:2.4rem;align-items:baseline;padding:1.8rem 0;border-bottom:1px solid rgba(0,0,0,.1);font-size:1.4rem;font-weight:300;flex-wrap:wrap}
+    .award-item:first-child{border-top:1px solid rgba(0,0,0,.1)}
+    .award-badge{font-size:.9rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(0,0,0,.5);border:1px solid rgba(0,0,0,.25);padding:.4rem .9rem;flex-shrink:0}
+    .award-title{color:var(--color-coal);font-size:1.5rem;flex:1}
+    .award-show{color:rgba(0,0,0,.4);font-size:1.2rem}
+    .scroll-hint{position:absolute;bottom:4rem;right:4.8rem;z-index:10;display:flex;flex-direction:column;align-items:center;opacity:0;transition:opacity .8s ease 2s}body.loaded .scroll-hint{opacity:1}.scroll-hint svg{animation:scrollBounce 1.8s ease-in-out infinite}@keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+    footer{background:var(--color-void);padding:4rem 4.8rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,251,242,.05);position:relative}
+    .footer__logo{position:absolute;left:50%;transform:translateX(-50%)}
+    .footer__logo img{height:8rem;width:auto;display:block;filter:invert(1) url(#logo-yellow);mix-blend-mode:screen;opacity:.6}
+    .footer__copy{font-size:1.1rem;font-weight:300;color:rgba(255,251,242,.15);letter-spacing:.04em}
+    .footer__links{display:flex;gap:2.4rem;list-style:none;align-items:center}
+    .footer__links a{display:flex;align-items:center;justify-content:center;color:rgba(255,251,242,.25);text-decoration:none;transition:color .3s}
+    .footer__links a:hover{color:rgba(255,251,242,.75)}
+    .footer__links svg{display:block}
+    .reveal{opacity:0;transform:translateY(3.2rem);transition:opacity .9s var(--ease-out-expo),transform .9s var(--ease-out-expo)}
+    .reveal.in-view{opacity:1;transform:translateY(0)}
+    .reveal-d1{transition-delay:.12s}
+    .reveal-d2{transition-delay:.24s}
+    @media(max-width:768px){
+      html{font-size:1.8vw}
+      .nav{padding:2.4rem}
+      .nav__left,.nav__links{display:none}
+      .nav__menu-btn{display:flex}
+      .project-hero__content{padding:2.4rem;padding-bottom:5.6rem}
+      .project-intro{grid-template-columns:1fr;gap:4rem;padding:5.6rem 2.4rem}
+      .gallery-row--2,.gallery-row--3{grid-template-columns:1fr}
+      .project-credits,.project-awards{padding:5.6rem 2.4rem}
+      footer{flex-direction:column;gap:2.4rem;text-align:center;padding:3.2rem 2.4rem}
+    }
+    @media(min-width:769px) and (max-width:1200px){
+      html{font-size:.7vw}
+      .project-intro{grid-template-columns:22rem 1fr;gap:5.6rem}
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <filter id="logo-yellow" color-interpolation-filters="sRGB">
+        <feColorMatrix type="matrix" values="0.855 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav class="nav" id="nav">
+    <div class="nav__left">
+      
+    </div>
+    <a href="../index.html" class="nav__logo" id="navLogo">
+      <img src="../brand_assets/FD_LOGO.png" alt="Framedrift" />
+    </a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li class="nav__dropdown" id="workDropdown">
+        <a href="../#work" class="nav__dropdown__trigger">Work</a>
+        <ul class="nav__dropdown__menu">
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="keyart.html">Key-art</a></li>
+        </ul>
+      </li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <button class="nav__menu-btn" id="menuBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="menu-overlay" id="menuOverlay">
+    <ul class="menu-overlay__links">
+      <li><a href="../index.html" data-menu-link>Home</a></li>
+      <li><a href="../#work"     data-menu-link>Work</a></li>
+      <li><a href="../about.html"    data-menu-link>About</a></li>
+      <li><a href="../contact.html"  data-menu-link>Contact</a></li>
+    </ul>
+    <div class="menu-overlay__footer">
+      <a href="mailto:info@framedrift.com" class="menu-overlay__contact">info@framedrift.com</a>
+      <div class="menu-overlay__offices">New York<br>Amsterdam<br>Toronto</div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="project-hero">
+    <video autoplay muted loop playsinline src="../brand_assets/DU_DESIGNREEL_V2_low.mp4" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1"></video>
+    <div class="project-hero__overlay"></div>
+    <div class="project-hero__content">
+      
+      <div class="project-hero__tags">
+        <span class="project-hero__tag">Branding</span>
+        <span class="project-hero__tag">Design</span>
+        <span class="project-hero__tag">Motion</span>
+      </div>
+      <h1 class="project-hero__title">Discovery Ultra</h1>
+    </div>
+    <div class="scroll-hint">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(218,255,0,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <div class="project-content">
+
+    <div class="project-intro">
+      <div class="project-meta reveal">
+        <div>
+          <span class="meta-label">Category</span>
+          <span class="meta-value">Branding, Design, Motion</span>
+        </div>
+        <div>
+          <span class="meta-label">Year</span>
+          <span class="meta-value">2021</span>
+        </div>
+        <div>
+          <span class="meta-label">Commissioned by</span>
+          <span class="meta-value">Warner Bros. Discovery</span>
+        </div>
+        <div>
+          <span class="meta-label">Award</span>
+          <span class="meta-value">Promax Europe 2021 — Finalist</span>
+        </div>
+      </div>
+      <p class="project-desc reveal reveal-d1">Discovery Ultra, A 4K channel. The new channel brand identity was managed and produced in-house in just 3 months! Taking inspiration from movement of light, Discovery Ultra's look is very contemporary. With a dynamic logo and accompanying audio signature, infinite colour palette and sharp scalable package, the result is a premium 4K brand toolkit.</p>
+    </div>
+
+    <div class="project-gallery">
+
+      <p class="gallery-label">Logo</p>
+      <div class="gallery-row gallery-row--1">
+        <img class="gallery-img gallery-img--logo" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/02/DU_LOGO_Ultra_Violet_Gradient_RGB-768x301.png" alt="Discovery Ultra — Logo" />
+      </div>
+
+      <p class="gallery-label">On Air Idents</p>
+      <div class="gallery-row gallery-row--1">
+        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/12/discovery-ultra-ident-off-vimeo-thumbnail-1024x576.jpg" alt="Discovery Ultra — Ident: Off" />
+      </div>
+      <div class="gallery-row gallery-row--2">
+        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/11/discovery-ident-turbo-vimeo-thumbnail-1024x576.jpg" alt="Discovery Ultra — Ident: Turbo" />
+        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/12/discovery-ultra-ident-survival-vimeo-thumbnail-1024x576.jpg" alt="Discovery Ultra — Ident: Survival" />
+      </div>
+      <div class="gallery-row gallery-row--2">
+        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/12/discovery-ident-science-vimeo-thumbnail-1024x576.jpg" alt="Discovery Ultra — Ident: Science" />
+        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/12/discovery-ultra-ident-nature-vimeo-thumbnail-1024x576.jpg" alt="Discovery Ultra — Ident: Nature" />
+      </div>
+
+      <p class="gallery-label">Bumps</p>
+      <div class="gallery-row gallery-row--2">
+        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/12/discovery-ultra-bump-northernlights-vimeo-thumbnail-1024x576.jpg" alt="Discovery Ultra — Bump: Northern Lights" />
+        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/12/discovery-ultra-bump-space-vimeo-thumbnail-1024x576.jpg" alt="Discovery Ultra — Bump: Space" />
+      </div>
+
+      <p class="gallery-label">Banners</p>
+      <div class="gallery-row gallery-row--2">
+        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/02/D_Ultra_FACEBOOK_Header_2364x875_TEXTURE_TEMPLATE.jpg" alt="Discovery Ultra — Banner Texture" />
+        <img class="gallery-img" src="https://www.lennartvankralingen.com/wp-content/uploads/2024/02/D_Ultra_FACEBOOK_Header_2364x875_ZOOM_TEMPLATE.jpg" alt="Discovery Ultra — Banner Zoom" />
+      </div>
+
+      <p class="gallery-label">Brand Guidelines</p>
+      <div class="book-wrap">
+        <div class="book-stage">
+          <div class="book-track" id="bookTrack">
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_01.jpg" alt="p.1" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_02.jpg" alt="p.2" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_03.jpg" alt="p.3" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_04.jpg" alt="p.4" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_05.jpg" alt="p.5" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_06.jpg" alt="p.6" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_07.jpg" alt="p.7" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_08.jpg" alt="p.8" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_09.jpg" alt="p.9" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_10.jpg" alt="p.10" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_11.jpg" alt="p.11" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_12.jpg" alt="p.12" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_13.jpg" alt="p.13" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_14.jpg" alt="p.14" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_15.jpg" alt="p.15" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_16.jpg" alt="p.16" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_17.jpg" alt="p.17" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_18.jpg" alt="p.18" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_19.jpg" alt="p.19" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_20.jpg" alt="p.20" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_21.jpg" alt="p.21" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_22.jpg" alt="p.22" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_23.jpg" alt="p.23" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_24.jpg" alt="p.24" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_25.jpg" alt="p.25" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_26.jpg" alt="p.26" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_27.jpg" alt="p.27" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_28.jpg" alt="p.28" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_29.jpg" alt="p.29" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_30.jpg" alt="p.30" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_31.jpg" alt="p.31" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_32.jpg" alt="p.32" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_33.jpg" alt="p.33" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_34.jpg" alt="p.34" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_35.jpg" alt="p.35" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_36.jpg" alt="p.36" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_37.jpg" alt="p.37" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_38.jpg" alt="p.38" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_39.jpg" alt="p.39" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_40.jpg" alt="p.40" loading="lazy" /></div>
+            <div class="book-slide"><img src="../brand_assets/ultra_styleguide/page_41.jpg" alt="p.41" loading="lazy" /></div>
+          </div>
+          <button class="book-btn book-prev" id="bookPrev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="book-btn book-next" id="bookNext">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="book-footer">
+          <div class="book-dots" id="bookDots"></div>
+          <span class="book-counter" id="bookCounter">1 / 41</span>
+          <button class="book-fullscreen-btn" id="bookFullscreen">Fullscreen</button>
+        </div>
+      </div>
+
+    </div>
+
+  <!-- Book Lightbox -->
+  <div class="book-lightbox" id="bookLightbox">
+    <button class="book-lightbox__close" id="bookLightboxClose">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="book-lightbox__inner">
+      <img id="bookLightboxImg" src="" alt="" />
+    </div>
+    <div class="book-lightbox__nav">
+      <button class="book-btn" id="bookLightboxPrev">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span class="book-lightbox__counter" id="bookLightboxCounter">1 / 41</span>
+      <button class="book-btn" id="bookLightboxNext">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+    <div class="project-awards reveal">
+      <p class="project-awards__heading">Awards</p>
+      <ul class="awards-list">
+        <li class="award-item">
+          <span class="award-badge">Finalist</span>
+          <span class="award-title">General Brand Design Package • Discovery Ultra</span>
+          <span class="award-show">Promax Europe 2021</span>
+        </li>
+        <li class="award-item">
+          <span class="award-badge">Finalist</span>
+          <span class="award-title">On Air Ident (Out of House) • Discovery Ultra</span>
+          <span class="award-show">Promax Europe 2021</span>
+        </li>
+      </ul>
+    </div>
+
+    <footer>
+      <p class="footer__copy">© 2026 Framedrift — A Creative Studio</p>
+      <div class="footer__logo">
+        <img src="../brand_assets/FD_LOGO.png" alt="Framedrift" />
+      </div>
+      <ul class="footer__links">
+        <li>
+          <a href="https://www.instagram.com/framedrift_studio/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4.5"/>
+              <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.behance.net/lennartvankra1" target="_blank" rel="noopener" aria-label="Behance">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.443 5.35c.639 0 1.23.05 1.77.198.54.099.984.297 1.377.544.394.247.689.594.886 1.04.197.444.296.989.296 1.582 0 .693-.148 1.286-.493 1.731-.296.446-.789.841-1.377 1.138.838.248 1.475.694 1.869 1.286.394.594.64 1.336.64 2.128 0 .644-.148 1.237-.394 1.73a3.903 3.903 0 0 1-1.08 1.287c-.443.346-.984.593-1.574.741-.59.148-1.18.247-1.82.247H1V5.35h6.443zm-.394 5.54c.541 0 .984-.148 1.328-.395.344-.247.492-.693.492-1.237 0-.297-.05-.594-.148-.792-.1-.197-.247-.395-.444-.494-.196-.148-.393-.197-.639-.247-.246-.05-.492-.05-.787-.05H3.786v3.215h3.263zm.148 5.787c.295 0 .59-.05.885-.099.295-.099.54-.198.787-.346.246-.148.443-.395.59-.643.148-.297.197-.644.197-1.04 0-.79-.246-1.385-.738-1.731-.492-.346-1.131-.494-1.918-.494H3.786v4.353h3.411zm9.492-1.137c.394.395.984.594 1.77.594.541 0 1.033-.148 1.426-.395.394-.296.639-.594.737-.89h2.36c-.394 1.187-.984 2.03-1.77 2.573-.787.494-1.77.742-2.852.742-.787 0-1.476-.099-2.115-.346-.64-.248-1.18-.594-1.623-1.04a4.885 4.885 0 0 1-1.033-1.632c-.246-.643-.344-1.335-.344-2.127 0-.742.098-1.435.344-2.078a5.14 5.14 0 0 1 1.033-1.682c.443-.494.983-.84 1.623-1.088.64-.247 1.328-.395 2.066-.395.836 0 1.574.148 2.164.494.59.347 1.082.792 1.476 1.386.393.544.639 1.187.787 1.88.098.694.148 1.386.098 2.129h-7.002c0 .79.246 1.534.64 1.88zm3.098-5.145c-.344-.346-.885-.544-1.574-.544-.443 0-.836.099-1.131.248-.295.148-.541.346-.688.544a1.984 1.984 0 0 0-.393.692c-.05.247-.099.445-.099.644h4.658c-.099-.742-.394-1.287-.773-1.584zm-3.897-5.145h5.262v1.336H15.89V5.35z"/>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/lennartvankralingen/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </footer>
+
+  </div>
+
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+  (function(){
+    const qs=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+    const lenis=new Lenis({duration:1.25,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothTouch:false});
+    (function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0);
+    const cursor=qs('#cursor'),ring=qs('#cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px'});
+    (function anim(){rx+=(mx-rx)*.09;ry+=(my-ry)*.09;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
+    $$('a,button').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ring.classList.add('hovering');cursor.classList.add('big')});
+      el.addEventListener('mouseleave',()=>{ring.classList.remove('hovering');cursor.classList.remove('big')});
+    });
+    document.addEventListener('mouseleave',()=>ring.classList.add('hidden'));
+    document.addEventListener('mouseenter',()=>ring.classList.remove('hidden'));
+    const nav=qs('#nav'),navLogo=qs('#navLogo'),navItems=$$('#navLinks li');
+    navLogo.classList.add('in');
+    navItems.forEach((li,i)=>setTimeout(()=>li.classList.add('in'),80*i));
+    const menuBtn=qs('#menuBtn'),menuOverlay=qs('#menuOverlay');
+    $$('[data-menu-link]').forEach((a,i)=>{a.style.transitionDuration=(1200-i*60)+'ms';a.style.transitionDelay=(i*70)+'ms'});
+    const openMenu=()=>{nav.classList.add('nav--open');menuOverlay.classList.add('open');lenis.stop()};
+    const closeMenu=()=>{nav.classList.remove('nav--open');menuOverlay.classList.remove('open');lenis.start()};
+    menuBtn.addEventListener('click',()=>menuOverlay.classList.contains('open')?closeMenu():openMenu());
+    $$('[data-menu-link]').forEach(a=>a.addEventListener('click',closeMenu));
+    document.body.classList.add('loaded');
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');obs.unobserve(e.target)}});
+    },{threshold:.1,rootMargin:'0px 0px -4% 0px'});
+    $$('.reveal').forEach(el=>obs.observe(el));
+
+    // Book viewer
+    (function(){
+      const total=41;
+      const srcs=Array.from({length:total},(_,i)=>`../brand_assets/ultra_styleguide/page_${String(i+1).padStart(2,'0')}.jpg`);
+      let current=0;
+      const track=qs('#bookTrack');
+      const counter=qs('#bookCounter');
+      const dotsWrap=qs('#bookDots');
+      const lightbox=qs('#bookLightbox');
+      const lbImg=qs('#bookLightboxImg');
+      const lbCounter=qs('#bookLightboxCounter');
+
+      // Build dots
+      srcs.forEach((_,i)=>{
+        const d=document.createElement('div');
+        d.className='book-dot'+(i===0?' active':'');
+        d.addEventListener('click',()=>goTo(i));
+        dotsWrap.appendChild(d);
+      });
+
+      function goTo(n){
+        current=Math.max(0,Math.min(total-1,n));
+        track.style.transform=`translateX(-${current*100}%)`;
+        counter.textContent=`${current+1} / ${total}`;
+        qs('#bookPrev').disabled=current===0;
+        qs('#bookNext').disabled=current===total-1;
+        dotsWrap.querySelectorAll('.book-dot').forEach((d,i)=>d.classList.toggle('active',i===current));
+        if(lightbox.classList.contains('open')){
+          lbImg.src=srcs[current];
+          lbCounter.textContent=`${current+1} / ${total}`;
+        }
+      }
+      goTo(0);
+
+      qs('#bookPrev').addEventListener('click',()=>goTo(current-1));
+      qs('#bookNext').addEventListener('click',()=>goTo(current+1));
+
+      // Fullscreen lightbox
+      qs('#bookFullscreen').addEventListener('click',()=>{
+        lbImg.src=srcs[current];
+        lbCounter.textContent=`${current+1} / ${total}`;
+        lightbox.classList.add('open');
+        lenis.stop();
+      });
+      qs('#bookLightboxClose').addEventListener('click',()=>{lightbox.classList.remove('open');lenis.start()});
+      qs('#bookLightboxPrev').addEventListener('click',()=>goTo(current-1));
+      qs('#bookLightboxNext').addEventListener('click',()=>goTo(current+1));
+
+      // Keyboard nav
+      document.addEventListener('keydown',e=>{
+        if(e.key==='ArrowLeft') goTo(current-1);
+        if(e.key==='ArrowRight') goTo(current+1);
+        if(e.key==='Escape'&&lightbox.classList.contains('open')){lightbox.classList.remove('open');lenis.start()}
+      });
+
+      // Swipe support
+      let touchX=0;
+      track.parentElement.addEventListener('touchstart',e=>{touchX=e.touches[0].clientX},{passive:true});
+      track.parentElement.addEventListener('touchend',e=>{
+        const dx=e.changedTouches[0].clientX-touchX;
+        if(Math.abs(dx)>40) goTo(current+(dx<0?1:-1));
+      });
+    })();
+  })();
+  </script>
+</body>
+</html>

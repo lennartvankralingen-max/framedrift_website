@@ -1,0 +1,1972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Framedrift — A Creative Studio</title>
+  <link rel="icon" type="image/png" href="brand_assets/Favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'Joyride';
+      src: url('fonts/JoyrideSTD.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'JoyrideALT';
+      src: url('fonts/JoyrideALT.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Joyride';
+      src: url('fonts/JoyrideSTDItalic.otf') format('opentype');
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Joyride';
+      src: url('fonts/JoyrideEXT.otf') format('opentype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Joyride';
+      src: url('fonts/JoyrideEXTItalic.otf') format('opentype');
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+  </style>
+  <style>
+
+    /* ─── Reset ──────────────────────────────────────────────────── */
+    html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, ul, li,
+    article, aside, footer, header, nav, section, em, strong {
+      border: 0; font: inherit; font-size: 100%; margin: 0; padding: 0;
+      vertical-align: baseline;
+    }
+    *, *::after, *::before { box-sizing: border-box; }
+    ::-webkit-scrollbar { display: none; }
+
+    /* ─── Tokens ─────────────────────────────────────────────────── */
+    :root {
+      --color-ivory:  #fffbf2;
+      --color-sun:    #daff00;
+      --color-coal:   #000;
+      --color-void:   #000;
+      --color-ember:  #cd433c;
+      --color-black:  #000;
+      --ease-out-expo:  cubic-bezier(0.19, 1, 0.22, 1);
+      --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+      --ease-in-out:    cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    /* ─── Base ───────────────────────────────────────────────────── */
+    html {
+      background: var(--color-void);
+      font-size: .5208333333vw;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      font: 1.6rem / 1.3 "Azeret Mono", monospace;
+      background: var(--color-void);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      cursor: none;
+      overflow-x: clip;
+    }
+    body.loaded { opacity: 1; }
+
+    /* ─── Loader ─────────────────────────────────────────────────── */
+
+    /* ─── Cursor ─────────────────────────────────────────────────── */
+    .cursor {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 7px; height: 7px;
+      background: var(--color-sun);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: exclusion;
+      will-change: transform;
+      transition: width 0.25s ease, height 0.25s ease;
+    }
+    .cursor.big { width: 48px; height: 48px; }
+    .cursor-ring {
+      position: fixed; top: 0; left: 0; z-index: 9998;
+      width: 28px; height: 28px;
+      border: 1px solid rgba(255,254,0,0.35);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      will-change: transform;
+      transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
+    }
+    .cursor-ring.hovering {
+      width: 50px; height: 50px; opacity: 0.45;
+    }
+    .cursor-ring.hidden { opacity: 0; }
+
+    /* ─── Navigation ─────────────────────────────────────────────── */
+    .nav {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 100;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 3.2rem 4.8rem;
+      transition: padding 0.6s var(--ease-out-expo);
+    }
+    
+    .nav--light   { padding: 2rem 4.8rem; }
+
+    .nav__logo {
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.6s ease, transform 0.6s var(--ease-out-expo);
+      display: flex;
+      justify-content: center;
+    }
+    .nav__logo.in { opacity: 1; transform: translateY(0); }
+    .nav__logo img {
+      height: 16rem;
+      width: auto;
+      display: block;
+      filter: invert(1) url(#logo-yellow);
+      transition: filter 0.6s ease;
+    }
+    .nav--light .nav__logo img {
+      filter: none;
+    }
+
+    /* Contact sits in the left column */
+    .nav__left {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.8rem;
+      list-style: none;
+    }
+    .nav__links li {
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.6s ease, transform 0.6s var(--ease-out-expo);
+    }
+    .nav__links li.in { opacity: 1; transform: translateY(0); }
+
+    .nav__links a {
+      display: inline-block;
+      font-family: 'Joyride', "Azeret Mono", monospace;
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(218,255,0,0.45);
+      text-decoration: none;
+      padding: 0.9rem 1.4rem;
+      position: relative;
+      transition: color 0.5s var(--ease-out-expo), opacity 0.5s var(--ease-out-expo);
+    }
+    .nav__links a::after {
+      content: '';
+      position: absolute;
+      bottom: 4px; left: 1.4rem; right: 1.4rem;
+      height: 1px;
+      background: var(--color-sun);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s var(--ease-out-expo);
+    }
+    .nav__links a:hover { color: var(--color-sun); }
+    .nav__links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .nav--light .nav__links a { color: rgba(36,36,36,0.4); }
+    .nav--light .nav__links a::after { background: var(--color-sun); }
+    .nav--light .nav__links a:hover { color: var(--color-coal); }
+
+
+    /* Hamburger */
+    .nav__menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 32px; height: 32px;
+      background: none; border: none;
+      cursor: none;
+      padding: 0;
+    }
+    .nav__menu-btn span {
+      display: block;
+      width: 100%; height: 1px;
+      background: var(--color-ivory);
+      transition: transform 0.5s var(--ease-out-expo), opacity 0.3s ease, background 1.2s ease;
+    }
+    .nav--light .nav__menu-btn span { background: var(--color-coal); }
+    .nav--open .nav__menu-btn span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav--open .nav__menu-btn span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav--open .nav__menu-btn span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* ─── Mobile Menu Overlay ────────────────────────────────────── */
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 190;
+      background: var(--color-void);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4.8rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s var(--ease-out-expo), visibility 0.5s ease;
+    }
+    .menu-overlay.open { opacity: 1; visibility: visible; }
+
+    .menu-overlay__links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+    .menu-overlay__links li { overflow: hidden; }
+    .menu-overlay__links a {
+      display: block;
+      font-size: 6rem;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      text-transform: lowercase;
+      color: var(--color-ivory);
+      text-decoration: none;
+      transform: translateY(110%);
+      /* transition set by JS per item */
+      transition: transform 1.2s var(--ease-out-expo), color 0.3s ease;
+    }
+    .menu-overlay.open .menu-overlay__links a { transform: translateY(0); }
+    .menu-overlay__links a:hover { color: var(--color-sun); }
+
+    .menu-overlay__footer {
+      position: absolute;
+      bottom: 4rem; left: 4.8rem; right: 4.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid rgba(255,251,242,0.1);
+      padding-top: 2.4rem;
+      opacity: 0;
+      transition: opacity 0.6s ease 0.4s;
+    }
+    .menu-overlay.open .menu-overlay__footer { opacity: 1; }
+    .menu-overlay__contact {
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: rgba(255,251,242,0.4);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .menu-overlay__contact:hover { color: var(--color-sun); }
+    .menu-overlay__offices {
+      font-size: 1.2rem;
+      font-weight: 300;
+      color: rgba(255,251,242,0.25);
+      text-align: right;
+      line-height: 1.8;
+    }
+
+    /* ─── Hero ───────────────────────────────────────────────────── */
+    .hero {
+      color: var(--color-sun);
+      height: 100vh;
+      position: relative;
+      width: 100%;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Shader canvas fills the hero */
+    #heroShader {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    #heroShader canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    /* Dark overlay on top of shader for text readability */
+    .hero__bg {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.52);
+      z-index: 1;
+    }
+    .hero__bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 55% 28% at 50% 10%, rgba(0,0,0,0.82) 0%, transparent 100%),
+        linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 30%);
+      pointer-events: none;
+    }
+    .hero__noise {
+      position: absolute; inset: 0; z-index: 2;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 5;
+      padding: 0 4.8rem;
+      text-align: center;
+      will-change: transform;
+    }
+
+    .hero__tagline {
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,254,0,0.4);
+      margin-bottom: 3.2rem;
+      overflow: hidden;
+    }
+    .hero__tagline__inner {
+      display: block;
+      transform: translateY(100%);
+      transition: transform 1s var(--ease-out-expo) 1s;
+    }
+    body.loaded .hero__tagline__inner { transform: translateY(0); }
+
+    .hero__headline {
+      font-family: 'Joyride', "Azeret Mono", monospace;
+      font-size: clamp(5.2rem, 7.5vw, 13rem);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin-bottom: 5.6rem;
+    }
+    .hero__headline .hl {
+      display: block;
+      overflow: hidden;
+    }
+    .hero__headline .hl__inner {
+      display: block;
+      transform: translateY(110%);
+      transition: transform 1.3s var(--ease-out-expo);
+    }
+    body.loaded .hero__headline .hl:nth-child(1) .hl__inner { transform: translateY(0); transition-delay: 1.1s; }
+    body.loaded .hero__headline .hl:nth-child(2) .hl__inner { transform: translateY(0); transition-delay: 1.22s; }
+    body.loaded .hero__headline .hl:nth-child(3) .hl__inner { transform: translateY(0); transition-delay: 1.34s; }
+
+    .alt-o, .alt-r { font-family: 'JoyrideALT', "Azeret Mono", monospace; }
+
+    .hero__headline em {
+      font-style: normal;
+      color: var(--color-sun);
+    }
+
+    .hero__bottom {
+      display: flex;
+      justify-content: center;
+      padding-top: 2.4rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero__bottom::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: rgba(255,254,0,0.12);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1.2s var(--ease-out-expo) 1.5s;
+    }
+    body.loaded .hero__bottom::before { transform: scaleX(1); }
+    .hero__bottom__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateY(40px);
+      opacity: 0;
+      transition: transform 1s var(--ease-out-expo) 1.6s, opacity 1s ease 1.6s;
+    }
+    body.loaded .hero__bottom__inner { transform: translateY(0); opacity: 1; }
+
+    .hero__locations {
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: rgba(255,254,0,0.3);
+      text-transform: lowercase;
+    }
+    .hero__cta {
+      font-size: 1.4rem;
+      font-weight: 300;
+      font-style: normal;
+      letter-spacing: 0.05em;
+      color: var(--color-sun);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: gap 0.4s var(--ease-out-cubic);
+    }
+    .hero__cta:hover { gap: 1.8rem; }
+    .hero__cta .arrow {
+      display: inline-block;
+      transition: transform 0.4s var(--ease-out-cubic);
+    }
+    .hero__cta:hover .arrow { transform: translateX(4px); }
+
+    /* Scroll indicator */
+    .hero__scroll {
+      position: absolute;
+      bottom: 3.2rem; right: 4.8rem;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      transition: opacity 0.8s ease 2s;
+    }
+    body.loaded .hero__scroll { opacity: 1; }
+    .hero__scroll__label {
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,254,0,0.2);
+      writing-mode: vertical-rl;
+    }
+    .hero__scroll__line {
+      width: 1px; height: 4rem;
+      background: linear-gradient(to bottom, rgba(255,254,0,0.3), transparent);
+      animation: scrollPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.7); transform-origin: top; }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* ─── Page Content (ivory card over hero) ────────────────────── */
+    .page__content {
+      background: var(--color-ivory);
+      position: relative;
+      z-index: 5;
+      border-radius: 2.4rem 2.4rem 0 0;
+      margin-top: 0;
+      box-shadow: none;
+      overflow: clip;
+    }
+
+    /* ─── Section Shared ─────────────────────────────────────────── */
+    .section { padding: 12rem 4.8rem; }
+
+    .section__label {
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(36,36,36,0.3);
+      margin-bottom: 2.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .section__label::before {
+      content: '';
+      display: block;
+      width: 0; height: 1px;
+      background: rgba(36,36,36,0.3);
+      flex-shrink: 0;
+      transition: width 1s var(--ease-out-cubic);
+    }
+    .section__label.in-view::before { width: 2.4rem; }
+    .section__label span {
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.6s ease 0.4s, transform 0.6s var(--ease-out-expo) 0.4s;
+    }
+    .section__label.in-view span { opacity: 1; transform: translateX(0); }
+
+    /* Split text headings */
+    .split-heading { overflow: hidden; }
+    .split-word {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+    .split-word__inner {
+      display: inline-block;
+      transform: translateY(110%);
+      transition: transform 1.1s var(--ease-out-expo);
+    }
+    .in-view .split-word__inner { transform: translateY(0); }
+    /* Stagger via nth-child */
+    .split-word:nth-child(1) .split-word__inner  { transition-delay: 0s; }
+    .split-word:nth-child(2) .split-word__inner  { transition-delay: 0.07s; }
+    .split-word:nth-child(3) .split-word__inner  { transition-delay: 0.14s; }
+    .split-word:nth-child(4) .split-word__inner  { transition-delay: 0.21s; }
+    .split-word:nth-child(5) .split-word__inner  { transition-delay: 0.28s; }
+    .split-word:nth-child(6) .split-word__inner  { transition-delay: 0.35s; }
+
+    /* Divider line */
+    .line-reveal {
+      height: 1px;
+      background: rgba(36,36,36,0.1);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1.2s var(--ease-out-cubic);
+    }
+    .line-reveal.in-view { transform: scaleX(1); }
+    .line-reveal--light {
+      background: rgba(255,251,242,0.1);
+    }
+
+    /* Generic fade-up reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(3.2rem);
+      transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+    .reveal-d4 { transition-delay: 0.4s; }
+    .reveal-d5 { transition-delay: 0.5s; }
+
+    /* ─── Section Heading Styles ─────────────────────────────────── */
+    .section__heading {
+      font-family: 'Joyride', "Azeret Mono", monospace;
+      font-size: clamp(4.8rem, 5.5vw, 9.6rem);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--color-coal);
+    }
+
+    /* ─── Work ───────────────────────────────────────────────────── */
+    #work { background: var(--color-ivory); }
+
+    .work__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 6.4rem;
+    }
+
+    .work__view-all {
+      font-size: 1.2rem; font-weight: 300;
+      letter-spacing: 0.08em; text-transform: lowercase;
+      color: rgba(36,36,36,0.4); text-decoration: none;
+      display: flex; align-items: center; gap: 0.8rem;
+      transition: color 0.3s, gap 0.4s var(--ease-out-cubic);
+    }
+    .work__view-all:hover { color: var(--color-coal); gap: 1.4rem; }
+
+    /* Nav Work dropdown */
+    .nav__dropdown { position: relative; }
+    .nav__dropdown__menu {
+      position: absolute; top: 100%; left: 1.4rem;
+      transform: translateY(-6px);
+      list-style: none; min-width: 10rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.3s var(--ease-out-expo);
+      z-index: 200;
+      padding-top: 0.8rem;
+    }
+    .nav__dropdown:hover .nav__dropdown__menu {
+      opacity: 1; pointer-events: all;
+      transform: translateY(0);
+    }
+    .nav__dropdown__menu a {
+      display: inline-block; padding: 0.5rem 0;
+      font-family: 'Joyride', "Azeret Mono", monospace;
+      font-size: 1.1rem; font-weight: 400;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(218,255,0,0.45); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav__dropdown__menu a::after { left: 0; right: 0; bottom: 0; }
+    .nav__dropdown__menu a:hover { color: var(--color-sun); }
+
+    .work__grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.6rem;
+    }
+
+    .work__item {
+      position: relative;
+      overflow: hidden;
+      background: var(--color-coal);
+      aspect-ratio: 16/9;
+      display: block;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .work__item:nth-child(n) { grid-column: span 6; }
+    #work .section__label span { transition-delay: 0s; }
+    #work .section__label::before { transition-delay: 0s; }
+    #work .split-word__inner { transition-delay: 0.35s !important; }
+
+    .work__item__image {
+      height: 100%; left: 0; position: absolute; top: 0; width: 100%;
+      transition: transform 0.9s var(--ease-out-expo);
+    }
+    .work__item:hover .work__item__image { transform: scale(1.06); }
+
+    .work__item:nth-child(1) .work__item__image {
+      background: var(--color-coal);
+    }
+    .work__item:nth-child(2) .work__item__image {
+      background-image: url('https://www.lennartvankralingen.com/wp-content/uploads/2024/12/The-Designers-Evening-Workflow-2-1120x756.jpg');
+      background-size: cover; background-position: center;
+    }
+    .work__item:nth-child(3) .work__item__image {
+      background: var(--color-coal);
+    }
+    .work__item__video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.9s var(--ease-out-expo);
+      pointer-events: none;
+    }
+    .work__item:hover .work__item__video { transform: scale(1.06); }
+
+    .work__item__ghost {
+      position: absolute; inset: 0; z-index: 1;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10rem; font-weight: 700;
+      color: rgba(255,255,255,0.025);
+      letter-spacing: -0.05em; text-transform: uppercase;
+      pointer-events: none;
+      transition: transform 0.9s var(--ease-out-expo);
+    }
+    .work__item:hover .work__item__ghost { transform: scale(1.04); }
+
+    .work__item__overlay {
+      position: absolute; inset: 0; z-index: 3;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 55%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 3.2rem;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .work__item:hover .work__item__overlay { opacity: 1; }
+
+    .work__item__category {
+      font-size: 1.1rem; font-weight: 300;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--color-sun); margin-bottom: 0.8rem;
+      transform: translateY(8px);
+      transition: transform 0.5s var(--ease-out-expo);
+    }
+    .work__item:hover .work__item__category { transform: translateY(0); }
+
+    .work__item__title {
+      font-family: 'Joyride', sans-serif;
+      font-size: 2rem; font-weight: 400;
+      color: var(--color-ivory); line-height: 1.1;
+      text-transform: uppercase;
+      transform: translateY(8px);
+      transition: transform 0.5s var(--ease-out-expo) 0.05s;
+    }
+    .work__item:hover .work__item__title { transform: translateY(0); }
+
+    /* Work number tag (top-left, always visible) */
+    .work__item__num {
+      position: absolute; top: 2rem; left: 2.4rem; z-index: 3;
+      font-size: 1.1rem; font-weight: 300;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ─── Services ───────────────────────────────────────────────── */
+    #services {
+      background: var(--color-coal);
+      color: var(--color-ivory);
+    }
+
+    #services .section__label { color: rgba(255,251,242,0.25); }
+    #services .section__label::before { background: rgba(255,251,242,0.25); }
+    #services .section__heading { color: var(--color-ivory); }
+    #services .split-word__inner { color: var(--color-ivory); }
+
+    .services__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 7.2rem;
+    }
+
+    .services__intro {
+      max-width: 38rem;
+      font-size: 1.5rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: rgba(255,251,242,0.4);
+    }
+
+    .services__list { list-style: none; }
+
+    .services__item {
+      border-top: 1px solid rgba(255,251,242,0.08);
+      transition: border-color 0.3s ease;
+    }
+    .services__item:last-child { border-bottom: 1px solid rgba(255,251,242,0.08); }
+
+    .services__item__top {
+      display: flex;
+      align-items: center;
+      padding: 3.6rem 0;
+      gap: 3.2rem;
+      cursor: none;
+    }
+
+    .services__item__num {
+      font-size: 1.1rem; font-weight: 300;
+      color: rgba(255,251,242,0.2);
+      letter-spacing: 0.1em;
+      min-width: 3.2rem;
+    }
+
+    .services__item__name .split-word__inner {
+      transition: transform 1.1s var(--ease-out-expo), color 0.35s ease;
+    }
+
+    .services__item__name {
+      font-size: clamp(2.8rem, 3.5vw, 5.6rem);
+      font-weight: 300;
+      font-family: 'Joyride', "Azeret Mono", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      flex: 1;
+      transition: color 0.35s ease, padding-left 0.5s var(--ease-out-expo);
+    }
+    .services__item:hover .services__item__name { color: var(--color-sun); padding-left: 1.6rem; }
+    .services__item:hover .services__item__name .split-word__inner { color: var(--color-sun); }
+
+    .services__item__arrow {
+      font-size: 2.4rem; font-weight: 200;
+      color: rgba(255,251,242,0.25);
+      transition: color 0.35s, transform 0.5s var(--ease-out-expo);
+      line-height: 1;
+    }
+    .services__item:hover .services__item__arrow { color: var(--color-sun); }
+    .services__item--open .services__item__arrow {
+      color: var(--color-sun);
+      transform: rotate(45deg);
+    }
+
+    .services__item__detail {
+      height: 0;
+      overflow: hidden;
+      transition: height 0.8s var(--ease-out-expo);
+    }
+    .services__item--open .services__item__detail { height: var(--detail-h, auto); }
+    .services__item__detail__inner {
+      padding: 0 0 4.8rem 6.4rem;
+      font-size: 1.4rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(255,251,242,0.4);
+    }
+
+    /* ─── About ──────────────────────────────────────────────────── */
+    #about { background: var(--color-ivory); }
+
+    .about__grid {
+      display: grid;
+      grid-template-columns: 0.6fr 1fr;
+      gap: 8rem;
+      align-items: start;
+    }
+
+    .about__visual {
+      position: relative;
+      aspect-ratio: 3/4;
+      background: var(--color-coal);
+      overflow: hidden;
+    }
+    .about__visual__inner {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about__visual__ghost {
+      font-size: 9.6rem; font-weight: 700;
+      color: rgba(255,255,255,0.035);
+      letter-spacing: -0.05em; text-transform: uppercase;
+      text-align: center; line-height: 0.9;
+    }
+    .about__visual__tag {
+      position: absolute; top: 2.4rem; left: 2.4rem;
+      font-size: 1.1rem; font-weight: 300;
+      letter-spacing: 0.1em; text-transform: lowercase;
+      color: rgba(255,254,0,0.7);
+      border: 1px solid rgba(255,254,0,0.3);
+      padding: 0.6rem 1.2rem;
+    }
+    .about__visual__photo {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+    }
+    .about__visual__line {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: var(--color-sun);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 1.2s var(--ease-out-cubic) 0.4s;
+    }
+    .about__visual.in-view .about__visual__line { transform: scaleX(1); }
+
+    .about__text { padding-top: 1.6rem; }
+    .about__text .section__heading { margin-bottom: 3.2rem; }
+
+    .about__desc {
+      font-size: 1.5rem; font-weight: 300;
+      line-height: 1.75; color: rgba(36,36,36,0.5);
+      margin-bottom: 2.4rem;
+    }
+
+    .about__offices {
+      margin-top: 4.8rem; padding-top: 3.2rem;
+      border-top: 1px solid rgba(36,36,36,0.08);
+    }
+    .about__offices__label {
+      font-size: 1.1rem; font-weight: 300;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(36,36,36,0.25);
+      margin-bottom: 1.6rem;
+    }
+    .about__offices__list {
+      display: flex; gap: 3.2rem; list-style: none;
+    }
+    .about__offices__list li {
+      font-size: 1.4rem; font-weight: 300;
+      color: var(--color-coal); text-transform: lowercase;
+    }
+
+    /* ─── How We Work ────────────────────────────────────────────── */
+    #how-we-work { background: var(--color-sun); }
+    #how-we-work .section__label { color: rgba(0,0,0,0.35); }
+    #how-we-work .section__label::before { background: rgba(0,0,0,0.35); }
+    #how-we-work .section__heading { color: var(--color-black); margin-bottom: 8rem; }
+    #how-we-work .split-word__inner { color: var(--color-black); }
+
+    .how__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .how__step {
+      padding-right: 4rem;
+      border-right: 1px solid rgba(0,0,0,0.1);
+    }
+    .how__step:last-child { border-right: none; padding-right: 0; padding-left: 4rem; }
+    .how__step:not(:first-child) { padding-left: 4rem; }
+
+    .how__step__num {
+      font-size: 9.6rem; font-weight: 700;
+      color: rgba(0,0,0,0.06); line-height: 1;
+      margin-bottom: -2rem;
+    }
+    .how__step__title {
+      font-family: 'Joyride', "Azeret Mono", monospace;
+      font-size: 2.4rem; font-weight: 400;
+      text-transform: uppercase; color: var(--color-black);
+      margin-bottom: 2rem;
+    }
+    .how__step__desc {
+      font-size: 1.4rem; font-weight: 300;
+      line-height: 1.75; color: rgba(0,0,0,0.45);
+    }
+
+    /* ─── Thoughts ───────────────────────────────────────────────── */
+    #thoughts { background: var(--color-ivory); }
+
+    .thoughts__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 6.4rem;
+    }
+
+    .thoughts__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.4rem;
+    }
+
+    .thoughts__item {
+      display: flex; flex-direction: column; gap: 1.6rem;
+      padding: 3.2rem;
+      border: 1px solid rgba(36,36,36,0.08);
+      text-decoration: none; color: inherit;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.35s ease;
+    }
+    .thoughts__item::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--color-coal);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s var(--ease-out-expo);
+    }
+    .thoughts__item:hover { border-color: rgba(36,36,36,0.2); }
+    .thoughts__item:hover::after { transform: scaleX(1); }
+
+    .thoughts__item__tag {
+      font-size: 1.1rem; font-weight: 300;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--color-ember);
+    }
+    .thoughts__item__title {
+      font-size: 2rem; font-weight: 300;
+      line-height: 1.3; color: var(--color-coal);
+      text-transform: lowercase;
+      transition: color 0.3s;
+    }
+    .thoughts__item:hover .thoughts__item__title { color: var(--color-coal); }
+    .thoughts__item__date {
+      font-size: 1.1rem; font-weight: 300;
+      color: rgba(36,36,36,0.3); margin-top: auto;
+    }
+    .thoughts__item__arrow {
+      position: absolute; top: 2.4rem; right: 2.4rem;
+      font-size: 1.6rem;
+      color: rgba(36,36,36,0.2);
+      transform: rotate(0deg);
+      transition: transform 0.4s var(--ease-out-expo), color 0.3s;
+    }
+    .thoughts__item:hover .thoughts__item__arrow {
+      transform: rotate(45deg) translate(2px,-2px);
+      color: var(--color-coal);
+    }
+
+    /* ─── Contact ────────────────────────────────────────────────── */
+    .contact__cta-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.6rem;
+    }
+    .contact__cta-heading {
+      font-family: 'Joyride', "Azeret Mono", monospace;
+      font-size: clamp(3.6rem, 5.5vw, 9rem);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--color-ivory);
+      text-align: center;
+    }
+    .contact__cta-heading em {
+      font-style: normal;
+      color: var(--color-sun);
+    }
+    #contact {
+      background: var(--color-coal);
+      color: var(--color-ivory);
+      padding: 10rem 4.8rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-top: none;
+    }
+    .contact__glow {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(255,254,0,0.04) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .contact__content { position: relative; z-index: 1; }
+
+    #contact .section__label {
+      color: rgba(255,251,242,0.25);
+    }
+    #contact .section__label::before { background: rgba(255,251,242,0.15); }
+
+    .contact__headline {
+      font-family: 'Joyride', "Azeret Mono", monospace;
+      font-size: clamp(5.6rem, 9vw, 14.4rem);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--color-ivory);
+      margin: 3.2rem 0 5.6rem;
+    }
+    .contact__headline em {
+      font-style: italic;
+      color: var(--color-sun);
+    }
+    #contact .split-word__inner { color: var(--color-ivory); }
+
+    #contact .section__label span {
+      font-family: 'Joyride', "Azeret Mono", monospace;
+      letter-spacing: 0.08em;
+    }
+
+    .contact__email {
+      display: inline-block;
+      font-family: 'Joyride', "Azeret Mono", monospace;
+      font-size: 1.6rem; font-weight: 400;
+      letter-spacing: 0.06em;
+      color: rgba(255,251,242,0.5);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,251,242,0.15);
+      padding-bottom: 4px;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .contact__email:hover { color: var(--color-sun); border-color: var(--color-sun); }
+
+    .contact__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-top: 4rem;
+      font-family: 'Joyride', "Azeret Mono", monospace;
+      font-size: 1.4rem; font-weight: 400;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--color-black);
+      background: var(--color-sun);
+      padding: 1.6rem 4rem;
+      text-decoration: none;
+      position: relative; overflow: hidden;
+      transition: gap 0.4s var(--ease-out-cubic);
+    }
+    .contact__btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.08);
+      transform: scaleX(0); transform-origin: right;
+      transition: transform 0.6s var(--ease-out-expo);
+    }
+    .contact__btn:hover { gap: 1.8rem; }
+    .contact__btn:hover::before { transform: scaleX(1); transform-origin: left; }
+
+    .contact__bottom {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 4.8rem;
+      text-align: left;
+    }
+    .contact__right {
+      display: flex; flex-direction: column; justify-content: center; gap: 0;
+    }
+    .contact__right .contact__email { margin-top: 2.4rem; }
+    .contact__right .contact__btn { margin-top: 3.2rem; }
+    .contact__layout {
+      display: grid;
+      grid-template-columns: 0.5fr 2.4fr 0.9fr;
+      gap: 3.2rem;
+      align-items: center;
+    }
+    .contact__map {
+      min-height: 32rem;
+      background: rgba(255,251,242,0.03);
+      border: 1px solid rgba(255,251,242,0.07);
+      overflow: hidden;
+      position: relative;
+    }
+    .contact__map iframe {
+      width: 100%; height: 100%;
+      position: absolute; inset: 0;
+      border: none; filter: grayscale(1) invert(1) brightness(0.55);
+    }
+    .contact__map__placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1.2rem;
+    }
+    .contact__map__placeholder__icon { font-size: 2.4rem; opacity: 0.2; }
+    .contact__map__placeholder__text {
+      font-size: 1.1rem; font-weight: 300;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,251,242,0.2);
+    }
+    .contact__details { display: flex; flex-direction: column; gap: 2.8rem; text-align: left; }
+    .contact__cta { display: flex; flex-direction: column; align-items: flex-start; gap: 0; padding-left: 4.8rem; }
+    .contact__detail {
+      display: flex; flex-direction: column; gap: 0.6rem;
+    }
+    .contact__detail__label {
+      font-size: 1rem; font-weight: 300;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,251,242,0.2);
+    }
+    .contact__detail__value {
+      font-size: 1.4rem; font-weight: 300;
+      color: rgba(255,251,242,0.55);
+      line-height: 1.5;
+    }
+    .contact__detail__value a {
+      color: inherit; text-decoration: none;
+      transition: color 0.3s;
+    }
+    .contact__detail__value a:hover { color: var(--color-sun); }
+    .contact__map {
+      position: relative;
+      min-height: 28rem;
+      background: rgba(255,251,242,0.03);
+      border: 1px solid rgba(255,251,242,0.07);
+      overflow: hidden;
+    }
+    .contact__map iframe {
+      width: 100%; height: 100%;
+      position: absolute; inset: 0;
+      border: none; filter: grayscale(1) invert(1) brightness(0.6);
+    }
+    .contact__map__placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1.2rem;
+    }
+    .contact__map__placeholder__icon {
+      font-size: 2.4rem; opacity: 0.2;
+    }
+    .contact__map__placeholder__text {
+      font-size: 1.1rem; font-weight: 300;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,251,242,0.2);
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────── */
+    .scroll-hint { position: absolute; bottom: 4rem; right: 4.8rem; z-index: 10; display: flex; flex-direction: column; align-items: center; opacity: 0; transition: opacity .8s ease 2s; }
+    body.loaded .scroll-hint { opacity: 1; }
+    .scroll-hint svg { animation: scrollBounce 1.8s ease-in-out infinite; }
+    @keyframes scrollBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+    footer {
+      background: var(--color-void);
+      padding: 4rem 4.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255,251,242,0.05);
+      position: relative;
+    }
+    .footer__logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    /* ─── Brands ─────────────────────────────────────────────────── */
+    .brands {
+      background: var(--color-void);
+      padding: 6rem 4.8rem;
+      border-top: 1px solid rgba(255,251,242,0.06);
+    }
+    .brands__title {
+      font-family: 'Joyride', "Azeret Mono", monospace;
+      font-size: 1.6rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,251,242,0.2);
+      text-align: center;
+      margin-bottom: 4.8rem;
+    }
+    .brands__grid {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: nowrap;
+      gap: 0;
+      width: 100%;
+    }
+    .brands__item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.6rem 0.8rem;
+    }
+    .brands__item img {
+      height: 3.6rem;
+      width: auto;
+      display: block;
+      filter: brightness(0) invert(1) url(#logo-yellow);
+      opacity: 0.55;
+      transition: opacity 0.4s var(--ease-out-expo);
+    }
+    .brands__item:hover img {
+      opacity: 1;
+    }
+    @media (max-width: 768px) {
+      .brands { padding: 4.8rem 2.4rem; }
+      .brands__item { flex: 0 0 33.333%; padding: 2rem; }
+      .brands__item img { height: 4rem; }
+    }
+
+    .footer__logo img {
+      height: 8rem;
+      width: auto;
+      display: block;
+      filter: invert(1) url(#logo-yellow);
+      mix-blend-mode: screen;
+      opacity: 0.6;
+    }
+    .footer__copy {
+      font-size: 1.1rem; font-weight: 300;
+      color: rgba(255,251,242,0.15); letter-spacing: 0.04em;
+    }
+    .footer__links {
+      display: flex; gap: 2.4rem; list-style: none; align-items: center;
+    }
+    .footer__links a {
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,251,242,0.25); text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer__links a:hover { color: rgba(255,251,242,0.75); }
+    .footer__links svg { display: block; }
+
+    /* ─── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      html { font-size: 0.85vw; }
+    }
+    @media (max-width: 768px) {
+      html { font-size: 1.4vw; }
+      .nav { padding: 2.4rem; }
+      .nav__links { display: none; }
+      .nav__menu-btn { display: flex; }
+      .section { padding: 8rem 2.4rem; }
+      #contact { padding: 10rem 2.4rem; }
+      .hero__content { padding: 0 2.4rem 5.6rem; }
+      .hero__headline { font-size: 8.5vw; }
+      .work__grid { grid-template-columns: 1fr; }
+      .work__item:nth-child(n) { grid-column: span 12; }
+      .services__header { flex-direction: column; align-items: flex-start; gap: 3.2rem; }
+      .about__grid { grid-template-columns: 1fr; gap: 4.8rem; }
+      .how__grid { grid-template-columns: 1fr 1fr; gap: 4.8rem; }
+      .how__step { border-right: none; padding: 0 !important; }
+      .thoughts__grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 2.4rem; text-align: center; }
+      .footer__links { justify-content: center; flex-wrap: wrap; }
+      .menu-overlay__links a { font-size: 4.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG filter: white → #daff00, black stays black -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <defs>
+      <filter id="logo-yellow" color-interpolation-filters="sRGB">
+        <feColorMatrix type="matrix" values="
+          0.855 0 0 0 0
+          0     1 0 0 0
+          0     0 0 0 0
+          0     0 0 1 0
+        "/>
+      </filter>
+    </defs>
+  </svg>
+
+<!-- ── Cursor ──────────────────────────────────────────────────── -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ── Navigation ─────────────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <!-- Left: empty -->
+    <div class="nav__left"></div>
+
+    <!-- Center: Logo -->
+    <a href="#" class="nav__logo" id="navLogo">
+      <img src="brand_assets/FD_LOGO.png" alt="Framedrift" />
+    </a>
+
+    <!-- Right: Links -->
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#">Home</a></li>
+      <li class="nav__dropdown" id="workDropdown">
+        <a href="#work" class="nav__dropdown__trigger">Work</a>
+        <ul class="nav__dropdown__menu">
+          <li><a href="work/projects.html">Projects</a></li>
+          <li><a href="work/keyart.html">Key-art</a></li>
+        </ul>
+      </li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <button class="nav__menu-btn" id="menuBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ── Mobile Menu Overlay ────────────────────────────────────── -->
+  <div class="menu-overlay" id="menuOverlay">
+    <ul class="menu-overlay__links">
+      <li><a href="#"        data-menu-link>Home</a></li>
+      <li><a href="#work"    data-menu-link>Work</a></li>
+      <li><a href="about.html"   data-menu-link>About</a></li>
+      <li><a href="contact.html" data-menu-link>Contact</a></li>
+    </ul>
+    <div class="menu-overlay__footer">
+      <a href="mailto:info@framedrift.com" class="menu-overlay__contact">
+        info@framedrift.com
+      </a>
+      <div class="menu-overlay__offices">
+        New York<br>Amsterdam<br>Toronto
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Hero ────────────────────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div id="heroShader"></div>
+    <div class="hero__bg"></div>
+    <div class="hero__noise"></div>
+
+    <div class="hero__content" id="heroContent">
+      <p class="hero__tagline">
+        <span class="hero__tagline__inner">A Creative Studio</span>
+      </p>
+
+      <h1 class="hero__headline">
+        <span class="hl"><span class="hl__inner">The</span></span>
+        <span class="hl"><span class="hl__inner"><em>'All <span class="alt-o">o</span>r Nothing'</em></span></span>
+        <span class="hl"><span class="hl__inner">Creative Studio</span></span>
+      </h1>
+
+      <div class="hero__bottom">
+        <div class="hero__bottom__inner">
+          <a href="#contact" class="hero__cta">
+            Let's Create <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(218,255,0,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+
+  </section>
+
+  <!-- ── Page Content ────────────────────────────────────────────── -->
+  <div class="page__content">
+
+    <!-- ── Work ──────────────────────────────────────────────────── -->
+    <section class="section" id="work">
+      <div class="work__header">
+        <div>
+          <p class="section__label">
+            <span>Selected Frames</span>
+          </p>
+          <h2 class="section__heading split-heading">
+            <span class="split-word"><span class="split-word__inner">W<span class="alt-o">o</span>rk</span></span>
+          </h2>
+        </div>
+        <a href="work/projects.html" class="work__view-all reveal reveal-d2">View All →</a>
+      </div>
+
+      <div class="work__grid">
+        <a href="work/kickoff-groupm.html" class="work__item reveal">
+          <div class="work__item__image">
+            <video class="work__item__video" autoplay muted loop playsinline>
+              <source src="brand_assets/LOOP3_2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="work__item__ghost">KO</div>
+          <span class="work__item__num">01</span>
+          <div class="work__item__overlay">
+            <p class="work__item__category">Branding, Motion, Video</p>
+            <h3 class="work__item__title">KickOff — GroupM</h3>
+          </div>
+        </a>
+        <a href="work/jeroens-abandoned-adventures.html" class="work__item reveal reveal-d1">
+          <div class="work__item__image" style="background-image:url('brand_assets/DSC_PRINT_JEROEN_DPG_BELGIE_440x290.jpg');background-size:cover;background-position:40% 15%;"></div>
+          <div class="work__item__ghost">DOC</div>
+          <span class="work__item__num">02</span>
+          <div class="work__item__overlay">
+            <p class="work__item__category">Branding, Design, Motion</p>
+            <h3 class="work__item__title">Jeroen's Abandoned Adventures</h3>
+          </div>
+        </a>
+        <a href="work/discovery-ultra.html" class="work__item reveal reveal-d2">
+          <div class="work__item__image">
+            <video class="work__item__video" autoplay muted loop playsinline>
+              <source src="brand_assets/DU_BIRD.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="work__item__ghost">TV</div>
+          <span class="work__item__num">03</span>
+          <div class="work__item__overlay">
+            <p class="work__item__category">Branding, Design, Motion</p>
+            <h3 class="work__item__title">Discovery Ultra</h3>
+          </div>
+        </a>
+        <a href="work/data-expert.html" class="work__item reveal reveal-d1">
+          <video class="work__item__video" autoplay loop muted playsinline preload="auto">
+            <source src="https://www.lennartvankralingen.com/wp-content/uploads/2024/12/DA_INLOOPVIDEO.mp4" type="video/mp4" />
+          </video>
+          <div class="work__item__ghost">DXB</div>
+          <span class="work__item__num">04</span>
+          <div class="work__item__overlay">
+            <p class="work__item__category">Motion, Video</p>
+            <h3 class="work__item__title">Digital Experience Benelux</h3>
+          </div>
+        </a>
+        <a href="work/bennebroecks-bier.html" class="work__item reveal" style="aspect-ratio:3/2;">
+          <div class="work__item__image" style="background-image:url('https://www.lennartvankralingen.com/wp-content/uploads/2024/11/2ec838149496169.62e8ed8c3aca3-scaled.jpeg');background-size:cover;background-position:center;"></div>
+          <div class="work__item__ghost">BIER</div>
+          <span class="work__item__num">05</span>
+          <div class="work__item__overlay">
+            <p class="work__item__category">Branding &amp; Packaging</p>
+            <h3 class="work__item__title">Bennebroecks Bier</h3>
+          </div>
+        </a>
+        <a href="work/dpg-beroemd-of-berucht.html" class="work__item reveal reveal-d1" style="aspect-ratio:3/2;">
+          <div class="work__item__image" style="background-image:url('brand_assets/Beroemd-of-Berucht_1920.png');background-size:cover;background-position:center;"></div>
+          <div class="work__item__ghost">DPG</div>
+          <span class="work__item__num">06</span>
+          <div class="work__item__overlay">
+            <p class="work__item__category">Design, Key-art, Animatie</p>
+            <h3 class="work__item__title">Beroemd of Berucht</h3>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ── Services ───────────────────────────────────────────────── -->
+    <section class="section" id="services">
+      <div class="services__header">
+        <div>
+          <p class="section__label"><span>What We Do</span></p>
+          <h2 class="section__heading split-heading"><span class="split-word"><span class="split-word__inner">Se<span class="alt-r">r</span>vices</span></span></h2>
+        </div>
+        <p class="services__intro reveal reveal-d2">
+          We help brands grow through strong design, clear thinking and motion.
+        </p>
+      </div>
+
+      <ul class="services__list" id="servicesList">
+        <li class="services__item reveal">
+          <div class="services__item__top">
+            <span class="services__item__num">01</span>
+            <span class="services__item__name split-heading" data-split>Brand Identity</span>
+            <span class="services__item__arrow">+</span>
+          </div>
+          <div class="services__item__detail">
+            <div class="services__item__detail__inner">
+              Your brand is more than a logo. We build the full picture: strategy, naming, visual systems, and the details that make everything feel unmistakably you.
+              <br><br>— Strategy, naming, look &amp; feel, visual systems.
+            </div>
+          </div>
+        </li>
+        <li class="services__item reveal reveal-d1">
+          <div class="services__item__top">
+            <span class="services__item__num">02</span>
+            <span class="services__item__name split-heading" data-split>Creative &amp; Design</span>
+            <span class="services__item__arrow">+</span>
+          </div>
+          <div class="services__item__detail">
+            <div class="services__item__detail__inner">
+              Visual identity, content, and design that makes people stop scrolling. We craft work that looks great and means something.
+              <br><br>— Print, social media visuals, premium pitch decks.
+            </div>
+          </div>
+        </li>
+        <li class="services__item reveal reveal-d2">
+          <div class="services__item__top">
+            <span class="services__item__num">03</span>
+            <span class="services__item__name split-heading" data-split>Motion &amp; Animation</span>
+            <span class="services__item__arrow">+</span>
+          </div>
+          <div class="services__item__detail">
+            <div class="services__item__detail__inner">
+              Still is good. Moving is better. From logo animations to leader packages, we bring your brand to life with motion that sticks.
+              <br><br>— Logo animations, leader packages, motion content.
+            </div>
+          </div>
+        </li>
+        <li class="services__item reveal reveal-d3">
+          <div class="services__item__top">
+            <span class="services__item__num">04</span>
+            <span class="services__item__name split-heading" data-split>Integrated Campaigns</span>
+            <span class="services__item__arrow">+</span>
+          </div>
+          <div class="services__item__detail">
+            <div class="services__item__detail__inner">
+              Big ideas, fully executed. We think concept, build the creative, and deliver campaigns that work across every touchpoint.
+              <br><br>— Live events, 360 campaigns.
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+
+    <!-- ── How We Work ────────────────────────────────────────────── -->
+    <section class="section" id="how-we-work">
+      <p class="section__label"><span>Our Approach</span></p>
+      <h2 class="section__heading split-heading" style="margin-bottom: 8rem;">
+        <span class="split-word"><span class="split-word__inner">How</span></span>
+        <span class="split-word"><span class="split-word__inner">We</span></span>
+        <span class="split-word"><span class="split-word__inner">W<span class="alt-o">o</span>rk</span></span>
+      </h2>
+
+      <div class="how__grid">
+        <div class="how__step reveal reveal-d1">
+          <div class="how__step__num">01</div>
+          <h3 class="how__step__title">Discover</h3>
+          <p class="how__step__desc">We immerse ourselves in your brand, listening, questioning, exploring. So we can create work that actually means something.</p>
+        </div>
+        <div class="how__step reveal reveal-d2">
+          <div class="how__step__num">02</div>
+          <h3 class="how__step__title">Strategize</h3>
+          <p class="how__step__desc">Strategy isn't a document. It's a clear point of view that drives everything forward.</p>
+        </div>
+        <div class="how__step reveal reveal-d3">
+          <div class="how__step__num">03</div>
+          <h3 class="how__step__title">Create</h3>
+          <p class="how__step__desc">Work that cuts through. We make work that earns attention and moves people, across every channel and format.</p>
+        </div>
+        <div class="how__step reveal reveal-d4">
+          <div class="how__step__num">04</div>
+          <h3 class="how__step__title">Deliver</h3>
+          <p class="how__step__desc">From a single frame to a global rollout. Delivered with precision and pace.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Thoughts ───────────────────────────────────────────────── -->
+    <!-- ── Contact ────────────────────────────────────────────────── -->
+    <section id="contact">
+      <div class="contact__glow"></div>
+      <div class="contact__content">
+        <div class="contact__cta-center">
+          <h2 class="contact__cta-heading reveal">
+            Do you want to<br>know <em>m<span class="alt-o">o</span>re?</em>
+          </h2>
+          <div class="reveal reveal-d1">
+            <a href="mailto:info@framedrift.nl" class="contact__btn">
+              Let's Create <span>→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Brands ────────────────────────────────────────────────── -->
+    <div class="brands">
+      <p class="brands__title reveal">Trusted by:</p>
+      <div class="brands__grid">
+        <div class="brands__item reveal">
+          <img src="https://www.lennartvankralingen.com/wp-content/uploads/2025/01/GFX.png" alt="De Graphics" />
+        </div>
+        <div class="brands__item reveal reveal-d1">
+          <img src="https://www.lennartvankralingen.com/wp-content/uploads/2025/01/WARNER.png" alt="Warner Bros. Discovery" />
+        </div>
+        <div class="brands__item reveal reveal-d2">
+          <img src="https://www.lennartvankralingen.com/wp-content/uploads/2025/01/REDBULL-1.png" alt="Red Bull" />
+        </div>
+        <div class="brands__item reveal reveal-d3">
+          <img src="https://www.lennartvankralingen.com/wp-content/uploads/2025/01/HBO.png" alt="HBO Max" />
+        </div>
+        <div class="brands__item reveal reveal-d4">
+          <img src="https://www.lennartvankralingen.com/wp-content/uploads/2025/01/Warner-Bros-Discovery-Black.png" alt="Discovery" />
+        </div>
+        <div class="brands__item reveal reveal-d5">
+          <img src="brand_assets/SKYNE.png" alt="Skyne" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Footer ─────────────────────────────────────────────────── -->
+    <footer>
+      <p class="footer__copy">© 2026 Framedrift — A Creative Studio</p>
+      <div class="footer__logo">
+        <img src="brand_assets/FD_LOGO.png" alt="Framedrift" />
+      </div>
+      <ul class="footer__links">
+        <li>
+          <a href="https://www.instagram.com/framedrift_studio/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4.5"/>
+              <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.behance.net/lennartvankra1" target="_blank" rel="noopener" aria-label="Behance">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.443 5.35c.639 0 1.23.05 1.77.198.54.099.984.297 1.377.544.394.247.689.594.886 1.04.197.444.296.989.296 1.582 0 .693-.148 1.286-.493 1.731-.296.446-.789.841-1.377 1.138.838.248 1.475.694 1.869 1.286.394.594.64 1.336.64 2.128 0 .644-.148 1.237-.394 1.73a3.903 3.903 0 0 1-1.08 1.287c-.443.346-.984.593-1.574.741-.59.148-1.18.247-1.82.247H1V5.35h6.443zm-.394 5.54c.541 0 .984-.148 1.328-.395.344-.247.492-.693.492-1.237 0-.297-.05-.594-.148-.792-.1-.197-.247-.395-.444-.494-.196-.148-.393-.197-.639-.247-.246-.05-.492-.05-.787-.05H3.786v3.215h3.263zm.148 5.787c.295 0 .59-.05.885-.099.295-.099.54-.198.787-.346.246-.148.443-.395.59-.643.148-.297.197-.644.197-1.04 0-.79-.246-1.385-.738-1.731-.492-.346-1.131-.494-1.918-.494H3.786v4.353h3.411zm9.492-1.137c.394.395.984.594 1.77.594.541 0 1.033-.148 1.426-.395.394-.296.639-.594.737-.89h2.36c-.394 1.187-.984 2.03-1.77 2.573-.787.494-1.77.742-2.852.742-.787 0-1.476-.099-2.115-.346-.64-.248-1.18-.594-1.623-1.04a4.885 4.885 0 0 1-1.033-1.632c-.246-.643-.344-1.335-.344-2.127 0-.742.098-1.435.344-2.078a5.14 5.14 0 0 1 1.033-1.682c.443-.494.983-.84 1.623-1.088.64-.247 1.328-.395 2.066-.395.836 0 1.574.148 2.164.494.59.347 1.082.792 1.476 1.386.393.544.639 1.187.787 1.88.098.694.148 1.386.098 2.129h-7.002c0 .79.246 1.534.64 1.88zm3.098-5.145c-.344-.346-.885-.544-1.574-.544-.443 0-.836.099-1.131.248-.295.148-.541.346-.688.544a1.984 1.984 0 0 0-.393.692c-.05.247-.099.445-.099.644h4.658c-.099-.742-.394-1.287-.773-1.584zm-3.897-5.145h5.262v1.336H15.89V5.35z"/>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/lennartvankralingen/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </footer>
+
+  </div><!-- /.page__content -->
+
+  <!-- ── Three.js ──────────────────────────────────────────────── -->
+  <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+
+  <!-- ── Hero Shader ────────────────────────────────────────────── -->
+  <script>
+  (function () {
+    const container = document.getElementById('heroShader');
+    if (!container || typeof THREE === 'undefined') return;
+
+    const camera = new THREE.Camera();
+    camera.position.z = 1;
+
+    const scene = new THREE.Scene();
+    const geometry = new THREE.PlaneGeometry(2, 2);
+
+    const uniforms = {
+      time:       { value: 1.0 },
+      resolution: { value: new THREE.Vector2() }
+    };
+
+    const material = new THREE.ShaderMaterial({
+      uniforms,
+      vertexShader: `
+        void main() {
+          gl_Position = vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        precision highp float;
+        uniform vec2  resolution;
+        uniform float time;
+
+        void main(void) {
+          vec2  uv        = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
+          float t         = time * 0.05;
+          float lineWidth = 0.002;
+
+          vec3 color = vec3(0.0);
+          for (int j = 0; j < 3; j++) {
+            for (int i = 0; i < 5; i++) {
+              color[j] += lineWidth * float(i * i) / abs(
+                fract(t - 0.01 * float(j) + float(i) * 0.01) * 5.0
+                - length(uv)
+                + mod(uv.x + uv.y, 0.2)
+              );
+            }
+          }
+
+          /* Tint to brand yellow #daff00 (0.855, 1.0, 0.0) */
+          vec3 tint = vec3(0.855, 1.0, 0.0);
+          color = color * tint * 0.85;
+
+          gl_FragColor = vec4(color, 1.0);
+        }
+      `
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    function resize() {
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      renderer.setSize(w, h);
+      uniforms.resolution.value.set(
+        renderer.domElement.width,
+        renderer.domElement.height
+      );
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    (function animate() {
+      requestAnimationFrame(animate);
+      uniforms.time.value += 0.05;
+      renderer.render(scene, camera);
+    })();
+  })();
+  </script>
+
+  <!-- ── Lenis Smooth Scroll ────────────────────────────────────── -->
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+
+  <script>
+  (function () {
+
+    /* ── Helpers ──────────────────────────────────────────────────── */
+    const $ = (s, c = document) => c.querySelector(s);
+    const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+    const qs = selector => document.querySelector(selector);
+
+    /* ── Split text into words ───────────────────────────────────── */
+    function splitHeading(el) {
+      // Preserve <em> and <br> by processing text nodes
+      const html = el.innerHTML;
+      // Simple approach: handle only text nodes within the element
+      // For headings that may contain <em> and <br>
+      function wrapWords(node) {
+        if (node.nodeType === 3) { // text node
+          const text = node.textContent;
+          if (!text.trim()) return node;
+          const fragment = document.createDocumentFragment();
+          const parts = text.split(/( |\u00A0)/);
+          parts.forEach(part => {
+            if (part === ' ' || part === '\u00A0') {
+              fragment.appendChild(document.createTextNode('\u00A0'));
+            } else if (part) {
+              const w = document.createElement('span');
+              w.className = 'split-word';
+              const inner = document.createElement('span');
+              inner.className = 'split-word__inner';
+              inner.textContent = part;
+              w.appendChild(inner);
+              fragment.appendChild(w);
+            }
+          });
+          return fragment;
+        }
+        if (node.nodeType === 1) {
+          const clone = node.cloneNode(false);
+          node.childNodes.forEach(child => {
+            clone.appendChild(wrapWords(child));
+          });
+          return clone;
+        }
+        return node.cloneNode(true);
+      }
+
+      const wrapper = document.createElement('span');
+      el.childNodes.forEach(child => {
+        wrapper.appendChild(wrapWords(child));
+      });
+      el.innerHTML = '';
+      while (wrapper.firstChild) {
+        el.appendChild(wrapper.firstChild);
+      }
+      el.classList.add('split-ready');
+    }
+
+    // Split all marked headings
+    $$('[data-split]').forEach(el => splitHeading(el));
+
+    /* ── Lenis init ───────────────────────────────────────────────── */
+    const lenis = new Lenis({
+      duration: 1.25,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothTouch: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    /* ── Smooth anchor scroll ─────────────────────────────────────── */
+    $$('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        if (id === '#') return;
+        const target = qs(id);
+        if (!target) return;
+        e.preventDefault();
+        closeMenu();
+        lenis.scrollTo(target, { offset: 0, duration: 1.4 });
+      });
+    });
+
+    /* ── Cursor ───────────────────────────────────────────────────── */
+    const cursor = qs('#cursor');
+    const ring   = qs('#cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
+
+    (function animateRing() {
+      rx += (mx - rx) * 0.09;
+      ry += (my - ry) * 0.09;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animateRing);
+    })();
+
+    const hoverEls = 'a, button, .work__item, .services__item__top, .thoughts__item, .nav__menu-btn';
+    $$(hoverEls).forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.classList.add('hovering');
+        cursor.classList.add('big');
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.classList.remove('hovering');
+        cursor.classList.remove('big');
+      });
+    });
+
+    document.addEventListener('mouseleave', () => ring.classList.add('hidden'));
+    document.addEventListener('mouseenter', () => ring.classList.remove('hidden'));
+
+    /* ── Page entry ──────────────────────────────────────────────── */
+    const nav    = qs('#nav');
+    const navLogo    = qs('#navLogo');
+    const navItems   = $$('#navLinks li');
+
+    function revealNav() {
+      navLogo.classList.add('in');
+      navItems.forEach((li, i) => {
+        setTimeout(() => li.classList.add('in'), 80 * i);
+      });
+    }
+
+    document.body.classList.add('loaded');
+    revealNav();
+
+    /* ── Nav: scroll-based behaviour ────────────────────────────── */
+    const hero = qs('#hero');
+    let lastScroll = 0;
+
+    lenis.on('scroll', ({ scroll, direction }) => {
+      const heroH = hero.offsetHeight;
+
+      lastScroll = scroll;
+    });
+
+    /* ── Hero parallax ───────────────────────────────────────────── */
+    const heroContent = qs('#heroContent');
+    lenis.on('scroll', ({ scroll }) => {
+      const heroH = hero.offsetHeight;
+      if (scroll < heroH) {
+        heroContent.style.transform = `translateY(${scroll * 0.22}px)`;
+      }
+    });
+
+    /* ── Mobile Menu ─────────────────────────────────────────────── */
+    const menuBtn     = qs('#menuBtn');
+    const menuOverlay = qs('#menuOverlay');
+    const menuLinks   = $$('[data-menu-link]');
+
+    // Set staggered transition delays on menu links
+    menuLinks.forEach((a, i) => {
+      a.style.transitionDuration   = (1200 - i * 60) + 'ms';
+      a.style.transitionDelay      = (i * 70) + 'ms';
+    });
+
+    function openMenu() {
+      nav.classList.add('nav--open');
+      menuOverlay.classList.add('open');
+      lenis.stop();
+    }
+    function closeMenu() {
+      nav.classList.remove('nav--open');
+      menuOverlay.classList.remove('open');
+      lenis.start();
+    }
+
+    menuBtn.addEventListener('click', () => {
+      if (menuOverlay.classList.contains('open')) closeMenu();
+      else openMenu();
+    });
+
+    /* ── Services accordion ──────────────────────────────────────── */
+    $$('.services__item').forEach(item => {
+      const top    = item.querySelector('.services__item__top');
+      const detail = item.querySelector('.services__item__detail');
+      const inner  = item.querySelector('.services__item__detail__inner');
+
+      top.addEventListener('click', () => {
+        const isOpen = item.classList.contains('services__item--open');
+
+        // Close all
+        $$('.services__item--open').forEach(el => {
+          el.classList.remove('services__item--open');
+          el.querySelector('.services__item__detail').style.height = '0';
+        });
+
+        if (!isOpen) {
+          item.classList.add('services__item--open');
+          detail.style.height = inner.offsetHeight + 'px';
+        }
+      });
+    });
+
+    /* ── Section label lines & reveals (IntersectionObserver) ───── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -4% 0px' });
+
+    // Observe labels (for line + text reveal)
+    $$('.section__label').forEach(el => observer.observe(el));
+
+    // Observe split headings
+    $$('.split-heading').forEach(el => observer.observe(el));
+
+    // Observe about visual (for bottom line)
+
+    // Observe generic reveals
+    $$('.reveal').forEach(el => observer.observe(el));
+
+    // Observe line-reveal elements
+    $$('.line-reveal').forEach(el => observer.observe(el));
+
+
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Not That Social — EO — Framedrift</title>
+  <link rel="icon" type="image/png" href="../brand_assets/Favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <style>
+    @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideSTD.otf') format('opentype'); font-weight:400; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideSTDItalic.otf') format('opentype'); font-weight:400; font-style:italic; font-display:swap; }
+    @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideEXT.otf') format('opentype'); font-weight:700; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideEXTItalic.otf') format('opentype'); font-weight:700; font-style:italic; font-display:swap; }
+  </style>
+  <style>
+    html,body,div,span,h1,h2,h3,h4,p,a,ul,li,article,aside,footer,header,nav,section,em,strong{border:0;font:inherit;font-size:100%;margin:0;padding:0;vertical-align:baseline}
+    *,*::after,*::before{box-sizing:border-box}
+    ::-webkit-scrollbar{display:none}
+    :root{--color-ivory:#fffbf2;--color-sun:#daff00;--color-coal:#000;--color-void:#000;--ease-out-expo:cubic-bezier(0.19,1,0.22,1);--ease-out-cubic:cubic-bezier(0.215,0.61,0.355,1)}
+    html{background:var(--color-void);font-size:.5208333333vw;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+    body{font:1.6rem/1.3 "Azeret Mono",monospace;background:var(--color-void);opacity:0;transition:opacity .6s ease;cursor:none;overflow-x:clip}
+    body.loaded{opacity:1}
+
+    /* Cursor */
+    .cursor{position:fixed;top:0;left:0;z-index:9999;width:7px;height:7px;background:var(--color-sun);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);mix-blend-mode:exclusion;will-change:transform;transition:width .25s ease,height .25s ease}
+    .cursor.big{width:48px;height:48px}
+    .cursor-ring{position:fixed;top:0;left:0;z-index:9998;width:28px;height:28px;border:1px solid rgba(255,254,0,.35);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);will-change:transform;transition:width .3s ease,height .3s ease,opacity .3s ease}
+    .cursor-ring.hovering{width:50px;height:50px;opacity:.45}
+    .cursor-ring.hidden{opacity:0}
+
+    /* Nav */
+    .nav{position:absolute;top:0;left:0;width:100%;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:3.2rem 4.8rem;transition:padding .6s var(--ease-out-expo)}
+    .nav__logo{text-decoration:none;opacity:0;transform:translateY(-8px);transition:opacity .6s ease,transform .6s var(--ease-out-expo);display:flex;justify-content:center}
+    .nav__logo.in{opacity:1;transform:translateY(0)}
+    .nav__logo img{height:16rem;width:auto;display:block;filter:invert(1) url(#logo-yellow);mix-blend-mode:screen;transition:filter .6s ease}
+    .nav__left{display:flex;align-items:center}
+    .nav__links{display:flex;align-items:center;justify-content:flex-end;gap:.8rem;list-style:none}
+    .nav__links li{opacity:0;transform:translateY(-8px);transition:opacity .6s ease,transform .6s var(--ease-out-expo)}
+    .nav__links li.in{opacity:1;transform:translateY(0)}
+    .nav__links a{display:inline-block;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(218,255,0,.45);text-decoration:none;padding:.9rem 1.4rem;position:relative;transition:color .5s var(--ease-out-expo)}
+    .nav__links a::after{content:'';position:absolute;bottom:4px;left:1.4rem;right:1.4rem;height:1px;background:var(--color-sun);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease-out-expo)}
+    .nav__links a:hover{color:var(--color-sun)}
+    .nav__links a:hover::after{transform:scaleX(1);transform-origin:left}
+    .nav__dropdown{position:relative}
+    .nav__dropdown__menu{position:absolute;top:100%;left:1.4rem;transform:translateY(-6px);list-style:none;min-width:10rem;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .3s var(--ease-out-expo);z-index:200;padding-top:.8rem}
+    .nav__dropdown:hover .nav__dropdown__menu{opacity:1;pointer-events:all;transform:translateY(0)}
+    .nav__dropdown__menu a{display:inline-block;padding:.5rem 0;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(218,255,0,.45);text-decoration:none;transition:color .2s}
+    .nav__dropdown__menu a::after{left:0;right:0;bottom:0}
+    .nav__dropdown__menu a:hover{color:var(--color-sun)}
+    .nav__menu-btn{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;background:none;border:none;cursor:none;padding:0}
+    .nav__menu-btn span{display:block;width:100%;height:1px;background:var(--color-ivory);transition:transform .5s var(--ease-out-expo),opacity .3s ease}
+    .nav--open .nav__menu-btn span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+    .nav--open .nav__menu-btn span:nth-child(2){opacity:0;transform:scaleX(0)}
+    .nav--open .nav__menu-btn span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+    /* Mobile Menu */
+    .menu-overlay{position:fixed;inset:0;z-index:190;background:var(--color-void);display:flex;flex-direction:column;justify-content:center;padding:4.8rem;opacity:0;visibility:hidden;transition:opacity .5s var(--ease-out-expo),visibility .5s ease}
+    .menu-overlay.open{opacity:1;visibility:visible}
+    .menu-overlay__links{list-style:none;display:flex;flex-direction:column;gap:1.6rem}
+    .menu-overlay__links li{overflow:hidden}
+    .menu-overlay__links a{display:block;font-size:6rem;font-weight:300;letter-spacing:-.02em;text-transform:lowercase;color:var(--color-ivory);text-decoration:none;transform:translateY(110%);transition:transform 1.2s var(--ease-out-expo),color .3s ease}
+    .menu-overlay.open .menu-overlay__links a{transform:translateY(0)}
+    .menu-overlay__links a:hover{color:var(--color-sun)}
+    .menu-overlay__footer{position:absolute;bottom:4rem;left:4.8rem;right:4.8rem;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(255,251,242,.1);padding-top:2.4rem;opacity:0;transition:opacity .6s ease .4s}
+    .menu-overlay.open .menu-overlay__footer{opacity:1}
+    .menu-overlay__contact{font-size:1.4rem;font-weight:300;color:rgba(255,251,242,.4);text-decoration:none;transition:color .3s}
+    .menu-overlay__contact:hover{color:var(--color-sun)}
+    .menu-overlay__offices{font-size:1.2rem;font-weight:300;color:rgba(255,251,242,.25);text-align:right;line-height:1.8}
+
+    /* Project Hero */
+    .project-hero{height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+    .project-hero__image{position:absolute;inset:0;background-size:cover;background-position:center}
+    .project-hero__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.12) 55%,rgba(0,0,0,.42) 100%);z-index:2}
+    .project-hero__content{position:relative;z-index:3;padding:4.8rem;padding-bottom:7.2rem}
+    .project-hero__num{font-size:1.1rem;font-weight:300;letter-spacing:.15em;color:rgba(218,255,0,.5);display:block;margin-bottom:2.4rem;text-transform:uppercase}
+    .project-hero__tags{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2.8rem}
+    .project-hero__tag{font-size:1rem;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(218,255,0,.8);border:1px solid rgba(218,255,0,.3);padding:.5rem 1.2rem}
+    .project-hero__title{font-family:'Joyride',"Azeret Mono",monospace;font-size:clamp(4rem,6.5vw,11.2rem);font-weight:400;line-height:.92;letter-spacing:.01em;text-transform:uppercase;color:var(--color-ivory);max-width:90rem}
+    .project-hero__logo{position:absolute;top:44%;left:50%;transform:translate(-50%,-50%);z-index:3;width:64rem;height:64rem;object-fit:contain}
+
+    /* Project Content */
+    .project-content{background:var(--color-ivory);position:relative;z-index:5;border-radius:2.4rem 2.4rem 0 0;overflow:clip}
+
+    /* Intro */
+    .project-intro{padding:8rem 4.8rem;display:grid;grid-template-columns:28rem 1fr;gap:8rem;border-bottom:1px solid rgba(36,36,36,.08)}
+    .project-meta{display:flex;flex-direction:column;gap:3.2rem}
+    .meta-label{display:block;font-size:1rem;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(36,36,36,.3);margin-bottom:.6rem}
+    .meta-value{display:block;font-size:1.4rem;font-weight:300;color:var(--color-coal)}
+    .project-desc{font-size:clamp(1.8rem,1.5vw,2.6rem);font-weight:300;line-height:1.7;color:rgba(36,36,36,.65)}
+
+    /* Gallery */
+    .project-gallery{background:var(--color-void);padding:.8rem;display:flex;flex-direction:column;gap:.8rem}
+    .gallery-row{display:grid;gap:.8rem}
+    .gallery-row--1{grid-template-columns:1fr}
+    .gallery-row--2{grid-template-columns:1fr 1fr}
+    .gallery-img{width:100%;display:block;object-fit:cover;aspect-ratio:16/9}
+    .gallery-img--wide{aspect-ratio:auto;max-height:75vh}
+    .gallery-video{width:100%;display:block;object-fit:cover;aspect-ratio:16/9;cursor:none;background:#000}
+    .gallery-video--wide{aspect-ratio:auto;max-height:75vh;width:100%}
+    .gallery-video-wrap{position:relative;overflow:hidden}
+
+    /* Footer */
+    .scroll-hint{position:absolute;bottom:4rem;right:4.8rem;z-index:10;display:flex;flex-direction:column;align-items:center;opacity:0;transition:opacity .8s ease 2s}body.loaded .scroll-hint{opacity:1}.scroll-hint svg{animation:scrollBounce 1.8s ease-in-out infinite}@keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+    footer{background:var(--color-void);padding:4rem 4.8rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,251,242,.05);position:relative}
+    .footer__logo{position:absolute;left:50%;transform:translateX(-50%)}
+    .footer__logo img{height:8rem;width:auto;display:block;filter:invert(1) url(#logo-yellow);mix-blend-mode:screen;opacity:.6}
+    .footer__copy{font-size:1.1rem;font-weight:300;color:rgba(255,251,242,.15);letter-spacing:.04em}
+    .footer__links{display:flex;gap:2.4rem;list-style:none;align-items:center}
+    .footer__links a{display:flex;align-items:center;justify-content:center;color:rgba(255,251,242,.25);text-decoration:none;transition:color .3s}
+    .footer__links a:hover{color:rgba(255,251,242,.75)}
+    .footer__links svg{display:block}
+
+    /* Reveals */
+    .reveal{opacity:0;transform:translateY(3.2rem);transition:opacity .9s var(--ease-out-expo),transform .9s var(--ease-out-expo)}
+    .reveal.in-view{opacity:1;transform:translateY(0)}
+    .reveal-d1{transition-delay:.12s}
+    .reveal-d2{transition-delay:.24s}
+
+    /* Responsive */
+    @media(max-width:768px){
+      html{font-size:1.8vw}
+      .nav{padding:2.4rem}
+      .nav__left,.nav__links{display:none}
+      .nav__menu-btn{display:flex}
+      .project-hero__content{padding:2.4rem;padding-bottom:5.6rem}
+      .project-intro{grid-template-columns:1fr;gap:4rem;padding:5.6rem 2.4rem}
+      .gallery-row--2{grid-template-columns:1fr}
+      footer{flex-direction:column;gap:2.4rem;text-align:center;padding:3.2rem 2.4rem}
+    }
+    @media(min-width:769px) and (max-width:1200px){
+      html{font-size:.7vw}
+      .project-intro{grid-template-columns:22rem 1fr;gap:5.6rem}
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <filter id="logo-yellow" color-interpolation-filters="sRGB">
+        <feColorMatrix type="matrix" values="0.855 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="cursor" id="cursor"></div>
+  <button id="audioBtn" style="position:fixed;bottom:2.8rem;left:2.4rem;z-index:500;background:rgba(0,0,0,.75);border:1px solid rgba(218,255,0,.25);color:rgba(218,255,0,.75);font-family:'Joyride','Azeret Mono',monospace;font-size:1rem;letter-spacing:.12em;text-transform:uppercase;padding:.9rem 2.4rem;cursor:none;opacity:0;pointer-events:none;transition:opacity .3s ease">Enable Sound</button>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav class="nav" id="nav">
+    <div class="nav__left"></div>
+    <a href="../index.html" class="nav__logo" id="navLogo">
+      <img src="../brand_assets/FD_LOGO.png" alt="Framedrift" />
+    </a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li class="nav__dropdown">
+        <a href="../#work" class="nav__dropdown__trigger">Work</a>
+        <ul class="nav__dropdown__menu">
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="keyart.html">Key-art</a></li>
+        </ul>
+      </li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <button class="nav__menu-btn" id="menuBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="menu-overlay" id="menuOverlay">
+    <ul class="menu-overlay__links">
+      <li><a href="../index.html" data-menu-link>Home</a></li>
+      <li><a href="../#work"     data-menu-link>Work</a></li>
+      <li><a href="../about.html"    data-menu-link>About</a></li>
+      <li><a href="../contact.html"  data-menu-link>Contact</a></li>
+    </ul>
+    <div class="menu-overlay__footer">
+      <a href="mailto:info@framedrift.com" class="menu-overlay__contact">info@framedrift.com</a>
+      <div class="menu-overlay__offices">New York<br>Amsterdam<br>Toronto</div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="project-hero">
+    <img class="project-hero__image" src="../brand_assets/NTS_header.webp" alt="Not That Social" style="object-fit:cover;width:100%;height:100%;position:absolute;inset:0;object-position:center" />
+    <div class="project-hero__overlay"></div>
+    <img class="project-hero__logo" src="../brand_assets/NTS_logo.webp" alt="Not That Social" />
+    <div class="project-hero__content">
+      
+      <div class="project-hero__tags">
+        <span class="project-hero__tag">Motion</span>
+        <span class="project-hero__tag">Design</span>
+        <span class="project-hero__tag">Branding</span>
+      </div>
+      <h1 class="project-hero__title">Not That<br>Social</h1>
+    </div>
+    <div class="scroll-hint">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(218,255,0,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <div class="project-content">
+
+    <div class="project-intro">
+      <div class="project-meta reveal">
+        <div>
+          <span class="meta-label">Category</span>
+          <span class="meta-value">Motion, Design, Branding</span>
+        </div>
+        <div>
+          <span class="meta-label">Year</span>
+          <span class="meta-value">2025</span>
+        </div>
+        <div>
+          <span class="meta-label">Client</span>
+          <span class="meta-value">De Graphics</span>
+        </div>
+      </div>
+      <p class="project-desc reveal reveal-d1">Not That Social is a webseries by the EO in which Dutch public figures come face-to-face with their online critics. What happens when online hate gets a real face? Together with De Graphics, I was asked to develop the motion graphics and visual branding for the series.</p>
+    </div>
+
+    <div class="project-gallery">
+      <div class="gallery-row gallery-row--2">
+        <div style="position:relative;width:100%;aspect-ratio:16/9;background:#000">
+          <iframe src="https://www.youtube.com/embed/pmmqcggyaEY" style="position:absolute;inset:0;width:100%;height:100%;border:none" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div style="position:relative;width:100%;aspect-ratio:16/9;background:#000">
+          <iframe src="https://www.youtube.com/embed/ee8ZPXQgFnI" style="position:absolute;inset:0;width:100%;height:100%;border:none" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p class="footer__copy">© 2026 Framedrift — A Creative Studio</p>
+      <div class="footer__logo">
+        <img src="../brand_assets/FD_LOGO.png" alt="Framedrift" />
+      </div>
+      <ul class="footer__links">
+        <li>
+          <a href="https://www.instagram.com/framedrift_studio/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4.5"/>
+              <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.behance.net/lennartvankra1" target="_blank" rel="noopener" aria-label="Behance">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.443 5.35c.639 0 1.23.05 1.77.198.54.099.984.297 1.377.544.394.247.689.594.886 1.04.197.444.296.989.296 1.582 0 .693-.148 1.286-.493 1.731-.296.446-.789.841-1.377 1.138.838.248 1.475.694 1.869 1.286.394.594.64 1.336.64 2.128 0 .644-.148 1.237-.394 1.73a3.903 3.903 0 0 1-1.08 1.287c-.443.346-.984.593-1.574.741-.59.148-1.18.247-1.82.247H1V5.35h6.443zm-.394 5.54c.541 0 .984-.148 1.328-.395.344-.247.492-.693.492-1.237 0-.297-.05-.594-.148-.792-.1-.197-.247-.395-.444-.494-.196-.148-.393-.197-.639-.247-.246-.05-.492-.05-.787-.05H3.786v3.215h3.263zm.148 5.787c.295 0 .59-.05.885-.099.295-.099.54-.198.787-.346.246-.148.443-.395.59-.643.148-.297.197-.644.197-1.04 0-.79-.246-1.385-.738-1.731-.492-.346-1.131-.494-1.918-.494H3.786v4.353h3.411zm9.492-1.137c.394.395.984.594 1.77.594.541 0 1.033-.148 1.426-.395.394-.296.639-.594.737-.89h2.36c-.394 1.187-.984 2.03-1.77 2.573-.787.494-1.77.742-2.852.742-.787 0-1.476-.099-2.115-.346-.64-.248-1.18-.594-1.623-1.04a4.885 4.885 0 0 1-1.03-1.632c-.246-.643-.344-1.335-.344-2.127 0-.742.098-1.435.344-2.078a5.14 5.14 0 0 1 1.033-1.682c.443-.494.983-.84 1.623-1.088.64-.247 1.328-.395 2.066-.395.836 0 1.574.148 2.164.494.59.347 1.082.792 1.476 1.386.393.544.639 1.187.787 1.88.098.694.148 1.386.098 2.129h-7.002c0 .79.246 1.534.64 1.88zm3.098-5.145c-.344-.346-.885-.544-1.574-.544-.443 0-.836.099-1.131.248-.295.148-.541.346-.688.544a1.984 1.984 0 0 0-.393.692c-.05.247-.099.445-.099.644h4.658c-.099-.742-.394-1.287-.773-1.584zm-3.897-5.145h5.262v1.336H15.89V5.35z"/>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/lennartvankralingen/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </footer>
+
+  </div>
+
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+  (function(){
+    const qs=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+    const lenis=new Lenis({duration:1.25,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothTouch:false});
+    (function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0);
+
+    const cursor=qs('#cursor'),ring=qs('#cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px'});
+    (function anim(){rx+=(mx-rx)*.09;ry+=(my-ry)*.09;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
+    $$('a,button').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ring.classList.add('hovering');cursor.classList.add('big')});
+      el.addEventListener('mouseleave',()=>{ring.classList.remove('hovering');cursor.classList.remove('big')});
+    });
+    document.addEventListener('mouseleave',()=>ring.classList.add('hidden'));
+    document.addEventListener('mouseenter',()=>ring.classList.remove('hidden'));
+
+    const navLogo=qs('#navLogo'),navItems=$$('#navLinks li');
+    navLogo.classList.add('in');
+    navItems.forEach((li,i)=>setTimeout(()=>li.classList.add('in'),80*i));
+
+    const menuBtn=qs('#menuBtn'),menuOverlay=qs('#menuOverlay');
+    $$('[data-menu-link]').forEach((a,i)=>{a.style.transitionDuration=(1200-i*60)+'ms';a.style.transitionDelay=(i*70)+'ms'});
+    const openMenu=()=>{qs('#nav').classList.add('nav--open');menuOverlay.classList.add('open');lenis.stop()};
+    const closeMenu=()=>{qs('#nav').classList.remove('nav--open');menuOverlay.classList.remove('open');lenis.start()};
+    menuBtn.addEventListener('click',()=>menuOverlay.classList.contains('open')?closeMenu():openMenu());
+    $$('[data-menu-link]').forEach(a=>a.addEventListener('click',closeMenu));
+
+    document.body.classList.add('loaded');
+
+    let soundEnabled=false,activeVid=null,hideTimer;
+    const audioBtn=qs('#audioBtn');
+    function showBtn(){clearTimeout(hideTimer);audioBtn.style.opacity='1';audioBtn.style.pointerEvents='auto'}
+    function hideBtn(){hideTimer=setTimeout(()=>{audioBtn.style.opacity='0';audioBtn.style.pointerEvents='none'},400)}
+    audioBtn.addEventListener('mouseenter',showBtn);
+    audioBtn.addEventListener('mouseleave',hideBtn);
+    audioBtn.addEventListener('click',()=>{soundEnabled=!soundEnabled;audioBtn.textContent=soundEnabled?'Turn Music Off':'Enable Sound';if(activeVid)activeVid.muted=!soundEnabled});
+    $$('.gallery-video-wrap').forEach(wrap=>{
+      const vid=wrap.querySelector('video');
+      vid.addEventListener('loadedmetadata',()=>{vid.currentTime=0.001});
+      wrap.addEventListener('mouseenter',()=>{activeVid=vid;showBtn();vid.muted=!soundEnabled;vid.play().catch(()=>{vid.muted=true;vid.play().catch(()=>{})});wrap.classList.add('playing')});
+      wrap.addEventListener('mouseleave',()=>{activeVid=null;hideBtn();vid.muted=true;vid.pause();wrap.classList.remove('playing')});
+    });
+
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');obs.unobserve(e.target)}});
+    },{threshold:.1,rootMargin:'0px 0px -4% 0px'});
+    $$('.reveal').forEach(el=>obs.observe(el));
+  })();
+  </script>
+</body>
+</html>
