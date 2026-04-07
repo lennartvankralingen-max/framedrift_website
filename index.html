@@ -1272,7 +1272,7 @@
       .section { padding: 8rem 2.4rem; }
       #contact { padding: 10rem 2.4rem; }
       .hero__content { padding: 0 2.4rem 5.6rem; }
-      .hero__headline { font-size: 8.5vw; }
+      .hero__headline { font-size: clamp(3.2rem, 8.5vw, 7rem); }
       .work__grid { grid-template-columns: 1fr; }
       .work__item:nth-child(n) { grid-column: span 12; }
       .services__header { flex-direction: column; align-items: flex-start; gap: 3.2rem; }
@@ -1282,7 +1282,17 @@
       .thoughts__grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 2.4rem; text-align: center; }
       .footer__links { justify-content: center; flex-wrap: wrap; }
-      .menu-overlay__links a { font-size: 4.5rem; }
+      .menu-overlay__links a { font-size: clamp(2.8rem, 7vw, 4.5rem); }
+    }
+    @media (max-width: 480px) {
+      html { font-size: 2vw; }
+      .hero__headline { font-size: clamp(3rem, 9vw, 5.5rem); }
+      .how__grid { grid-template-columns: 1fr; }
+      .section { padding: 6.4rem 2rem; }
+    }
+    @media (hover: none) and (pointer: coarse) {
+      .cursor, .cursor-ring { display: none !important; }
+      body { cursor: auto; }
     }
   </style>
 </head>

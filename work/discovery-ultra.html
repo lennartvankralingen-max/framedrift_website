@@ -12,6 +12,10 @@
     @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideSTDItalic.otf') format('opentype'); font-weight:400; font-style:italic; font-display:swap; }
     @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideEXT.otf') format('opentype'); font-weight:700; font-style:normal; font-display:swap; }
     @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideEXTItalic.otf') format('opentype'); font-weight:700; font-style:italic; font-display:swap; }
+    @media(hover:none) and (pointer:coarse){
+      .cursor,.cursor-ring{display:none!important}
+      body{cursor:auto}
+    }
   </style>
   <style>
     html,body,div,span,h1,h2,h3,h4,p,a,ul,li,article,aside,footer,header,nav,section,em,strong{border:0;font:inherit;font-size:100%;margin:0;padding:0;vertical-align:baseline}
@@ -156,6 +160,10 @@
     @media(min-width:769px) and (max-width:1200px){
       html{font-size:.7vw}
       .project-intro{grid-template-columns:22rem 1fr;gap:5.6rem}
+    }
+    @media(hover:none) and (pointer:coarse){
+      .cursor,.cursor-ring{display:none!important}
+      body{cursor:auto}
     }
   </style>
 </head>
