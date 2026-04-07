@@ -4,10 +4,11 @@ CLAUDE.md
 # Source files (already converted)
 brand_assets/JAA_LOGO_BACKGROUND_STONE_V003.mov
 
-# Files too large for GitHub (>100MB) — host these externally
-brand_assets/DU_DESIGNREEL_V2_low.mp4
-brand_assets/Beroemd-of-Berucht_Voorsite.mp4
+# Source PDF (not used by website directly — rendered as JPEGs)
 brand_assets/Discovery_Ultra_Styleguide_V1.pdf
+
+# Intermediate compressed files (originals used instead)
+brand_assets/*_compressed.mp4
 
 # System
 .DS_Store
