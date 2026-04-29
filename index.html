@@ -170,7 +170,7 @@
     .nav__links li {
       opacity: 0;
       transform: translateY(-8px);
-      transition: opacity 0.6s ease, transform 0.6s var(--ease-out-expo);
+      transition: opacity 1.2s ease, transform 1.2s var(--ease-out-expo);
     }
     .nav__links li.in { opacity: 1; transform: translateY(0); }
 
@@ -1774,12 +1774,12 @@
     /* ── Page entry ──────────────────────────────────────────────── */
     const nav    = qs('#nav');
     const navLogo    = qs('#navLogo');
-    const navItems   = $$('#navLinks li');
+    const navItems   = $$('#navLinks > li');
 
     function revealNav() {
-      navLogo.classList.add('in');
+      setTimeout(() => navLogo.classList.add('in'), 200);
       navItems.forEach((li, i) => {
-        setTimeout(() => li.classList.add('in'), 80 * i);
+        setTimeout(() => li.classList.add('in'), 400 + 100 * i);
       });
     }
 
