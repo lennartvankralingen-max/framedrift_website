@@ -1,8 +1,8 @@
 # Claude agent instructions (private)
 CLAUDE.md
 
-# Source files (already converted)
-brand_assets/JAA_LOGO_BACKGROUND_STONE_V003.mov
+# Source .mov files (too large for GitHub, converted to MP4)
+brand_assets/*.mov
 
 # Source PDF (not used by website directly — rendered as JPEGs)
 brand_assets/Discovery_Ultra_Styleguide_V1.pdf

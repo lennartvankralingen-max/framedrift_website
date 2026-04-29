@@ -34,7 +34,7 @@
     .nav{position:absolute;top:0;left:0;width:100%;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:3.2rem 4.8rem;transition:padding .6s var(--ease-out-expo)}
     .nav__logo{text-decoration:none;opacity:0;transform:translateY(-8px);transition:opacity .6s ease,transform .6s var(--ease-out-expo);display:flex;justify-content:center}
     .nav__logo.in{opacity:1;transform:translateY(0)}
-    .nav__logo img{height:16rem;width:auto;display:block;filter:invert(1) url(#logo-yellow);mix-blend-mode:screen;transition:filter .6s ease}
+    .nav__logo img{height:16rem;width:auto;display:block;filter:invert(1);mix-blend-mode:screen;transition:filter .6s ease}
     .nav__left{display:flex;align-items:center}
     .nav__links{display:flex;align-items:center;justify-content:flex-end;gap:.8rem;list-style:none}
     .nav__links li{opacity:0;transform:translateY(-8px);transition:opacity .6s ease,transform .6s var(--ease-out-expo)}
@@ -107,7 +107,7 @@
     .scroll-hint{position:absolute;bottom:4rem;right:4.8rem;z-index:10;display:flex;flex-direction:column;align-items:center;opacity:0;transition:opacity .8s ease 2s}body.loaded .scroll-hint{opacity:1}.scroll-hint svg{animation:scrollBounce 1.8s ease-in-out infinite}@keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
     footer{background:var(--color-void);padding:4rem 4.8rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,251,242,.05);position:relative}
     .footer__logo{position:absolute;left:50%;transform:translateX(-50%)}
-    .footer__logo img{height:8rem;width:auto;display:block;filter:invert(1) url(#logo-yellow);mix-blend-mode:screen;opacity:.6}
+    .footer__logo img{height:8rem;width:auto;display:block;filter:invert(1);mix-blend-mode:screen;opacity:.6}
     .footer__copy{font-size:1.1rem;font-weight:300;color:rgba(255,251,242,.15);letter-spacing:.04em}
     .footer__links{display:flex;gap:2.4rem;list-style:none;align-items:center}
     .footer__links a{display:flex;align-items:center;justify-content:center;color:rgba(255,251,242,.25);text-decoration:none;transition:color .3s}
@@ -186,7 +186,7 @@
     </ul>
     <div class="menu-overlay__footer">
       <a href="mailto:lennart@framedrift.nl" class="menu-overlay__contact">lennart@framedrift.nl</a>
-      <div class="menu-overlay__offices"><img src="../brand_assets/FD_LOGO.png" alt="Framedrift" style="height:6rem;width:auto;filter:invert(1) url(#logo-yellow);mix-blend-mode:screen;opacity:0.6" /></div>
+      <div class="menu-overlay__offices"><img src="../brand_assets/FD_LOGO.png" alt="Framedrift" style="height:6rem;width:auto;filter:invert(1);mix-blend-mode:screen;opacity:0.6" /></div>
     </div>
   </div>
 

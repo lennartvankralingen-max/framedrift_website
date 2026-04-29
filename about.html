@@ -39,7 +39,7 @@
     .nav{position:absolute;top:0;left:0;width:100%;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:3.2rem 4.8rem;transition:padding .6s var(--ease-out-expo)}
     .nav__logo{text-decoration:none;opacity:0;transform:translateY(-8px);transition:opacity .6s ease,transform .6s var(--ease-out-expo);display:flex;justify-content:center}
     .nav__logo.in{opacity:1;transform:translateY(0)}
-    .nav__logo img{height:16rem;width:auto;display:block;filter:invert(1) url(#logo-yellow);mix-blend-mode:screen;transition:filter .6s ease}
+    .nav__logo img{height:16rem;width:auto;display:block;filter:invert(1);mix-blend-mode:screen;transition:filter .6s ease}
     .nav__left{display:flex;align-items:center}
     .nav__links{display:flex;align-items:center;justify-content:flex-end;gap:.8rem;list-style:none}
     .nav__links li{opacity:0;transform:translateY(-8px);transition:opacity .6s ease,transform .6s var(--ease-out-expo)}
@@ -75,18 +75,16 @@
     .menu-overlay__offices{font-size:1.2rem;font-weight:300;color:rgba(255,251,242,.25);text-align:right;line-height:1.8}
 
     /* ── Page Hero ── */
-    .about-hero{position:relative;background:#000;height:55vh;min-height:40rem;display:flex;flex-direction:column;justify-content:flex-end;padding:0 4.8rem 5.6rem;overflow:hidden}
+    .about-hero{position:relative;background:#000;height:52vh;min-height:38rem;display:flex;flex-direction:column;justify-content:center;padding:14rem 4.8rem 0;overflow:hidden}
     .about-hero__bg{position:absolute;inset:0;z-index:0}
     .about-hero__bg img{width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.18;filter:grayscale(1)}
-    #aboutShader{position:absolute;inset:0;z-index:0}
-    #aboutShader canvas{width:100%!important;height:100%!important;display:block}
     .about-hero__overlay{position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.48);pointer-events:none}
     .about-hero__overlay::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.2) 0%,rgba(0,0,0,.75) 100%);pointer-events:none}
     .about-hero__noise{position:absolute;inset:0;z-index:2;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px;pointer-events:none}
     .about-hero__content{position:relative;z-index:3}
     .about-hero__label{font-size:1.1rem;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:rgba(218,255,0,.45);display:flex;align-items:center;gap:1.6rem;margin-bottom:3.2rem}
     .alt-o{font-family:'JoyrideALT',"Azeret Mono",monospace}
-    .about-hero__title{font-family:'Joyride',"Azeret Mono",monospace;font-size:clamp(5.6rem,9vw,14rem);font-weight:400;line-height:.88;letter-spacing:.02em;text-transform:uppercase;color:var(--color-ivory)}
+    .about-hero__title{font-family:'Joyride',"Azeret Mono",monospace;font-size:clamp(5.5rem,10.5vw,15rem);font-weight:700;line-height:.88;letter-spacing:.02em;text-transform:uppercase;color:var(--color-sun);text-align:center}
     .about-hero__title .hl{display:block;overflow:hidden}
     .about-hero__title .hl__inner{display:block;transform:translateY(110%);transition:transform 1.1s var(--ease-out-expo)}
     body.loaded .about-hero__title .hl__inner{transform:translateY(0);transition-delay:.3s}
@@ -96,7 +94,7 @@
 
     /* ── About Grid ── */
     .about__grid{display:grid;grid-template-columns:.42fr 1fr;gap:8rem;align-items:start}
-    .about__visual{position:relative;aspect-ratio:3/4;background:var(--color-coal);overflow:hidden;outline:1px solid var(--color-sun)}
+    .about__visual{position:relative;aspect-ratio:3/4;background:var(--color-coal);overflow:hidden}
     .about__visual__tag{position:absolute;top:2.4rem;left:2.4rem;font-size:1.1rem;font-weight:300;letter-spacing:.1em;text-transform:lowercase;color:rgba(255,254,0,.7);border:1px solid rgba(255,254,0,.3);padding:.6rem 1.2rem}
     .about__visual__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
     .about__visual__line{position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--color-sun);transform:scaleX(0);transform-origin:left;transition:transform 1.2s var(--ease-out-cubic) .4s}
@@ -111,7 +109,7 @@
     .section__label.in-view::before{width:2.4rem}
     .section__label span{opacity:0;transform:translateX(-8px);transition:opacity .6s ease .4s,transform .6s var(--ease-out-expo) .4s}
     .section__label.in-view span{opacity:1;transform:translateX(0)}
-    .section__heading{font-family:'Joyride',"Azeret Mono",monospace;font-size:clamp(4.8rem,5.5vw,9.6rem);font-weight:400;line-height:.9;letter-spacing:.02em;text-transform:uppercase;color:var(--color-coal)}
+    .section__heading{font-family:'Joyride',"Azeret Mono",monospace;font-size:clamp(5rem,7vw,13rem);font-weight:700;line-height:.9;letter-spacing:.02em;text-transform:uppercase;color:var(--color-coal)}
     .split-heading{overflow:hidden}
     .split-word{display:inline-block;overflow:hidden;vertical-align:bottom}
     .split-word__inner{display:inline-block;transform:translateY(110%);transition:transform 1.1s var(--ease-out-expo)}
@@ -124,6 +122,7 @@
     .split-word:nth-child(6) .split-word__inner{transition-delay:.35s}
 
     /* ── About heading lines ── */
+    .about__heading{font-size:clamp(4.8rem,5.5vw,9.6rem)}
     .about__heading .hl{display:block;overflow:hidden}
     .about__heading .hl__inner{display:block;transform:translateY(110%);transition:transform 1.1s var(--ease-out-expo)}
     .about__heading.in-view .hl:nth-child(1) .hl__inner{transform:translateY(0);transition-delay:0s}
@@ -146,7 +145,7 @@
     .scroll-hint{position:absolute;bottom:4rem;right:4.8rem;z-index:10;display:flex;flex-direction:column;align-items:center;opacity:0;transition:opacity .8s ease 2s}body.loaded .scroll-hint{opacity:1}.scroll-hint svg{animation:scrollBounce 1.8s ease-in-out infinite}@keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
     footer{background:#000;padding:4rem 4.8rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,251,242,.05);position:relative}
     .footer__logo{position:absolute;left:50%;transform:translateX(-50%)}
-    .footer__logo img{height:8rem;width:auto;display:block;filter:invert(1) url(#logo-yellow);mix-blend-mode:screen;opacity:.6}
+    .footer__logo img{height:8rem;width:auto;display:block;filter:invert(1);mix-blend-mode:screen;opacity:.6}
     .footer__copy{font-size:1.1rem;font-weight:300;color:rgba(255,251,242,.15);letter-spacing:.04em}
     .footer__links{display:flex;gap:2.4rem;list-style:none;align-items:center}
     .footer__links a{display:flex;align-items:center;justify-content:center;color:rgba(255,251,242,.25);text-decoration:none;transition:color .3s}
@@ -223,13 +222,12 @@
     </ul>
     <div class="menu-overlay__footer">
       <a href="mailto:lennart@framedrift.nl" class="menu-overlay__contact">lennart@framedrift.nl</a>
-      <div class="menu-overlay__offices"><img src="brand_assets/FD_LOGO.png" alt="Framedrift" style="height:6rem;width:auto;filter:invert(1) url(#logo-yellow);mix-blend-mode:screen;opacity:0.6" /></div>
+      <div class="menu-overlay__offices"><img src="brand_assets/FD_LOGO.png" alt="Framedrift" style="height:6rem;width:auto;filter:invert(1);mix-blend-mode:screen;opacity:0.6" /></div>
     </div>
   </div>
 
   <!-- Hero (dark) -->
   <section class="about-hero">
-    <div id="aboutShader"></div>
     <div class="about-hero__overlay"></div>
     <div class="about-hero__noise"></div>
     <div class="about-hero__content">
@@ -310,58 +308,6 @@
     </ul>
   </footer>
 
-  <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
-  <script>
-  (function(){
-    const container=document.getElementById('aboutShader');
-    if(!container||typeof THREE==='undefined')return;
-    const camera=new THREE.Camera();
-    camera.position.z=1;
-    const scene=new THREE.Scene();
-    const geometry=new THREE.PlaneGeometry(2,2);
-    const uniforms={time:{value:1.0},resolution:{value:new THREE.Vector2()}};
-    const material=new THREE.ShaderMaterial({
-      uniforms,
-      vertexShader:`void main(){gl_Position=vec4(position,1.0);}`,
-      fragmentShader:`
-        precision highp float;
-        uniform vec2 resolution;
-        uniform float time;
-        void main(){
-          vec2 uv=(gl_FragCoord.xy*2.0-resolution.xy)/min(resolution.x,resolution.y);
-          float t=time*0.025;
-          float lineWidth=0.002;
-          vec3 color=vec3(0.0);
-          for(int j=0;j<3;j++){
-            for(int i=0;i<5;i++){
-              color[j]+=lineWidth*float(i*i)/abs(
-                fract(t-0.01*float(j)+float(i)*0.01)*5.0
-                -length(uv)
-                +mod(uv.x+uv.y,0.2)
-              );
-            }
-          }
-          vec3 tint=vec3(0.231,0.008,0.302);
-          color=color*tint*2.8;
-          gl_FragColor=vec4(color,1.0);
-        }
-      `
-    });
-    const mesh=new THREE.Mesh(geometry,material);
-    scene.add(mesh);
-    const renderer=new THREE.WebGLRenderer({antialias:true});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-    container.appendChild(renderer.domElement);
-    function resize(){
-      const w=container.clientWidth,h=container.clientHeight;
-      renderer.setSize(w,h);
-      uniforms.resolution.value.set(renderer.domElement.width,renderer.domElement.height);
-    }
-    resize();
-    window.addEventListener('resize',resize);
-    (function animate(){requestAnimationFrame(animate);uniforms.time.value+=0.05;renderer.render(scene,camera)})();
-  })();
-  </script>
 
   <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
   <script>
