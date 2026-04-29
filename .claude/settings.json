@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -m http.server 3000)",
+      "Bash(brew list *)",
+      "Bash(avconvert --preset PresetHEVC1920x1080 --source \"/Users/lennartvankralingen/WEBSITE BUILDING/brand_assets/FD_WHITE.mov\" --output \"/Users/lennartvankralingen/WEBSITE BUILDING/brand_assets/FD_WHITE.mp4\")"
+    ]
+  }
+}

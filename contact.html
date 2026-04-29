@@ -226,12 +226,14 @@
       .nav__links{display:none}
       .nav__menu-btn{display:flex}
       .menu-overlay__links a{font-size:11vw}
-      .contact-hero{padding:16rem 2.4rem 6.4rem}
+      .contact-hero{padding:20rem 2.4rem 14rem;height:auto;min-height:0}
+      .contact-hero__title{font-size:clamp(3rem,11vw,5rem)}
       #contact{padding:6.4rem 2.4rem 6.4rem;border-radius:1.6rem 1.6rem 0 0}
-      .contact__layout{grid-template-columns:1fr;gap:4rem}
-      .contact__cta{padding-left:0;padding-top:3.2rem;align-items:center}
-      .contact__map{min-height:28rem}
-      footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.6rem 0;padding:3.2rem 2.4rem;text-align:left}.footer__logo{order:-1;flex:0 0 100%;display:flex;justify-content:center;position:static;transform:none}.footer__copy{order:1}.footer__links{order:1;justify-content:flex-end}
+      .contact__layout{grid-template-columns:1fr 1fr;gap:2.4rem;align-items:start}
+      .contact__left{gap:2.4rem}
+      .contact__cta{padding-left:0;padding-top:0;align-items:flex-start}
+      .contact__map{min-height:24rem;height:100%}
+      footer{display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:center;gap:0;padding:2.4rem 2.4rem;text-align:left}.footer__logo{flex:0 0 auto;display:flex;position:static;transform:none}.footer__logo img{height:5rem}.footer__copy{flex:1;font-size:.9rem;text-align:center}.footer__links{justify-content:flex-end;gap:1.6rem}
     }
     @media(min-width:769px) and (max-width:1200px){
       html{font-size:.7vw}

@@ -158,13 +158,14 @@
       .nav__links{display:none}
       .nav__menu-btn{display:flex}
       .menu-overlay__links a{font-size:11vw}
-      .about-hero{padding:16rem 2.4rem 6.4rem}
+      .about-hero{padding:20rem 2.4rem 14rem;height:auto;min-height:0}
+      .about-hero__title{font-size:clamp(3rem,11vw,5rem)}
       .about-content{padding:6.4rem 2.4rem 8rem;border-radius:1.6rem 1.6rem 0 0}
       .about__grid{grid-template-columns:1fr;gap:4.8rem}
       .about__visual{aspect-ratio:unset;height:auto}
       .about__visual__photo{position:relative;height:auto;width:100%;object-fit:contain}
       .section__heading{text-align:left;font-size:clamp(2.4rem,7vw,4rem)}
-      footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.6rem 0;padding:3.2rem 2.4rem;text-align:left}.footer__logo{order:-1;flex:0 0 100%;display:flex;justify-content:center;position:static;transform:none}.footer__copy{order:1}.footer__links{order:1;justify-content:flex-end}
+      footer{display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:center;gap:0;padding:2.4rem 2.4rem;text-align:left}.footer__logo{flex:0 0 auto;display:flex;position:static;transform:none}.footer__logo img{height:5rem}.footer__copy{flex:1;font-size:.9rem;text-align:center}.footer__links{justify-content:flex-end;gap:1.6rem}
     }
     @media(min-width:769px) and (max-width:1200px){
       html{font-size:.7vw}

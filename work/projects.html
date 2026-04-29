@@ -137,16 +137,17 @@
       .nav__links{display:none}
       .nav__menu-btn{display:flex}
       .menu-overlay__links a{font-size:11vw}
-      .projects-hero{padding:0 2.4rem 4.8rem}
+      .projects-hero{padding:20rem 2.4rem 14rem;height:auto;min-height:0}
+      .projects-hero__title{font-size:clamp(3rem,11vw,5rem)}
       .projects-list{padding:0 2.4rem 8rem}
       .projects-list__header{display:none}
       .project-row{grid-template-columns:5rem 1fr;grid-template-rows:auto auto;gap:1.2rem;padding:2.8rem 0}
       .project-row__tags{display:none}
       .project-row__year{display:none}
       .preview{display:none}
-      footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.6rem 0;padding:3.2rem 2.4rem;text-align:left}
-      .footer__logo{order:-1;flex:0 0 100%;display:flex;justify-content:center;position:static;transform:none}
-      .footer__copy{order:1}
+      footer{display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:center;gap:0;padding:2.4rem 2.4rem;text-align:left}
+      .footer__logo{flex:0 0 auto;display:flex;position:static;transform:none}.footer__logo img{height:5rem}
+      .footer__copy{flex:1;font-size:.9rem;text-align:center}
       .footer__links{order:1;justify-content:flex-end}
     }
     @media(min-width:769px) and (max-width:1200px){

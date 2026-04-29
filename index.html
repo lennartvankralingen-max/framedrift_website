@@ -1226,11 +1226,12 @@
       opacity: 1;
     }
     @media (max-width: 768px) {
-      .brands { padding: 4.8rem 2.4rem; }
-      .brands__grid { flex-wrap: wrap; }
-      .brands__item { flex: 0 0 33.333%; padding: 2rem; }
-      .brands__item img { height: 3.2rem; }
+      .brands { padding: 4.8rem 0; overflow: hidden; }
+      .brands__grid { flex-wrap: nowrap; width: max-content; animation: brandsTrain 14s linear infinite; gap: 0; }
+      .brands__item { flex: 0 0 auto; width: auto; opacity: 1 !important; transform: none !important; transition: none !important; position: static; padding: 1.6rem 2.4rem; }
+      .brands__item img { height: 3.2rem; width: auto; }
     }
+    @keyframes brandsTrain { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
     .footer__logo img {
       height: 8rem;
@@ -1268,6 +1269,9 @@
       .section { padding: 8rem 2.4rem; }
       #contact { padding: 10rem 2.4rem; }
       .hero__content { padding: 0 2.4rem 5.6rem; }
+      .hero__logo-video { width: 110vw; }
+      .hero__bottom { bottom: 28rem; left: -15%; right: -15%; }
+      .scroll-hint { right: 50%; transform: translateX(50%); }
       .hero__headline { font-size: clamp(3.5rem, 13vw, 7rem); }
       .menu-overlay__links a { font-size: 11vw; }
       .work__grid { grid-template-columns: 1fr; }
@@ -1277,7 +1281,7 @@
       .how__grid { grid-template-columns: 1fr 1fr; gap: 4.8rem; }
       .how__step { border-right: none; padding: 0 !important; }
       .thoughts__grid { grid-template-columns: 1fr; }
-      footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.6rem 0;padding:3.2rem 2.4rem;text-align:left}.footer__logo{order:-1;flex:0 0 100%;display:flex;justify-content:center;position:static;transform:none}.footer__copy{order:1}.footer__links{order:1;justify-content:flex-end}
+      footer{display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:center;gap:0;padding:2.4rem 2.4rem;text-align:left}.footer__logo{flex:0 0 auto;display:flex;position:static;transform:none}.footer__logo img{height:5rem}.footer__copy{flex:1;font-size:.9rem;text-align:center}.footer__links{justify-content:flex-end;gap:1.6rem}
     }
     @media (max-width: 480px) {
       html { font-size: 2vw; }
@@ -1785,6 +1789,19 @@
 
     document.body.classList.add('loaded');
     revealNav();
+
+    /* ── Brands marquee (mobile only) ───────────────────────────── */
+    if (window.innerWidth <= 768) {
+      const brandsGrid = qs('.brands__grid');
+      if (brandsGrid) {
+        const origItems = $$('.brands__item', brandsGrid);
+        origItems.forEach(item => item.classList.add('in-view'));
+        origItems.forEach(item => {
+          const clone = item.cloneNode(true);
+          brandsGrid.appendChild(clone);
+        });
+      }
+    }
 
     /* ── Nav: scroll-based behaviour ────────────────────────────── */
     const hero = qs('#hero');
