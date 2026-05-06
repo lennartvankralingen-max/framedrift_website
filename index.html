@@ -1227,11 +1227,11 @@
     }
     @media (max-width: 768px) {
       .brands { padding: 4.8rem 0; overflow: hidden; }
-      .brands__grid { flex-wrap: nowrap; width: max-content; animation: brandsTrain 14s linear infinite; gap: 0; }
+      .brands__grid { flex-wrap: nowrap; width: max-content; gap: 0; will-change: transform; }
       .brands__item { flex: 0 0 auto; width: auto; opacity: 1 !important; transform: none !important; transition: none !important; position: static; padding: 1.6rem 2.4rem; }
       .brands__item img { height: 3.2rem; width: auto; }
     }
-    @keyframes brandsTrain { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes brandsTrain { 0% { transform: translateX(0); } 100% { transform: translateX(var(--marquee-offset, -50%)); } }
 
     .footer__logo img {
       height: 8rem;
@@ -1799,8 +1799,25 @@
         origItems.forEach(item => item.classList.add('in-view'));
         origItems.forEach(item => {
           const clone = item.cloneNode(true);
+          clone.classList.add('in-view');
           brandsGrid.appendChild(clone);
         });
+        function startMarquee() {
+          const totalWidth = brandsGrid.scrollWidth / 2;
+          let pos = 0;
+          function tick() {
+            pos -= 0.35;
+            if (pos <= -totalWidth) pos += totalWidth;
+            brandsGrid.style.transform = `translateX(${pos}px)`;
+            requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        }
+        if (document.readyState === 'complete') {
+          startMarquee();
+        } else {
+          window.addEventListener('load', startMarquee);
+        }
       }
     }
 
