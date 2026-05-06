@@ -167,12 +167,12 @@
       gap: 0.8rem;
       list-style: none;
     }
-    .nav__links li {
+    .nav__links > li {
       opacity: 0;
       transform: translateY(-8px);
       transition: opacity 1.2s ease, transform 1.2s var(--ease-out-expo);
     }
-    .nav__links li.in { opacity: 1; transform: translateY(0); }
+    .nav__links > li.in { opacity: 1; transform: translateY(0); }
 
     .nav__links a {
       display: inline-block;
