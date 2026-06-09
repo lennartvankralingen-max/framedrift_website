@@ -319,7 +319,7 @@
       width: 60vw;
       height: auto;
       display: block;
-      margin-top: -6rem;
+      margin-top: -16rem;
       transform: translateZ(0);
       backface-visibility: hidden;
       filter: contrast(1.2);
@@ -417,6 +417,37 @@
       transition: transform 1s var(--ease-out-expo) 1.6s, opacity 1s ease 1.6s;
     }
     body.loaded .hero__bottom__inner { transform: translateY(0); opacity: 1; }
+    .hero__subtitle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 3.2rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 1s ease 1s, transform 1s var(--ease-out-expo) 1s;
+    }
+    body.loaded .hero__subtitle { opacity: 1; transform: translateY(0); }
+    .hero__studio-label {
+      font-family: 'Joyride', "Azeret Mono", monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-sun);
+    }
+    .hero__disciplines {
+      font-family: 'Joyride', "Azeret Mono", monospace;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-sun);
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+    }
+    .hero__disciplines .dot { opacity: 0.4; }
 
     .hero__locations {
       font-size: 1.2rem;
@@ -1372,6 +1403,11 @@
         <source src="brand_assets/FD_WHITE_V3.mp4" type="video/mp4">
         <source src="brand_assets/FD_WHITE_V3.mov" type="video/quicktime">
       </video>
+      <div class="hero__subtitle">
+        <div class="hero__disciplines">
+          Motion Graphics <span class="dot">·</span> Events <span class="dot">·</span> Print <span class="dot">·</span> Identity <span class="dot">·</span> Leader Packages
+        </div>
+      </div>
     </div>
 
     <div class="hero__bottom">
