@@ -335,7 +335,7 @@
     .hero__content {
       position: relative;
       z-index: 5;
-      padding: 0 4.8rem;
+      padding: 0;
       text-align: center;
       will-change: transform;
     }
@@ -400,7 +400,7 @@
     .hero__bottom::before {
       content: '';
       position: absolute;
-      top: 0; left: 18%; right: 18%;
+      top: 0; left: 27%; right: 27%;
       height: 1px;
       background: rgba(255,255,0,0.4);
       transform: scaleX(0);
@@ -423,6 +423,9 @@
       align-items: center;
       gap: 2rem;
       margin-top: 6rem;
+      width: 46vw;
+      margin-left: auto;
+      margin-right: auto;
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 1s ease 1s, transform 1s var(--ease-out-expo) 1s;
@@ -438,14 +441,14 @@
     }
     .hero__disciplines {
       font-family: 'Joyride', "Azeret Mono", monospace;
-      font-size: 1.4rem;
+      font-size: 1.15rem;
       font-weight: 400;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--color-sun);
       display: flex;
       align-items: center;
-      gap: 1.6rem;
+      gap: 0.8rem;
     }
     .hero__disciplines .dot { opacity: 0.4; }
 
@@ -1305,6 +1308,7 @@
       .hero__logo-video { width: 110vw; margin-top: -16rem; }
       .hero__subtitle { display: none; }
       .hero__bottom { bottom: 28rem; left: -15%; right: -15%; }
+      .hero__bottom::before { left: 17%; right: 17%; }
       .scroll-hint { left: 50%; right: auto; transform: translateX(-50%); bottom: 22rem; }
       .hero__headline { font-size: clamp(3.5rem, 13vw, 7rem); }
       .menu-overlay__links a { font-size: 11vw; }
@@ -1406,7 +1410,7 @@
       </video>
       <div class="hero__subtitle">
         <div class="hero__disciplines">
-          Motion Graphics <span class="dot">·</span> Brand Identity <span class="dot">·</span> Events <span class="dot">·</span> Print <span class="dot">·</span> Broadcast Graphics
+          Motion Graphics <span class="dot">·</span> Brand Identity <span class="dot">·</span> Events <span class="dot">·</span> Print <span class="dot">·</span> Social Media <span class="dot">·</span> Leader Packages
         </div>
       </div>
     </div>
