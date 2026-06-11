@@ -21,13 +21,13 @@
     html,body,div,span,h1,h2,h3,h4,p,a,ul,li,article,aside,footer,header,nav,section,em,strong{border:0;font:inherit;font-size:100%;margin:0;padding:0;vertical-align:baseline}
     *,*::after,*::before{box-sizing:border-box}
     ::-webkit-scrollbar{display:none}
-    :root{--color-ivory:#fffbf2;--color-sun:#daff00;--color-coal:#000;--color-void:#000;--ease-out-expo:cubic-bezier(0.19,1,0.22,1);--ease-out-cubic:cubic-bezier(0.215,0.61,0.355,1)}
+    :root{--color-ivory:#fffbf2;--color-sun:#ffff00;--color-coal:#000;--color-void:#000;--ease-out-expo:cubic-bezier(0.19,1,0.22,1);--ease-out-cubic:cubic-bezier(0.215,0.61,0.355,1)}
     html{background:var(--color-void);font-size:.5208333333vw;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
     body{font:1.6rem/1.3 "Azeret Mono",monospace;background:var(--color-void);opacity:0;transition:opacity .6s ease;cursor:none;overflow-x:clip}
     body.loaded{opacity:1}
     .cursor{position:fixed;top:0;left:0;z-index:9999;width:7px;height:7px;background:var(--color-sun);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);mix-blend-mode:exclusion;will-change:transform;transition:width .25s ease,height .25s ease}
     .cursor.big{width:48px;height:48px}
-    .cursor-ring{position:fixed;top:0;left:0;z-index:9998;width:28px;height:28px;border:1px solid rgba(255,254,0,.35);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);will-change:transform;transition:width .3s ease,height .3s ease,opacity .3s ease}
+    .cursor-ring{position:fixed;top:0;left:0;z-index:9998;width:28px;height:28px;border:1px solid rgba(255,255,0,.35);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);will-change:transform;transition:width .3s ease,height .3s ease,opacity .3s ease}
     .cursor-ring.hovering{width:50px;height:50px;opacity:.45}
     .cursor-ring.hidden{opacity:0}
     .nav{position:absolute;top:0;left:0;width:100%;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:3.2rem 4.8rem;transition:padding .6s var(--ease-out-expo)}
@@ -39,14 +39,14 @@
     .nav__links{display:flex;align-items:center;justify-content:flex-end;gap:.8rem;list-style:none}
     .nav__links li{opacity:0;transform:translateY(-8px);transition:opacity .6s ease,transform .6s var(--ease-out-expo)}
     .nav__links li.in{opacity:1;transform:translateY(0)}
-    .nav__links a{display:inline-block;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(218,255,0,.45);text-decoration:none;padding:.9rem 1.4rem;position:relative;transition:color .5s var(--ease-out-expo)}
+    .nav__links a{display:inline-block;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,0,.45);text-decoration:none;padding:.9rem 1.4rem;position:relative;transition:color .5s var(--ease-out-expo)}
     .nav__links a::after{content:'';position:absolute;bottom:4px;left:1.4rem;right:1.4rem;height:1px;background:var(--color-sun);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease-out-expo)}
     .nav__links a:hover{color:var(--color-sun)}
     .nav__links a:hover::after{transform:scaleX(1);transform-origin:left}
     .nav__dropdown{position:relative}
     .nav__dropdown__menu{position:absolute;top:100%;left:1.4rem;transform:translateY(-6px);list-style:none;min-width:10rem;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .3s var(--ease-out-expo);z-index:200;padding-top:.8rem}
     .nav__dropdown:hover .nav__dropdown__menu{opacity:1;pointer-events:all;transform:translateY(0)}
-    .nav__dropdown__menu a{display:inline-block;padding:.5rem 0;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(218,255,0,.45);text-decoration:none;transition:color .2s}
+    .nav__dropdown__menu a{display:inline-block;padding:.5rem 0;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,0,.45);text-decoration:none;transition:color .2s}
     .nav__dropdown__menu a::after{left:0;right:0;bottom:0}
     .nav__dropdown__menu a:hover{color:var(--color-sun)}
     .nav__menu-btn{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;background:none;border:none;cursor:none;padding:0}
@@ -70,9 +70,9 @@
     .project-hero__image{position:absolute;inset:0;background-size:cover;background-position:center}
     .project-hero__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.12) 55%,rgba(0,0,0,.42) 100%);z-index:2}
     .project-hero__content{position:relative;z-index:3;padding:4.8rem;padding-bottom:7.2rem}
-    .project-hero__num{font-size:1.1rem;font-weight:300;letter-spacing:.15em;color:rgba(218,255,0,.5);display:block;margin-bottom:2.4rem;text-transform:uppercase}
+    .project-hero__num{font-size:1.1rem;font-weight:300;letter-spacing:.15em;color:rgba(255,255,0,.5);display:block;margin-bottom:2.4rem;text-transform:uppercase}
     .project-hero__tags{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2.8rem}
-    .project-hero__tag{font-size:1rem;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(218,255,0,.8);border:1px solid rgba(218,255,0,.3);padding:.5rem 1.2rem}
+    .project-hero__tag{font-size:1rem;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,0,.8);border:1px solid rgba(255,255,0,.3);padding:.5rem 1.2rem}
     .project-hero__title{font-family:'Joyride',"Azeret Mono",monospace;font-size:clamp(4rem,6.5vw,11.2rem);font-weight:400;line-height:.92;letter-spacing:.01em;text-transform:uppercase;color:var(--color-ivory);max-width:90rem}
     .project-content{background:var(--color-ivory);position:relative;z-index:5;border-radius:2.4rem 2.4rem 0 0;margin-top:0;overflow:clip}
     .project-intro{padding:8rem 4.8rem;display:grid;grid-template-columns:28rem 1fr;gap:8rem;border-bottom:1px solid rgba(36,36,36,.08)}
@@ -99,7 +99,7 @@
     .book-slide{flex:0 0 100%;height:100%}
     .book-slide img{width:100%;height:100%;object-fit:contain;display:block}
     .book-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.12);color:#fff;width:5.6rem;height:5.6rem;display:flex;align-items:center;justify-content:center;cursor:none;transition:background .2s,border-color .2s;font-size:2rem}
-    .book-btn:hover{background:rgba(218,255,0,.15);border-color:rgba(218,255,0,.4)}
+    .book-btn:hover{background:rgba(255,255,0,.15);border-color:rgba(255,255,0,.4)}
     .book-btn svg{pointer-events:none}
     .book-prev{left:2rem}
     .book-next{right:2rem}
@@ -109,14 +109,14 @@
     .book-dots{display:flex;gap:.6rem;flex-wrap:wrap;max-width:60rem}
     .book-dot{width:.6rem;height:.6rem;background:rgba(255,251,242,.15);border-radius:50%;cursor:pointer;transition:background .2s,transform .2s;flex-shrink:0}
     .book-dot.active{background:var(--color-sun);transform:scale(1.4)}
-    .book-fullscreen-btn{font-family:'Joyride',"Azeret Mono",monospace;font-size:1rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(218,255,0,.5);background:none;border:1px solid rgba(218,255,0,.2);padding:.7rem 1.6rem;cursor:none;transition:color .2s,border-color .2s}
-    .book-fullscreen-btn:hover{color:var(--color-sun);border-color:rgba(218,255,0,.5)}
+    .book-fullscreen-btn{font-family:'Joyride',"Azeret Mono",monospace;font-size:1rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,0,.5);background:none;border:1px solid rgba(255,255,0,.2);padding:.7rem 1.6rem;cursor:none;transition:color .2s,border-color .2s}
+    .book-fullscreen-btn:hover{color:var(--color-sun);border-color:rgba(255,255,0,.5)}
     .book-lightbox{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s ease}
     .book-lightbox.open{opacity:1;pointer-events:all}
     .book-lightbox__inner{position:relative;width:90vw;max-width:140rem;aspect-ratio:16/9}
     .book-lightbox__inner img{width:100%;height:100%;object-fit:contain;display:block}
     .book-lightbox__close{position:absolute;top:2rem;right:2rem;background:none;border:1px solid rgba(255,255,255,.2);color:#fff;width:4.8rem;height:4.8rem;font-size:2.4rem;cursor:none;display:flex;align-items:center;justify-content:center;transition:border-color .2s}
-    .book-lightbox__close:hover{border-color:rgba(218,255,0,.5);color:var(--color-sun)}
+    .book-lightbox__close:hover{border-color:rgba(255,255,0,.5);color:var(--color-sun)}
     .book-lightbox__nav{display:flex;gap:1.6rem;margin-top:2rem;align-items:center}
     .book-lightbox__counter{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.2rem;letter-spacing:.1em;color:rgba(255,251,242,.4);min-width:8rem;text-align:center}
     .project-credits{padding:8rem 4.8rem;background:var(--color-ivory);border-top:1px solid rgba(36,36,36,.08)}
@@ -243,7 +243,7 @@
       <h1 class="project-hero__title">Discovery Ultra</h1>
     </div>
     <div class="scroll-hint">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(218,255,0,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,0,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
   </section>
 

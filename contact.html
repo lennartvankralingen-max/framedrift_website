@@ -24,7 +24,7 @@
     /* ─── Tokens ─── */
     :root{
       --ivory:#fffbf2;
-      --sun:#daff00;
+      --sun:#ffff00;
       --coal:#000;
       --ease-out-expo:cubic-bezier(0.19,1,0.22,1);
       --ease-out-cubic:cubic-bezier(0.215,0.61,0.355,1);
@@ -37,7 +37,7 @@
     /* ─── Cursor ─── */
     .cursor{position:fixed;top:0;left:0;z-index:9999;width:7px;height:7px;background:var(--sun);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);mix-blend-mode:exclusion;transition:width .25s ease,height .25s ease}
     .cursor.big{width:48px;height:48px}
-    .cursor-ring{position:fixed;top:0;left:0;z-index:9998;width:28px;height:28px;border:1px solid rgba(255,254,0,.35);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);transition:width .3s ease,height .3s ease,opacity .3s ease}
+    .cursor-ring{position:fixed;top:0;left:0;z-index:9998;width:28px;height:28px;border:1px solid rgba(255,255,0,.35);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);transition:width .3s ease,height .3s ease,opacity .3s ease}
     .cursor-ring.hovering{width:50px;height:50px;opacity:.45}
     .cursor-ring.hidden{opacity:0}
 
@@ -51,14 +51,14 @@
     .nav__links{display:flex;align-items:center;justify-content:flex-end;gap:.8rem;list-style:none}
     .nav__links li{opacity:0;transform:translateY(-8px);transition:opacity .6s ease,transform .6s var(--ease-out-expo)}
     .nav__links li.in{opacity:1;transform:translateY(0)}
-    .nav__links a{display:inline-block;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(218,255,0,.45);text-decoration:none;padding:.9rem 1.4rem;position:relative;transition:color .5s var(--ease-out-expo)}
+    .nav__links a{display:inline-block;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,0,.45);text-decoration:none;padding:.9rem 1.4rem;position:relative;transition:color .5s var(--ease-out-expo)}
     .nav__links a::after{content:'';position:absolute;bottom:4px;left:1.4rem;right:1.4rem;height:1px;background:var(--sun);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease-out-expo)}
     .nav__links a:hover,.nav__links a.active{color:var(--sun)}
     .nav__links a:hover::after,.nav__links a.active::after{transform:scaleX(1);transform-origin:left}
     .nav__dropdown{position:relative}
     .nav__dropdown__menu{position:absolute;top:100%;left:1.4rem;transform:translateY(-6px);list-style:none;min-width:10rem;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .3s var(--ease-out-expo);z-index:200;padding-top:.8rem}
     .nav__dropdown:hover .nav__dropdown__menu{opacity:1;pointer-events:all;transform:translateY(0)}
-    .nav__dropdown__menu a{display:inline-block;padding:.5rem 0;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(218,255,0,.45);text-decoration:none;transition:color .2s}
+    .nav__dropdown__menu a{display:inline-block;padding:.5rem 0;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,0,.45);text-decoration:none;transition:color .2s}
     .nav__dropdown__menu a::after{left:0;right:0;bottom:0}
     .nav__dropdown__menu a:hover{color:var(--color-sun)}
     .nav__menu-btn{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;background:none;border:none;cursor:none;padding:0}
@@ -105,7 +105,7 @@
     }
     .contact__glow{
       position:absolute;inset:0;
-      background:radial-gradient(ellipse at center,rgba(255,254,0,.04) 0%,transparent 65%);
+      background:radial-gradient(ellipse at center,rgba(255,255,0,.04) 0%,transparent 65%);
       pointer-events:none;
     }
     .contact__content{position:relative;z-index:1}
