@@ -1467,7 +1467,7 @@
           <span class="work__item__num">01</span>
           <div class="work__item__overlay">
             <p class="work__item__category">Branding, Motion, Video</p>
-            <h3 class="work__item__title">KickOff - GroupM</h3>
+            <h3 class="work__item__title">KickOff 2025 - GroupM</h3>
           </div>
         </a>
         <a href="work/jeroens-abandoned-adventures.html" class="work__item reveal reveal-d1">
@@ -1846,6 +1846,21 @@
 
     document.body.classList.add('loaded');
     revealNav();
+
+    /* ── Force-start hero video (mobile autoplay fallback) ─────────── */
+    const heroVideo = qs('.hero__logo-video');
+    if (heroVideo) {
+      const tryPlayHeroVideo = () => { heroVideo.play().catch(() => {}); };
+      tryPlayHeroVideo();
+      heroVideo.addEventListener('loadeddata', tryPlayHeroVideo);
+      heroVideo.addEventListener('canplay', tryPlayHeroVideo);
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) tryPlayHeroVideo();
+      });
+      ['touchstart', 'click', 'scroll'].forEach(evt => {
+        document.addEventListener(evt, tryPlayHeroVideo, { once: true, passive: true });
+      });
+    }
 
     /* ── Brands marquee (mobile only) ───────────────────────────── */
     if (window.innerWidth <= 768) {
