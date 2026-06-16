@@ -10,6 +10,10 @@ brand_assets/Discovery_Ultra_Styleguide_V1.pdf
 # Intermediate compressed files (originals used instead)
 brand_assets/*_compressed.mp4
 
+# Raw Re-Search source video (too large, compressed versions used instead)
+work/RE-SEARCH.mov
+work/RE-SEARCH.mp4
+
 # System
 .DS_Store
 .tmp/

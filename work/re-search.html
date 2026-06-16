@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Re-Search - Framedrift</title>
+  <link rel="icon" type="image/png" href="../brand_assets/Favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <style>
+    @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideSTD.otf') format('opentype'); font-weight:400; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideSTDItalic.otf') format('opentype'); font-weight:400; font-style:italic; font-display:swap; }
+    @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideEXT.otf') format('opentype'); font-weight:700; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Joyride'; src:url('../fonts/JoyrideEXTItalic.otf') format('opentype'); font-weight:700; font-style:italic; font-display:swap; }
+    @font-face { font-family:'Metropolis'; src:url('../fonts/metropolis/Metropolis-Thin.otf') format('opentype'); font-weight:100; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Metropolis'; src:url('../fonts/metropolis/Metropolis-Light.otf') format('opentype'); font-weight:300; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Metropolis'; src:url('../fonts/metropolis/Metropolis-Regular.otf') format('opentype'); font-weight:400; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Metropolis'; src:url('../fonts/metropolis/Metropolis-Medium.otf') format('opentype'); font-weight:500; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Metropolis'; src:url('../fonts/metropolis/Metropolis-SemiBold.otf') format('opentype'); font-weight:600; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Metropolis'; src:url('../fonts/metropolis/Metropolis-Bold.otf') format('opentype'); font-weight:700; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Metropolis'; src:url('../fonts/metropolis/Metropolis-ExtraBold.otf') format('opentype'); font-weight:800; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Metropolis'; src:url('../fonts/metropolis/Metropolis-Black.otf') format('opentype'); font-weight:900; font-style:normal; font-display:swap; }
+    @media(hover:none) and (pointer:coarse){
+      .cursor,.cursor-ring{display:none!important}
+      body{cursor:auto}
+    }
+  </style>
+  <style>
+    html,body,div,span,h1,h2,h3,h4,p,a,ul,li,article,aside,footer,header,nav,section,em,strong{border:0;font:inherit;font-size:100%;margin:0;padding:0;vertical-align:baseline}
+    *,*::after,*::before{box-sizing:border-box}
+    ::-webkit-scrollbar{display:none}
+    :root{--color-ivory:#fffbf2;--color-sun:#ffff00;--color-coal:#000;--color-void:#000;--ease-out-expo:cubic-bezier(0.19,1,0.22,1);--ease-out-cubic:cubic-bezier(0.215,0.61,0.355,1);--rs-navy:#0a0a28;--rs-blue:#2a46aa;--rs-charcoal:#252525;--rs-grey:#a3a3a3;--rs-cream:#f4f2ec}
+    html{background:var(--color-void);font-size:.5208333333vw;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+    body{font:1.6rem/1.3 "Azeret Mono",monospace;background:var(--color-void);opacity:0;transition:opacity .6s ease;cursor:none;overflow-x:clip}
+    body.loaded{opacity:1}
+    .cursor{position:fixed;top:0;left:0;z-index:9999;width:7px;height:7px;background:var(--color-sun);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);mix-blend-mode:exclusion;will-change:transform;transition:width .25s ease,height .25s ease}
+    .cursor.big{width:48px;height:48px}
+    .cursor-ring{position:fixed;top:0;left:0;z-index:9998;width:28px;height:28px;border:1px solid rgba(255,255,0,.35);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);will-change:transform;transition:width .3s ease,height .3s ease,opacity .3s ease}
+    .cursor-ring.hovering{width:50px;height:50px;opacity:.45}
+    .cursor-ring.hidden{opacity:0}
+    .nav{position:absolute;top:0;left:0;width:100%;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:3.2rem 4.8rem;transition:padding .6s var(--ease-out-expo)}
+    .nav__logo{visibility:hidden}
+    .nav__logo.in{opacity:1;transform:translateY(0)}
+    .nav__logo img{height:16rem;width:auto;display:block;filter:invert(1);mix-blend-mode:screen;transition:filter .6s ease}
+    .nav__left{display:flex;align-items:center}
+    .nav__links{display:flex;align-items:center;justify-content:flex-end;gap:.8rem;list-style:none}
+    .nav__links li{opacity:0;transform:translateY(-8px);transition:opacity .6s ease,transform .6s var(--ease-out-expo)}
+    .nav__links li.in{opacity:1;transform:translateY(0)}
+    .nav__links a{display:inline-block;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,0,.45);text-decoration:none;padding:.9rem 1.4rem;position:relative;transition:color .5s var(--ease-out-expo)}
+    .nav__links a::after{content:'';position:absolute;bottom:4px;left:1.4rem;right:1.4rem;height:1px;background:var(--color-sun);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease-out-expo)}
+    .nav__links a:hover{color:var(--color-sun)}
+    .nav__links a:hover::after{transform:scaleX(1);transform-origin:left}
+    .nav__dropdown{position:relative}
+    .nav__dropdown__menu{position:absolute;top:100%;left:1.4rem;transform:translateY(-6px);list-style:none;min-width:10rem;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .3s var(--ease-out-expo);z-index:200;padding-top:.8rem}
+    .nav__dropdown:hover .nav__dropdown__menu{opacity:1;pointer-events:all;transform:translateY(0)}
+    .nav__dropdown__menu a{display:inline-block;padding:.5rem 0;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,0,.45);text-decoration:none;transition:color .2s}
+    .nav__dropdown__menu a::after{left:0;right:0;bottom:0}
+    .nav__dropdown__menu a:hover{color:var(--color-sun)}
+    .nav__menu-btn{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;background:none;border:none;cursor:none;padding:0}
+    .nav__menu-btn span{display:block;width:100%;height:1px;background:var(--color-ivory);transition:transform .5s var(--ease-out-expo),opacity .3s ease}
+    .nav--open .nav__menu-btn span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+    .nav--open .nav__menu-btn span:nth-child(2){opacity:0;transform:scaleX(0)}
+    .nav--open .nav__menu-btn span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+    .menu-overlay{position:fixed;inset:0;z-index:190;background:var(--color-void);display:flex;flex-direction:column;justify-content:center;padding:4.8rem;opacity:0;visibility:hidden;transition:opacity .5s var(--ease-out-expo),visibility .5s ease}
+    .menu-overlay.open{opacity:1;visibility:visible}
+    .menu-overlay__links{list-style:none;display:flex;flex-direction:column;gap:1.6rem}
+    .menu-overlay__links li{overflow:hidden}
+    .menu-overlay__links a{display:block;font-family:'Joyride',"Azeret Mono",monospace;font-size:6rem;font-weight:400;letter-spacing:.05em;text-transform:uppercase;color:var(--color-ivory);text-decoration:none;transform:translateY(110%);transition:transform 1.2s var(--ease-out-expo),color .3s ease}
+    .menu-overlay.open .menu-overlay__links a{transform:translateY(0)}
+    .menu-overlay__links a:hover{color:var(--color-sun)}
+    .menu-overlay__footer{position:absolute;bottom:4rem;left:4.8rem;right:4.8rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,251,242,.1);padding-top:2.4rem;opacity:0;transition:opacity .6s ease .4s}
+    .menu-overlay.open .menu-overlay__footer{opacity:1}
+    .menu-overlay__contact{font-size:1.4rem;font-weight:300;color:rgba(255,251,242,.4);text-decoration:none;transition:color .3s}
+    .menu-overlay__contact:hover{color:var(--color-sun)}
+    .menu-overlay__offices{font-size:1.2rem;font-weight:300;color:rgba(255,251,242,.25);text-align:right;line-height:1.8}
+
+    @keyframes rsSpin{from{transform:translateY(-50%) rotate(0deg)}to{transform:translateY(-50%) rotate(360deg)}}
+    @keyframes rsSpinCenter{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+    @keyframes rsPulse{0%,100%{opacity:.5;transform:translateY(-50%) scale(1)}50%{opacity:.85;transform:translateY(-50%) scale(1.04)}}
+
+    .project-hero{height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;background:var(--rs-navy)}
+    .project-hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 75%;display:block}
+    .project-hero__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.12) 55%,rgba(0,0,0,.42) 100%);z-index:2}
+    .project-hero__content{position:relative;z-index:3;padding:4.8rem;padding-bottom:7.2rem}
+    .project-hero__tags{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2.8rem}
+    .project-hero__tag{font-size:1rem;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,0,.8);border:1px solid rgba(255,255,0,.3);padding:.5rem 1.2rem}
+    .project-hero__title{font-family:'Joyride',"Azeret Mono",monospace;font-size:clamp(4rem,6.5vw,11.2rem);font-weight:400;line-height:.92;letter-spacing:.01em;text-transform:uppercase;color:var(--color-ivory);max-width:90rem;overflow:hidden}
+    .project-hero__title span{display:block;transform:translateY(110%);transition:transform 1.1s var(--ease-out-expo) .2s}
+    body.loaded .project-hero__title span{transform:translateY(0)}
+
+    .project-content{background:var(--color-ivory);position:relative;z-index:5;border-radius:2.4rem 2.4rem 0 0;margin-top:0;overflow:clip}
+    .project-intro{padding:8rem 4.8rem;display:grid;grid-template-columns:28rem 1fr;gap:8rem;border-bottom:1px solid rgba(36,36,36,.08)}
+    .project-meta{display:flex;flex-direction:column;gap:3.2rem}
+    .meta-label{display:block;font-size:1rem;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:rgba(36,36,36,.3);margin-bottom:.6rem}
+    .meta-value{display:block;font-size:1.4rem;font-weight:300;color:var(--color-coal)}
+    .project-desc{font-size:clamp(1.8rem,1.5vw,2.6rem);font-weight:300;line-height:1.7;color:rgba(36,36,36,.65)}
+    .project-desc + .project-desc{margin-top:2.4rem}
+
+    .project-quote{padding:6rem 4.8rem;background:var(--rs-navy);position:relative;overflow:hidden;display:flex;align-items:center;gap:6rem;min-height:34rem}
+    .project-quote__ring{position:absolute;bottom:-8rem;right:10%;border:1px solid rgba(255,255,255,.05);border-radius:50%;transform:translateX(50%);pointer-events:none}
+    .project-quote__ring--1{width:40rem;height:40rem;animation:rsSpinCenter 90s linear infinite}
+    .project-quote__ring--2{width:28rem;height:28rem;animation:rsSpinCenter 60s linear infinite reverse}
+    .project-quote__mark{position:absolute;bottom:-7.5rem;right:8%;transform:translateX(50%);z-index:2;width:31rem;height:31rem;touch-action:none}
+    .project-quote__mark__auto{width:100%;height:100%;animation:rsSpinCenter 36s linear infinite}
+    .project-quote__mark__drag{width:100%;height:100%;cursor:grab}
+    .project-quote__mark__drag:active{cursor:grabbing}
+    .project-quote__mark__drag img{width:100%;height:100%;pointer-events:none;user-select:none}
+    .project-quote p{position:relative;z-index:2;font-family:'Joyride',"Azeret Mono",monospace;font-size:clamp(2.2rem,3.4vw,4.6rem);font-weight:400;line-height:1.25;color:var(--color-ivory);max-width:64rem;text-transform:uppercase;letter-spacing:.01em;overflow:hidden}
+    .project-quote .ql{display:block;overflow:hidden}
+    .project-quote .ql__inner{display:block;transform:translateY(110%);transition:transform 1s var(--ease-out-expo)}
+    .project-quote.in-view .ql__inner{transform:translateY(0)}
+    .project-quote .ql:nth-child(1) .ql__inner{transition-delay:0s}
+    .project-quote .ql:nth-child(2) .ql__inner{transition-delay:.08s}
+    .project-quote .ql:nth-child(3) .ql__inner{transition-delay:.16s}
+    .project-quote .ql:nth-child(4) .ql__inner{transition-delay:.24s}
+    .project-quote .ql:nth-child(5) .ql__inner{transition-delay:.32s}
+    .project-quote .hl{color:#5b7cf0}
+
+    .section-label{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;color:rgba(36,36,36,.28);padding:4.8rem 4.8rem 0}
+
+    .type-showcase{padding:.8rem 4.8rem 0}
+    .type-row{display:flex;align-items:baseline;justify-content:space-between;gap:3.2rem;padding:1.2rem 0;border-bottom:1px solid rgba(36,36,36,.08)}
+    .type-row:first-child{border-top:1px solid rgba(36,36,36,.08)}
+    .type-row__label{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:rgba(36,36,36,.32);min-width:13rem;flex-shrink:0}
+    .type-row__sample{font-family:'Metropolis',"Azeret Mono",sans-serif;font-size:clamp(1.8rem,2.4vw,3.2rem);color:var(--rs-navy);letter-spacing:.005em;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+    /* Live site banner */
+    .live-banner{position:relative;background:#060e1a;overflow:hidden;padding:7.2rem 4.8rem;margin-top:3.2rem}
+    .live-banner__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.25}
+    .live-banner__overlay{position:absolute;inset:0;background:linear-gradient(180deg,#060e1a 0%,transparent 30%,transparent 70%,#060e1a 100%)}
+    .live-banner__inner{position:relative;z-index:2;max-width:120rem;margin:0 auto;display:grid;grid-template-columns:2fr 3fr;gap:6.4rem;align-items:start}
+    .live-banner__label{display:block;font-family:'Metropolis',"Azeret Mono",sans-serif;font-size:1.3rem;font-weight:800;letter-spacing:.08em;margin-bottom:1.2rem}
+    .live-banner__label .blue{color:#4a9eff}
+    .live-banner__label .white{color:var(--color-ivory)}
+    .live-banner__heading{font-family:'Metropolis',"Azeret Mono",sans-serif;font-size:clamp(2.2rem,2.6vw,3.4rem);font-weight:800;line-height:1.25;color:var(--color-ivory);white-space:pre-line}
+    .live-banner__accent{height:2px;width:6rem;background:rgba(74,158,255,.6);margin-top:2.4rem;transform:scaleX(0);transform-origin:left;transition:transform 1s var(--ease-out-expo) .3s}
+    .live-banner.in-view .live-banner__accent{transform:scaleX(1)}
+    .live-banner__right{position:relative;padding-left:3.6rem}
+    .live-banner__vline{position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(255,251,242,.12);transform:scaleY(0);transform-origin:top;transition:transform 1.1s var(--ease-out-expo) .15s}
+    .live-banner.in-view .live-banner__vline{transform:scaleY(1)}
+    .live-banner__lead{font-family:'Metropolis',"Azeret Mono",sans-serif;font-size:clamp(1.4rem,1.4vw,1.7rem);font-weight:600;line-height:1.6;color:var(--color-ivory);margin-bottom:1.2rem}
+    .live-banner__lead .blue{color:#4a9eff;font-weight:800}
+    .live-banner__body{font-family:'Metropolis',"Azeret Mono",sans-serif;font-size:clamp(1.3rem,1.2vw,1.5rem);font-weight:400;line-height:1.7;color:rgba(255,251,242,.65);margin-bottom:2.4rem}
+    .live-banner__person{display:flex;align-items:center;gap:1.2rem}
+    .live-banner__avatar{width:5.6rem;height:5.6rem;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid rgba(255,251,242,.25)}
+    .live-banner__avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    .live-banner__person-name{font-family:'Metropolis',"Azeret Mono",sans-serif;font-size:1.4rem;font-weight:700;color:var(--color-ivory)}
+    .live-banner__person-title{font-family:'Metropolis',"Azeret Mono",sans-serif;font-size:1.2rem;font-weight:500;color:#4a9eff}
+
+    .lockup-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;padding:.8rem 4.8rem 0}
+    .lockup-group__heading{font-size:1rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;color:rgba(36,36,36,.32);text-align:left;padding:.2rem 0 0}
+    .lockup-carousel__stage{position:relative;aspect-ratio:16/9;overflow:hidden}
+    .lockup-carousel__stage img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .35s ease}
+    .lockup-carousel__btn{position:absolute;top:50%;transform:translateY(-50%);z-index:5;background:rgba(255,255,255,.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:none;border-radius:50%;color:rgba(36,36,36,.7);width:3.6rem;height:3.6rem;display:flex;align-items:center;justify-content:center;cursor:none;box-shadow:0 2px 10px rgba(0,0,0,.18);transition:background .25s ease,color .25s ease,transform .25s ease,box-shadow .25s ease}
+    .lockup-carousel__btn:hover{background:#fff;color:var(--rs-navy);transform:translateY(-50%) scale(1.08);box-shadow:0 4px 16px rgba(0,0,0,.24)}
+    .lockup-carousel__btn svg{width:14px;height:14px}
+    .lockup-carousel__btn--prev{left:1rem}
+    .lockup-carousel__btn--next{right:1rem}
+    .lockup-carousel__dots{display:flex;justify-content:center;gap:.6rem;padding:1.2rem 0 .4rem}
+    .lockup-carousel__dot{width:.6rem;height:.6rem;border-radius:50%;background:rgba(36,36,36,.18);cursor:none;transition:background .2s,transform .2s}
+    .lockup-carousel__dot.active{background:var(--rs-blue);transform:scale(1.3)}
+
+    .palette-wrap{padding:.8rem 4.8rem 0}
+    .palette{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+    .palette__swatch{height:20rem;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;cursor:none;position:relative;overflow:hidden;transition:transform .4s var(--ease-out-expo)}
+    .palette__swatch:hover{transform:translateY(-.6rem)}
+    .palette__name{font-size:1.1rem;font-weight:400;letter-spacing:.05em;text-transform:uppercase}
+    .palette__hex{font-size:1.1rem;font-weight:300;opacity:.6;letter-spacing:.05em;transition:opacity .3s}
+    .palette__copied{position:absolute;top:1.6rem;right:1.6rem;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;opacity:0;transition:opacity .3s}
+    .palette__swatch.copied .palette__copied{opacity:.8}
+
+    .book-wrap{position:relative;background:#0a0a0a;padding:.8rem;margin-top:3.2rem}
+    .book-stage{position:relative;overflow:hidden;aspect-ratio:16/9;background:#111}
+    .book-track{display:flex;height:100%;transition:transform .5s cubic-bezier(0.19,1,0.22,1)}
+    .book-slide{flex:0 0 100%;height:100%}
+    .book-slide img{width:100%;height:100%;object-fit:contain;display:block}
+    .book-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:10;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.12);color:#fff;width:5.6rem;height:5.6rem;display:flex;align-items:center;justify-content:center;cursor:none;transition:background .2s,border-color .2s;font-size:2rem}
+    .book-btn:hover{background:rgba(255,255,0,.15);border-color:rgba(255,255,0,.4)}
+    .book-btn svg{pointer-events:none}
+    .book-prev{left:2rem}
+    .book-next{right:2rem}
+    .book-btn:disabled{opacity:.2;pointer-events:none}
+    .book-footer{display:flex;align-items:center;justify-content:space-between;padding:1.6rem 2.4rem;flex-wrap:wrap;gap:1.2rem}
+    .book-counter{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;letter-spacing:.12em;color:rgba(255,251,242,.3)}
+    .book-dots{display:flex;gap:.6rem;flex-wrap:wrap;max-width:60rem}
+    .book-dot{width:.6rem;height:.6rem;background:rgba(255,251,242,.15);border-radius:50%;cursor:none;transition:background .2s,transform .2s;flex-shrink:0}
+    .book-dot.active{background:var(--color-sun);transform:scale(1.4)}
+    .book-fullscreen-btn{font-family:'Joyride',"Azeret Mono",monospace;font-size:1rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,0,.5);background:none;border:1px solid rgba(255,255,0,.2);padding:.7rem 1.6rem;cursor:none;transition:color .2s,border-color .2s}
+    .book-fullscreen-btn:hover{color:var(--color-sun);border-color:rgba(255,255,0,.5)}
+    .book-lightbox{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s ease}
+    .book-lightbox.open{opacity:1;pointer-events:all}
+    .book-lightbox__inner{position:relative;width:90vw;max-width:140rem;aspect-ratio:16/9}
+    .book-lightbox__inner img{width:100%;height:100%;object-fit:contain;display:block}
+    .book-lightbox__close{position:absolute;top:2rem;right:2rem;background:none;border:1px solid rgba(255,255,255,.2);color:#fff;width:4.8rem;height:4.8rem;font-size:2.4rem;cursor:none;display:flex;align-items:center;justify-content:center;transition:border-color .2s}
+    .book-lightbox__close:hover{border-color:rgba(255,255,0,.5);color:var(--color-sun)}
+    .book-lightbox__nav{display:flex;gap:1.6rem;margin-top:2rem;align-items:center}
+    .book-lightbox__counter{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.2rem;letter-spacing:.1em;color:rgba(255,251,242,.4);min-width:8rem;text-align:center}
+
+    .scroll-hint{position:absolute;bottom:4rem;right:4.8rem;z-index:10;display:flex;flex-direction:column;align-items:center;opacity:0;transition:opacity .8s ease 2s}body.loaded .scroll-hint{opacity:1}.scroll-hint svg{animation:scrollBounce 1.8s ease-in-out infinite}@keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+    footer{background:var(--color-void);padding:4rem 4.8rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,251,242,.05);position:relative;margin-top:3.2rem}
+    .footer__logo{position:absolute;left:50%;transform:translateX(-50%)}
+    .footer__logo img{height:8rem;width:auto;display:block;filter:invert(1);mix-blend-mode:screen;opacity:.6}
+    .footer__copy{font-size:1.1rem;font-weight:300;color:rgba(255,251,242,.15);letter-spacing:.04em}
+    .footer__links{display:flex;gap:2.4rem;list-style:none;align-items:center}
+    .footer__links a{display:flex;align-items:center;justify-content:center;color:rgba(255,251,242,.25);text-decoration:none;transition:color .3s}
+    .footer__links a:hover{color:rgba(255,251,242,.75)}
+    .footer__links svg{display:block}
+    .reveal{opacity:0;transform:translateY(3.2rem);transition:opacity .9s var(--ease-out-expo),transform .9s var(--ease-out-expo)}
+    .reveal.in-view{opacity:1;transform:translateY(0)}
+    .reveal-d1{transition-delay:.12s}
+    .reveal-d2{transition-delay:.24s}
+    @media(max-width:768px){
+      html{font-size:1.8vw}
+      .nav{padding:2.4rem}.nav__logo img{height:22vw}.nav__menu-btn{width:28px;height:28px}
+      .nav__links{display:none}
+      .nav__menu-btn{display:flex}
+      .menu-overlay__links a{font-size:11vw}
+      .project-hero__content{padding:2.4rem;padding-bottom:5.6rem}
+      .project-intro{grid-template-columns:1fr;gap:4rem;padding:5.6rem 2.4rem}
+      .project-quote{padding:5.6rem 2.4rem;min-height:0;flex-direction:column;gap:3.2rem;text-align:left}
+      .project-quote__mark{position:relative;top:auto;right:auto;bottom:auto;transform:none;width:13rem;height:13rem;margin:0 auto;order:-1}
+      .section-label{padding:4.8rem 2.4rem 0}
+      .type-showcase{padding:.8rem 2.4rem 0}
+      .type-row{flex-direction:column;align-items:flex-start;gap:.8rem}
+      .live-banner{padding:4.8rem 2.4rem}
+      .live-banner__inner{grid-template-columns:1fr;gap:3.2rem}
+      .live-banner__right{padding-left:0}
+      .live-banner__vline{display:none}
+      .lockup-row{grid-template-columns:1fr;padding:.8rem 2.4rem 0;gap:2.4rem}
+      .palette-wrap{padding:.8rem 2.4rem 0}
+      .palette{grid-template-columns:repeat(2,1fr)}
+      footer{display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:center;gap:0;padding:2.4rem 2.4rem;text-align:left}.footer__logo{flex:0 0 auto;display:flex;position:static;transform:none}.footer__logo img{height:5rem}.footer__copy{flex:1;font-size:.9rem;text-align:center}.footer__links{justify-content:flex-end;gap:1.6rem}
+    }
+    @media(min-width:769px) and (max-width:1200px){
+      html{font-size:.7vw}
+      .project-intro{grid-template-columns:22rem 1fr;gap:5.6rem}
+    }
+    @media(hover:none) and (pointer:coarse){
+      .cursor,.cursor-ring{display:none!important}
+      body{cursor:auto}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .project-quote__ring--1,.project-quote__ring--2,.project-quote__mark__auto{animation:none!important}
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <filter id="logo-yellow" color-interpolation-filters="sRGB">
+        <feColorMatrix type="matrix" values="0.855 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav class="nav" id="nav">
+    <div class="nav__left"></div>
+    <a href="../index.html" class="nav__logo" id="navLogo">
+      <img src="../brand_assets/FD_LOGO.png" alt="Framedrift" />
+    </a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li class="nav__dropdown" id="workDropdown">
+        <a href="../index.html#work" class="nav__dropdown__trigger">Cases</a>
+        <ul class="nav__dropdown__menu">
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="keyart.html">Key-art</a></li>
+        </ul>
+      </li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <button class="nav__menu-btn" id="menuBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="menu-overlay" id="menuOverlay">
+    <ul class="menu-overlay__links">
+      <li><a href="../index.html" data-menu-link>Home</a></li>
+      <li><a href="../index.html#work" data-menu-link>Cases</a></li>
+      <li><a href="projects.html" data-menu-link>Projects</a></li>
+      <li><a href="keyart.html" data-menu-link>Keyart</a></li>
+      <li><a href="../about.html" data-menu-link>About</a></li>
+      <li><a href="../contact.html" data-menu-link>Contact</a></li>
+    </ul>
+    <div class="menu-overlay__footer">
+      <a href="mailto:lennart@framedrift.nl" class="menu-overlay__contact">lennart@framedrift.nl</a>
+      <div class="menu-overlay__offices"><img src="../brand_assets/FD_LOGO.png" alt="Framedrift" style="height:6rem;width:auto;filter:invert(1);mix-blend-mode:screen;opacity:0.6" /></div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="project-hero">
+    <video class="project-hero__video" autoplay muted loop playsinline>
+      <source src="../brand_assets/RE-SEARCH_HERO.mp4" type="video/mp4">
+    </video>
+    <div class="project-hero__overlay"></div>
+    <div class="project-hero__content">
+      <div class="project-hero__tags">
+        <span class="project-hero__tag">Branding</span>
+      </div>
+      <h1 class="project-hero__title"><span>Re-Search</span></h1>
+    </div>
+    <div class="scroll-hint">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,0,.45)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <div class="project-content">
+
+    <div class="project-intro">
+      <div class="project-meta reveal">
+        <div>
+          <span class="meta-label">Category</span>
+          <span class="meta-value">Branding</span>
+        </div>
+        <div>
+          <span class="meta-label">Client</span>
+          <span class="meta-value">Re-Search</span>
+        </div>
+        <div>
+          <span class="meta-label">Year</span>
+          <span class="meta-value">2025</span>
+        </div>
+      </div>
+      <div>
+        <p class="project-desc reveal reveal-d1">De commercieel vastgoedmarkt is verzadigd met platforms die draaien op algoritmes en voorspelbare AI-tools. RE-SEARCH koos bewust een andere koers: persoonlijk, precies, en gedreven door het verhaal achter de ondernemer.</p>
+        <p class="project-desc reveal reveal-d2">De opdracht was een merkidentiteit bouwen die dat standpunt direct communiceert. Geen generieke corporate look, maar een systeem dat vertrouwen uitstraalt &eacute;n karakter heeft.</p>
+      </div>
+    </div>
+
+    <div class="project-quote" id="quoteSection">
+      <div class="project-quote__ring project-quote__ring--1"></div>
+      <div class="project-quote__ring project-quote__ring--2"></div>
+      <p>
+        <span class="ql"><span class="ql__inner">RE-SEARCH geeft</span></span>
+        <span class="ql"><span class="ql__inner"><span class="hl">bestemming</span> aan</span></span>
+        <span class="ql"><span class="ql__inner">ruimte. Stop met</span></span>
+        <span class="ql"><span class="ql__inner">zoeken wij</span></span>
+        <span class="ql"><span class="ql__inner"><span class="hl">onderzoeken</span>.</span></span>
+      </p>
+      <div class="project-quote__mark" id="quoteMark">
+        <div class="project-quote__mark__auto">
+          <div class="project-quote__mark__drag" id="quoteMarkDrag">
+            <img src="../brand_assets/RE-SEARCH_ICON-07.png" alt="Re-Search icoon" draggable="false" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label">Typografie</p>
+    <div class="type-showcase reveal">
+      <div class="type-row"><span class="type-row__label">Thin</span><span class="type-row__sample" style="font-weight:100">Re-Search Aa</span></div>
+      <div class="type-row"><span class="type-row__label">Light</span><span class="type-row__sample" style="font-weight:300">Re-Search Aa</span></div>
+      <div class="type-row"><span class="type-row__label">Regular</span><span class="type-row__sample" style="font-weight:400">Re-Search Aa</span></div>
+      <div class="type-row"><span class="type-row__label">Medium</span><span class="type-row__sample" style="font-weight:500">Re-Search Aa</span></div>
+      <div class="type-row"><span class="type-row__label">SemiBold</span><span class="type-row__sample" style="font-weight:600">Re-Search Aa</span></div>
+      <div class="type-row"><span class="type-row__label">Bold</span><span class="type-row__sample" style="font-weight:700">Re-Search Aa</span></div>
+      <div class="type-row"><span class="type-row__label">ExtraBold</span><span class="type-row__sample" style="font-weight:800">Re-Search Aa</span></div>
+      <div class="type-row"><span class="type-row__label">Black</span><span class="type-row__sample" style="font-weight:900">Re-Search Aa</span></div>
+    </div>
+
+    <p class="section-label">Op de website</p>
+    <div class="live-banner reveal" id="liveBanner">
+      <video class="live-banner__video" autoplay muted loop playsinline>
+        <source src="../brand_assets/RE-SEARCH_BANNER_BG.mp4" type="video/mp4">
+      </video>
+      <div class="live-banner__overlay"></div>
+      <div class="live-banner__inner">
+        <div>
+          <span class="live-banner__label"><span class="blue">RE</span><span class="white">-SEARCH</span></span>
+          <h3 class="live-banner__heading">In een doolhof
+van keuzes
+zijn wij de gids</h3>
+          <div class="live-banner__accent"></div>
+        </div>
+        <div class="live-banner__right">
+          <div class="live-banner__vline"></div>
+          <p class="live-banner__lead"><span class="blue">RE</span>-SEARCH is geen standaard vastgoedplatform. Zoeken is digitaal, maar beslissen blijft persoonlijk.</p>
+          <p class="live-banner__body">Wij duiken dieper in jouw organisatie, ambities en behoeften, en vertalen dit naar concrete kansen met data, technologie en marktkennis. Onze RE-Advisors begrijpen de emotie en nuances, iets wat AI nooit volledig kan vervangen. Daarom maken wij vastgoed weer eerlijk en puur.</p>
+          <div class="live-banner__person">
+            <div class="live-banner__avatar"><img src="../brand_assets/RE-SEARCH_COLIN.jpg" alt="Colin Westerneng" /></div>
+            <div>
+              <div class="live-banner__person-name">Colin Westerneng</div>
+              <div class="live-banner__person-title">Commercial Director &amp; Co-Founder</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label">Logo</p>
+    <div class="lockup-row">
+      <div class="lockup-carousel reveal" data-images='["../brand_assets/RE-SEARCH_LOGO_STACK-01.png","../brand_assets/RE-SEARCH_LOGO_STACK-02.png","../brand_assets/RE-SEARCH_LOGO_STACK-04.png","../brand_assets/RE-SEARCH_LOGO_STACK-03.png"]'>
+        <div class="lockup-carousel__stage">
+          <img src="../brand_assets/RE-SEARCH_LOGO_STACK-01.png" alt="Re-Search stacked logo" />
+          <button class="lockup-carousel__btn lockup-carousel__btn--prev" aria-label="Vorige">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="lockup-carousel__btn lockup-carousel__btn--next" aria-label="Volgende">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="lockup-carousel__dots"></div>
+        <p class="lockup-group__heading">Stacked</p>
+      </div>
+      <div class="lockup-carousel reveal reveal-d1" data-images='["../brand_assets/RE-SEARCH_LOGO_WORDMARK-01.png","../brand_assets/RE-SEARCH_LOGO_WORDMARK-02.png","../brand_assets/RE-SEARCH_LOGO_WORDMARK-04.png","../brand_assets/RE-SEARCH_LOGO_WORDMARK-03.png"]'>
+        <div class="lockup-carousel__stage">
+          <img src="../brand_assets/RE-SEARCH_LOGO_WORDMARK-01.png" alt="Re-Search wordmark" />
+          <button class="lockup-carousel__btn lockup-carousel__btn--prev" aria-label="Vorige">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="lockup-carousel__btn lockup-carousel__btn--next" aria-label="Volgende">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="lockup-carousel__dots"></div>
+        <p class="lockup-group__heading">Wordmark</p>
+      </div>
+    </div>
+
+    <p class="section-label">Kleurenpalet</p>
+    <div class="palette-wrap">
+      <div class="palette" id="palette">
+        <div class="palette__swatch" data-hex="#0A0A28" style="background:var(--rs-navy);color:#fff">
+          <span class="palette__copied">Copied</span>
+          <span class="palette__name">Navy</span>
+          <span class="palette__hex">#0A0A28</span>
+        </div>
+        <div class="palette__swatch" data-hex="#2A46AA" style="background:var(--rs-blue);color:#fff">
+          <span class="palette__copied">Copied</span>
+          <span class="palette__name">Royal Blue</span>
+          <span class="palette__hex">#2A46AA</span>
+        </div>
+        <div class="palette__swatch" data-hex="#252525" style="background:var(--rs-charcoal);color:#fff">
+          <span class="palette__copied">Copied</span>
+          <span class="palette__name">Charcoal</span>
+          <span class="palette__hex">#252525</span>
+        </div>
+        <div class="palette__swatch" data-hex="#A3A3A3" style="background:var(--rs-grey);color:#000">
+          <span class="palette__copied">Copied</span>
+          <span class="palette__name">Grey</span>
+          <span class="palette__hex">#A3A3A3</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label">Brandguide &mdash; Blader door het volledige document</p>
+    <div class="book-wrap">
+      <div class="book-stage">
+        <div class="book-track" id="bookTrack">
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_01.jpg" alt="p.1" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_02.jpg" alt="p.2" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_03.jpg" alt="p.3" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_04.jpg" alt="p.4" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_05.jpg" alt="p.5" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_06.jpg" alt="p.6" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_07.jpg" alt="p.7" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_08.jpg" alt="p.8" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_09.jpg" alt="p.9" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_10.jpg" alt="p.10" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_11.jpg" alt="p.11" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_12.jpg" alt="p.12" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_13.jpg" alt="p.13" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_14.jpg" alt="p.14" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_15.jpg" alt="p.15" loading="lazy" /></div>
+          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_16.jpg" alt="p.16" loading="lazy" /></div>
+        </div>
+        <button class="book-btn book-prev" id="bookPrev">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="book-btn book-next" id="bookNext">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div class="book-footer">
+        <div class="book-dots" id="bookDots"></div>
+        <span class="book-counter" id="bookCounter">1 / 16</span>
+        <button class="book-fullscreen-btn" id="bookFullscreen">Fullscreen</button>
+      </div>
+    </div>
+
+    <!-- Book Lightbox -->
+    <div class="book-lightbox" id="bookLightbox">
+      <button class="book-lightbox__close" id="bookLightboxClose">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="book-lightbox__inner">
+        <img id="bookLightboxImg" src="" alt="" />
+      </div>
+      <div class="book-lightbox__nav">
+        <button class="book-btn" id="bookLightboxPrev">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="book-lightbox__counter" id="bookLightboxCounter">1 / 16</span>
+        <button class="book-btn" id="bookLightboxNext">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      <p class="footer__copy">© 2026 Framedrift - A Creative Studio</p>
+      <div class="footer__logo">
+        <img src="../brand_assets/FD_LOGO.png" alt="Framedrift" />
+      </div>
+      <ul class="footer__links">
+        <li>
+          <a href="https://www.instagram.com/framedrift_studio/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4.5"/>
+              <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.behance.net/lennartvankra1" target="_blank" rel="noopener" aria-label="Behance">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.443 5.35c.639 0 1.23.05 1.77.198.54.099.984.297 1.377.544.394.247.689.594.886 1.04.197.444.296.989.296 1.582 0 .693-.148 1.286-.493 1.731-.296.446-.789.841-1.377 1.138.838.248 1.475.694 1.869 1.286.394.594.64 1.336.64 2.128 0 .644-.148 1.237-.394 1.73a3.903 3.903 0 0 1-1.08 1.287c-.443.346-.984.593-1.574.741-.59.148-1.18.247-1.82.247H1V5.35h6.443zm-.394 5.54c.541 0 .984-.148 1.328-.395.344-.247.492-.693.492-1.237 0-.297-.05-.594-.148-.792-.1-.197-.247-.395-.444-.494-.196-.148-.393-.197-.639-.247-.246-.05-.492-.05-.787-.05H3.786v3.215h3.263zm.148 5.787c.295 0 .59-.05.885-.099.295-.099.54-.198.787-.346.246-.148.443-.395.59-.643.148-.297.197-.644.197-1.04 0-.79-.246-1.385-.738-1.731-.492-.346-1.131-.494-1.918-.494H3.786v4.353h3.411zm9.492-1.137c.394.395.984.594 1.77.594.541 0 1.033-.148 1.426-.395.394-.296.639-.594.737-.89h2.36c-.394 1.187-.984 2.03-1.77 2.573-.787.494-1.77.742-2.852.742-.787 0-1.476-.099-2.115-.346-.64-.248-1.18-.594-1.623-1.04a4.885 4.885 0 0 1-1.033-1.632c-.246-.643-.344-1.335-.344-2.127 0-.742.098-1.435.344-2.078a5.14 5.14 0 0 1 1.033-1.682c.443-.494.983-.84 1.623-1.088.64-.247 1.328-.395 2.066-.395.836 0 1.574.148 2.164.494.59.347 1.082.792 1.476 1.386.393.544.639 1.187.787 1.88.098.694.148 1.386.098 2.129h-7.002c0 .79.246 1.534.64 1.88zm3.098-5.145c-.344-.346-.885-.544-1.574-.544-.443 0-.836.099-1.131.248-.295.148-.541.346-.688.544a1.984 1.984 0 0 0-.393.692c-.05.247-.099.445-.099.644h4.658c-.099-.742-.394-1.287-.773-1.584zm-3.897-5.145h5.262v1.336H15.89V5.35z"/>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/lennartvankralingen/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </footer>
+
+  </div>
+
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+  (function(){
+    const qs=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+    const lenis=new Lenis({duration:1.25,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothTouch:false});
+    (function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0);
+    const cursor=qs('#cursor'),ring=qs('#cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px'});
+    (function anim(){rx+=(mx-rx)*.09;ry+=(my-ry)*.09;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
+    $$('a,button').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ring.classList.add('hovering');cursor.classList.add('big')});
+      el.addEventListener('mouseleave',()=>{ring.classList.remove('hovering');cursor.classList.remove('big')});
+    });
+    document.addEventListener('mouseleave',()=>ring.classList.add('hidden'));
+    document.addEventListener('mouseenter',()=>ring.classList.remove('hidden'));
+    const nav=qs('#nav'),navLogo=qs('#navLogo'),navItems=$$('#navLinks li');
+    navLogo.classList.add('in');
+    navItems.forEach((li,i)=>setTimeout(()=>li.classList.add('in'),80*i));
+    const menuBtn=qs('#menuBtn'),menuOverlay=qs('#menuOverlay');
+    $$('[data-menu-link]').forEach((a,i)=>{a.style.transitionDuration=(1200-i*60)+'ms';a.style.transitionDelay=(i*70)+'ms'});
+    const openMenu=()=>{nav.classList.add('nav--open');menuOverlay.classList.add('open');lenis.stop()};
+    const closeMenu=()=>{nav.classList.remove('nav--open');menuOverlay.classList.remove('open');lenis.start()};
+    menuBtn.addEventListener('click',()=>menuOverlay.classList.contains('open')?closeMenu():openMenu());
+    $$('[data-menu-link]').forEach(a=>a.addEventListener('click',closeMenu));
+    document.body.classList.add('loaded');
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');obs.unobserve(e.target)}});
+    },{threshold:.1,rootMargin:'0px 0px -4% 0px'});
+    $$('.reveal').forEach(el=>obs.observe(el));
+    qs('#quoteSection') && obs.observe(qs('#quoteSection'));
+
+    // Color palette — click to copy hex
+    $$('.palette__swatch').forEach(sw=>{
+      sw.addEventListener('click',()=>{
+        const hex=sw.dataset.hex;
+        navigator.clipboard && navigator.clipboard.writeText(hex).catch(()=>{});
+        sw.classList.add('copied');
+        setTimeout(()=>sw.classList.remove('copied'),1200);
+      });
+    });
+
+    // Quote mark — drag/swipe to spin
+    (function(){
+      const drag=qs('#quoteMarkDrag');
+      if(!drag) return;
+      let rotation=0, startX=0, dragging=false;
+      const setRotation=r=>{ drag.style.transform=`rotate(${r}deg)`; };
+      const start=x=>{ dragging=true; startX=x; drag.style.transition='none'; };
+      const move=x=>{ if(!dragging) return; const delta=(x-startX)*0.6; setRotation(rotation+delta); };
+      const end=x=>{ if(!dragging) return; dragging=false; rotation+=(x-startX)*0.6; };
+      drag.addEventListener('pointerdown',e=>{ start(e.clientX); drag.setPointerCapture(e.pointerId); });
+      drag.addEventListener('pointermove',e=>move(e.clientX));
+      drag.addEventListener('pointerup',e=>end(e.clientX));
+      drag.addEventListener('pointercancel',e=>end(e.clientX));
+    })();
+
+    // Logo lockup carousels — click through colour variations
+    $$('.lockup-carousel').forEach(carousel=>{
+      const images=JSON.parse(carousel.dataset.images);
+      const img=carousel.querySelector('.lockup-carousel__stage img');
+      const dotsWrap=carousel.querySelector('.lockup-carousel__dots');
+      let i=0;
+      images.forEach((_,idx)=>{
+        const d=document.createElement('div');
+        d.className='lockup-carousel__dot'+(idx===0?' active':'');
+        d.addEventListener('click',()=>go(idx));
+        dotsWrap.appendChild(d);
+      });
+      function go(n){
+        i=(n+images.length)%images.length;
+        img.style.opacity='0';
+        setTimeout(()=>{
+          img.src=images[i];
+          img.style.opacity='1';
+        },350);
+        dotsWrap.querySelectorAll('.lockup-carousel__dot').forEach((d,idx)=>d.classList.toggle('active',idx===i));
+      }
+      carousel.querySelector('.lockup-carousel__btn--prev').addEventListener('click',()=>go(i-1));
+      carousel.querySelector('.lockup-carousel__btn--next').addEventListener('click',()=>go(i+1));
+    });
+
+    // Book viewer
+    (function(){
+      const total=16;
+      const srcs=Array.from({length:total},(_,i)=>`../brand_assets/research_styleguide/page_${String(i+1).padStart(2,'0')}.jpg`);
+      let current=0;
+      const track=qs('#bookTrack');
+      const counter=qs('#bookCounter');
+      const dotsWrap=qs('#bookDots');
+      const lightbox=qs('#bookLightbox');
+      const lbImg=qs('#bookLightboxImg');
+      const lbCounter=qs('#bookLightboxCounter');
+
+      srcs.forEach((_,i)=>{
+        const d=document.createElement('div');
+        d.className='book-dot'+(i===0?' active':'');
+        d.addEventListener('click',()=>goTo(i));
+        dotsWrap.appendChild(d);
+      });
+
+      function goTo(n){
+        current=Math.max(0,Math.min(total-1,n));
+        track.style.transform=`translateX(-${current*100}%)`;
+        counter.textContent=`${current+1} / ${total}`;
+        qs('#bookPrev').disabled=current===0;
+        qs('#bookNext').disabled=current===total-1;
+        dotsWrap.querySelectorAll('.book-dot').forEach((d,i)=>d.classList.toggle('active',i===current));
+        if(lightbox.classList.contains('open')){
+          lbImg.src=srcs[current];
+          lbCounter.textContent=`${current+1} / ${total}`;
+        }
+      }
+      goTo(0);
+
+      qs('#bookPrev').addEventListener('click',()=>goTo(current-1));
+      qs('#bookNext').addEventListener('click',()=>goTo(current+1));
+
+      qs('#bookFullscreen').addEventListener('click',()=>{
+        lbImg.src=srcs[current];
+        lbCounter.textContent=`${current+1} / ${total}`;
+        lightbox.classList.add('open');
+        lenis.stop();
+      });
+      qs('#bookLightboxClose').addEventListener('click',()=>{lightbox.classList.remove('open');lenis.start()});
+      qs('#bookLightboxPrev').addEventListener('click',()=>goTo(current-1));
+      qs('#bookLightboxNext').addEventListener('click',()=>goTo(current+1));
+
+      document.addEventListener('keydown',e=>{
+        if(e.key==='ArrowLeft') goTo(current-1);
+        if(e.key==='ArrowRight') goTo(current+1);
+        if(e.key==='Escape'&&lightbox.classList.contains('open')){lightbox.classList.remove('open');lenis.start()}
+      });
+
+      let touchX=0;
+      track.parentElement.addEventListener('touchstart',e=>{touchX=e.touches[0].clientX},{passive:true});
+      track.parentElement.addEventListener('touchend',e=>{
+        const dx=e.changedTouches[0].clientX-touchX;
+        if(Math.abs(dx)>40) goTo(current+(dx<0?1:-1));
+      });
+    })();
+  })();
+  </script>
+</body>
+</html>
