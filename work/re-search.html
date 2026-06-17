@@ -81,6 +81,9 @@
 
     .project-hero{height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;background:var(--rs-navy)}
     .project-hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 75%;display:block}
+    .project-hero__video--mobile{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
+    .project-hero__filter--mobile{display:none;position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,14,50,.55) 0%,rgba(10,25,80,.4) 50%,rgba(6,14,50,.65) 100%);z-index:1}
+    .project-hero__logo--mobile{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;width:160vw;max-width:none;opacity:1}
     .project-hero__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.12) 55%,rgba(0,0,0,.42) 100%);z-index:2}
     .project-hero__content{position:relative;z-index:3;padding:4.8rem;padding-bottom:7.2rem}
     .project-hero__tags{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2.8rem}
@@ -114,16 +117,17 @@
     .project-quote .ql:nth-child(2) .ql__inner{transition-delay:.08s}
     .project-quote .ql:nth-child(3) .ql__inner{transition-delay:.16s}
     .project-quote .ql:nth-child(4) .ql__inner{transition-delay:.24s}
-    .project-quote .ql:nth-child(5) .ql__inner{transition-delay:.32s}
     .project-quote .hl{color:#5b7cf0}
 
     .section-label{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;color:rgba(36,36,36,.28);padding:4.8rem 4.8rem 0}
 
     .type-showcase{padding:.8rem 4.8rem 0}
-    .type-row{display:flex;align-items:baseline;justify-content:space-between;gap:3.2rem;padding:1.2rem 0;border-bottom:1px solid rgba(36,36,36,.08)}
+    .type-showcase{padding:.8rem 4.8rem 0}
+    .type-row{display:flex;align-items:center;gap:3.2rem;padding:1rem 0;border-bottom:1px solid rgba(36,36,36,.08)}
     .type-row:first-child{border-top:1px solid rgba(36,36,36,.08)}
-    .type-row__label{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:rgba(36,36,36,.32);min-width:13rem;flex-shrink:0}
-    .type-row__sample{font-family:'Metropolis',"Azeret Mono",sans-serif;font-size:clamp(1.8rem,2.4vw,3.2rem);color:var(--rs-navy);letter-spacing:.005em;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .type-row__label{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:rgba(36,36,36,.32);min-width:14rem;flex-shrink:0}
+    .type-row__sample{font-family:'Metropolis',"Azeret Mono",sans-serif;font-size:clamp(3.6rem,5.5vw,8rem);color:var(--rs-navy);letter-spacing:.005em;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0}
+    .type-row__alpha{font-family:'Metropolis',"Azeret Mono",sans-serif;font-size:1.3rem;color:rgba(6,14,50,.28);letter-spacing:.08em;text-align:right;flex:1;overflow:hidden;align-self:flex-end;padding-bottom:.5rem;line-height:1.8}
 
     /* Live site banner */
     .live-banner{position:relative;background:#060e1a;overflow:hidden;padding:7.2rem 4.8rem;margin-top:3.2rem}
@@ -170,7 +174,7 @@
     .palette__copied{position:absolute;top:1.6rem;right:1.6rem;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;opacity:0;transition:opacity .3s}
     .palette__swatch.copied .palette__copied{opacity:.8}
 
-    .book-wrap{position:relative;background:#0a0a0a;padding:.8rem;margin-top:3.2rem}
+    .book-wrap{position:relative;background:#0a0a0a;padding:.8rem;margin-top:3.2rem;max-width:96rem;margin-left:auto;margin-right:auto}
     .book-stage{position:relative;overflow:hidden;aspect-ratio:16/9;background:#111}
     .book-track{display:flex;height:100%;transition:transform .5s cubic-bezier(0.19,1,0.22,1)}
     .book-slide{flex:0 0 100%;height:100%}
@@ -198,6 +202,33 @@
     .book-lightbox__counter{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.2rem;letter-spacing:.1em;color:rgba(255,251,242,.4);min-width:8rem;text-align:center}
 
     .scroll-hint{position:absolute;bottom:4rem;right:4.8rem;z-index:10;display:flex;flex-direction:column;align-items:center;opacity:0;transition:opacity .8s ease 2s}body.loaded .scroll-hint{opacity:1}.scroll-hint svg{animation:scrollBounce 1.8s ease-in-out infinite}@keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+    .rs-showcase{position:relative;overflow:hidden;background:#0a1628;aspect-ratio:16/5;margin-top:4.8rem;margin-bottom:3.2rem}
+    .rs-showcase__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5}
+    .rs-showcase__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,40,.6) 0%,rgba(10,22,40,.3) 50%,rgba(10,22,40,.65) 100%);z-index:1}
+    .rs-showcase__topbar{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:.5rem 3.2rem;background:rgba(10,22,40,.6);border-bottom:1px solid rgba(255,255,255,.06)}
+    .rs-showcase__topbar-left{font-size:.85rem;font-family:'Metropolis',sans-serif;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:.8rem}
+    .rs-showcase__topbar-right{font-size:.85rem;font-family:'Metropolis',sans-serif;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:1.2rem}
+    .rs-showcase__nav{position:absolute;top:2.6rem;left:0;right:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3.2rem;border-bottom:1px solid rgba(255,255,255,.08)}
+    .rs-showcase__nav-logo{height:2rem;width:auto;display:block}
+    .rs-showcase__nav-right{display:flex;align-items:center;gap:.8rem}
+    .rs-showcase__nav-link{font-size:.95rem;color:rgba(255,255,255,.55);letter-spacing:.04em;font-family:'Metropolis',sans-serif;font-weight:600}
+    .rs-showcase__nav-btn{background:#2a46aa;color:#fff;font-size:.9rem;font-family:'Metropolis',sans-serif;font-weight:600;padding:.55rem 1.4rem;border-radius:.3rem}
+    .rs-showcase__nav-btn2{border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-size:.9rem;font-family:'Metropolis',sans-serif;padding:.5rem 1.2rem;border-radius:.3rem}
+    .rs-showcase__center{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;padding:2.4rem;padding-bottom:6rem}
+    .rs-showcase__logo{height:clamp(5rem,8vw,11rem);width:auto}
+    .rs-showcase__tagline{font-family:'Metropolis',sans-serif;font-size:clamp(1.3rem,1.7vw,2.2rem);color:rgba(255,255,255,.72);font-weight:400;font-style:italic;letter-spacing:.01em;text-align:center}
+    .rs-showcase__search{display:flex;align-items:center;background:rgba(255,255,255,.18);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:10rem;overflow:hidden;margin-top:.6rem}
+    .rs-showcase__search-tabs{display:flex;align-items:center;padding:.4rem .4rem .4rem .4rem;gap:.2rem}
+    .rs-showcase__search-tab{font-size:.9rem;font-family:'Metropolis',sans-serif;color:rgba(255,255,255,.65);padding:.5rem 1.2rem;border-radius:10rem;cursor:default;font-weight:500}
+    .rs-showcase__search-tab.active{background:#fff;color:#0d1f3c;font-weight:700}
+    .rs-showcase__search-divider{width:1px;height:2rem;background:rgba(255,255,255,.25);margin:0 .4rem;flex-shrink:0}
+    .rs-showcase__search-field{font-size:.9rem;font-family:'Metropolis',sans-serif;color:rgba(255,255,255,.55);white-space:nowrap;padding:0 .8rem}
+    .rs-showcase__search-btn{background:#0d1f3c;color:#fff;font-size:.92rem;font-family:'Metropolis',sans-serif;font-weight:700;padding:.9rem 2rem;white-space:nowrap;display:flex;align-items:center;gap:.5rem;border-radius:10rem;margin:.4rem}
+    .rs-showcase__popular{font-size:.82rem;font-family:'Metropolis',sans-serif;color:rgba(255,255,255,.4);margin-top:.2rem}
+    .rs-showcase__popular span{color:rgba(255,255,255,.6);margin-left:.3rem;text-decoration:underline;text-underline-offset:2px}
+    .rs-showcase__scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:3;width:2rem;height:3.2rem;border:1px solid rgba(255,255,255,.3);border-radius:10rem;display:flex;justify-content:center;padding-top:.5rem}
+    .rs-showcase__scroll-dot{width:.5rem;height:.5rem;background:rgba(255,255,255,.6);border-radius:50%;animation:scrollDot 1.6s ease-in-out infinite}
+    @keyframes scrollDot{0%,100%{transform:translateY(0);opacity:1}60%{transform:translateY(.9rem);opacity:.2}}
     footer{background:var(--color-void);padding:4rem 4.8rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,251,242,.05);position:relative;margin-top:3.2rem}
     .footer__logo{position:absolute;left:50%;transform:translateX(-50%)}
     .footer__logo img{height:8rem;width:auto;display:block;filter:invert(1);mix-blend-mode:screen;opacity:.6}
@@ -217,13 +248,21 @@
       .nav__menu-btn{display:flex}
       .menu-overlay__links a{font-size:11vw}
       .project-hero__content{padding:2.4rem;padding-bottom:5.6rem}
+      .project-hero__video,.project-hero__overlay{display:none}
+      .project-hero__video--mobile,.project-hero__filter--mobile,.project-hero__logo--mobile{display:block}
+      .project-hero__title,.project-hero__tags{display:none}
       .project-intro{grid-template-columns:1fr;gap:4rem;padding:5.6rem 2.4rem}
-      .project-quote{padding:5.6rem 2.4rem;min-height:0;flex-direction:column;gap:3.2rem;text-align:left}
-      .project-quote__mark{position:relative;top:auto;right:auto;bottom:auto;transform:none;width:13rem;height:13rem;margin:0 auto;order:-1}
+      .project-quote{padding:3.6rem 2.4rem;min-height:0;flex-direction:column;gap:0;text-align:center}
+      .project-quote__mark,.project-quote__ring{display:none}
       .section-label{padding:4.8rem 2.4rem 0}
       .type-showcase{padding:.8rem 2.4rem 0}
-      .type-row{flex-direction:column;align-items:flex-start;gap:.8rem}
+      .type-row{flex-direction:row;align-items:center;gap:1.6rem;padding:1rem 0}
+      .type-row__label{font-size:.85rem;letter-spacing:.14em;color:rgba(36,36,36,.28);min-width:11rem;flex-shrink:0;text-align:left}
+      .type-row__sample{font-size:clamp(2.4rem,8vw,4rem);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.1;flex-shrink:0;text-align:left}
+      .type-row__alpha{display:none}
       .live-banner{padding:4.8rem 2.4rem}
+      .live-banner__left{display:none}
+      .rs-showcase{aspect-ratio:4/3}
       .live-banner__inner{grid-template-columns:1fr;gap:3.2rem}
       .live-banner__right{padding-left:0}
       .live-banner__vline{display:none}
@@ -299,6 +338,11 @@
     <video class="project-hero__video" autoplay muted loop playsinline>
       <source src="../brand_assets/RE-SEARCH_HERO.mp4" type="video/mp4">
     </video>
+    <video class="project-hero__video--mobile" autoplay muted loop playsinline preload="auto">
+      <source src="../brand_assets/RE-SEARCH_WAVES_MOBILE.mp4" type="video/mp4">
+    </video>
+    <div class="project-hero__filter--mobile"></div>
+    <img class="project-hero__logo--mobile" src="../brand_assets/RE-SEARCH_LOGO_STACK-08.png" alt="Re-Search">
     <div class="project-hero__overlay"></div>
     <div class="project-hero__content">
       <div class="project-hero__tags">
@@ -330,8 +374,9 @@
         </div>
       </div>
       <div>
-        <p class="project-desc reveal reveal-d1">De commercieel vastgoedmarkt is verzadigd met platforms die draaien op algoritmes en voorspelbare AI-tools. RE-SEARCH koos bewust een andere koers: persoonlijk, precies, en gedreven door het verhaal achter de ondernemer.</p>
-        <p class="project-desc reveal reveal-d2">De opdracht was een merkidentiteit bouwen die dat standpunt direct communiceert. Geen generieke corporate look, maar een systeem dat vertrouwen uitstraalt &eacute;n karakter heeft.</p>
+        <p class="project-desc reveal reveal-d1">The commercial real estate market is saturated with algorithm-driven platforms. RE-SEARCH saw it differently: finding the right property starts with understanding the client behind the search.</p>
+        <p class="project-desc reveal reveal-d2">To make that belief credible, a brand was needed. One built on trust, personality, and expertise.</p>
+        <p class="project-desc reveal reveal-d2">That's where we came in. We created RE-SEARCH's brand from the ground up, defining its visual identity, tone of voice, and overall presence.</p>
       </div>
     </div>
 
@@ -340,10 +385,9 @@
       <div class="project-quote__ring project-quote__ring--2"></div>
       <p>
         <span class="ql"><span class="ql__inner">RE-SEARCH geeft</span></span>
-        <span class="ql"><span class="ql__inner"><span class="hl">bestemming</span> aan</span></span>
-        <span class="ql"><span class="ql__inner">ruimte. Stop met</span></span>
-        <span class="ql"><span class="ql__inner">zoeken wij</span></span>
-        <span class="ql"><span class="ql__inner"><span class="hl">onderzoeken</span>.</span></span>
+        <span class="ql"><span class="ql__inner"><span class="hl">bestemming</span> aan ruimte.</span></span>
+        <span class="ql"><span class="ql__inner">Stop met zoeken,</span></span>
+        <span class="ql"><span class="ql__inner">wij <span class="hl">onderzoeken</span>.</span></span>
       </p>
       <div class="project-quote__mark" id="quoteMark">
         <div class="project-quote__mark__auto">
@@ -356,24 +400,31 @@
 
     <p class="section-label">Typografie</p>
     <div class="type-showcase reveal">
-      <div class="type-row"><span class="type-row__label">Thin</span><span class="type-row__sample" style="font-weight:100">Re-Search Aa</span></div>
-      <div class="type-row"><span class="type-row__label">Light</span><span class="type-row__sample" style="font-weight:300">Re-Search Aa</span></div>
-      <div class="type-row"><span class="type-row__label">Regular</span><span class="type-row__sample" style="font-weight:400">Re-Search Aa</span></div>
-      <div class="type-row"><span class="type-row__label">Medium</span><span class="type-row__sample" style="font-weight:500">Re-Search Aa</span></div>
-      <div class="type-row"><span class="type-row__label">SemiBold</span><span class="type-row__sample" style="font-weight:600">Re-Search Aa</span></div>
-      <div class="type-row"><span class="type-row__label">Bold</span><span class="type-row__sample" style="font-weight:700">Re-Search Aa</span></div>
-      <div class="type-row"><span class="type-row__label">ExtraBold</span><span class="type-row__sample" style="font-weight:800">Re-Search Aa</span></div>
-      <div class="type-row"><span class="type-row__label">Black</span><span class="type-row__sample" style="font-weight:900">Re-Search Aa</span></div>
+      <div class="type-row"><span class="type-row__label">Thin</span><span class="type-row__sample" style="font-weight:100">Re-Search Aa</span><span class="type-row__alpha" style="font-weight:100">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+0 1 2 3 4 5 6 7 8 9</span></div>
+      <div class="type-row"><span class="type-row__label">Light</span><span class="type-row__sample" style="font-weight:300">Re-Search Aa</span><span class="type-row__alpha" style="font-weight:300">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+0 1 2 3 4 5 6 7 8 9</span></div>
+      <div class="type-row"><span class="type-row__label">Regular</span><span class="type-row__sample" style="font-weight:400">Re-Search Aa</span><span class="type-row__alpha" style="font-weight:400">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+0 1 2 3 4 5 6 7 8 9</span></div>
+      <div class="type-row"><span class="type-row__label">Medium</span><span class="type-row__sample" style="font-weight:500">Re-Search Aa</span><span class="type-row__alpha" style="font-weight:500">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+0 1 2 3 4 5 6 7 8 9</span></div>
+      <div class="type-row"><span class="type-row__label">SemiBold</span><span class="type-row__sample" style="font-weight:600">Re-Search Aa</span><span class="type-row__alpha" style="font-weight:600">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+0 1 2 3 4 5 6 7 8 9</span></div>
+      <div class="type-row"><span class="type-row__label">Bold</span><span class="type-row__sample" style="font-weight:700">Re-Search Aa</span><span class="type-row__alpha" style="font-weight:700">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+0 1 2 3 4 5 6 7 8 9</span></div>
+      <div class="type-row"><span class="type-row__label">ExtraBold</span><span class="type-row__sample" style="font-weight:800">Re-Search Aa</span><span class="type-row__alpha" style="font-weight:800">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+0 1 2 3 4 5 6 7 8 9</span></div>
+      <div class="type-row"><span class="type-row__label">Black</span><span class="type-row__sample" style="font-weight:900">Re-Search Aa</span><span class="type-row__alpha" style="font-weight:900">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+0 1 2 3 4 5 6 7 8 9</span></div>
     </div>
 
-    <p class="section-label">Op de website</p>
     <div class="live-banner reveal" id="liveBanner">
       <video class="live-banner__video" autoplay muted loop playsinline>
         <source src="../brand_assets/RE-SEARCH_BANNER_BG.mp4" type="video/mp4">
       </video>
       <div class="live-banner__overlay"></div>
       <div class="live-banner__inner">
-        <div>
+        <div class="live-banner__left">
           <span class="live-banner__label"><span class="blue">RE</span><span class="white">-SEARCH</span></span>
           <h3 class="live-banner__heading">In een doolhof
 van keuzes
@@ -451,57 +502,30 @@ zijn wij de gids</h3>
       </div>
     </div>
 
-    <p class="section-label">Brandguide &mdash; Blader door het volledige document</p>
-    <div class="book-wrap">
-      <div class="book-stage">
-        <div class="book-track" id="bookTrack">
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_01.jpg" alt="p.1" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_02.jpg" alt="p.2" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_03.jpg" alt="p.3" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_04.jpg" alt="p.4" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_05.jpg" alt="p.5" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_06.jpg" alt="p.6" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_07.jpg" alt="p.7" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_08.jpg" alt="p.8" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_09.jpg" alt="p.9" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_10.jpg" alt="p.10" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_11.jpg" alt="p.11" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_12.jpg" alt="p.12" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_13.jpg" alt="p.13" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_14.jpg" alt="p.14" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_15.jpg" alt="p.15" loading="lazy" /></div>
-          <div class="book-slide"><img src="../brand_assets/research_styleguide/page_16.jpg" alt="p.16" loading="lazy" /></div>
+    <div class="rs-showcase reveal">
+      <video class="rs-showcase__video" autoplay muted loop playsinline>
+        <source src="../brand_assets/RE-SEARCH_WAVES_MOBILE.mp4" type="video/mp4">
+      </video>
+      <div class="rs-showcase__overlay"></div>
+      <div class="rs-showcase__topbar">
+        <div class="rs-showcase__topbar-left">☎ 085 222 0619 &nbsp;|&nbsp; Bereikbaar 8:00 - 18:00</div>
+        <div class="rs-showcase__topbar-right"><span>Over ons</span><span>|</span><span>Kennisbank</span><span>|</span><span>Contact</span><span>|</span><span>🇳🇱 NL</span></div>
+      </div>
+      <div class="rs-showcase__center">
+        <img class="rs-showcase__logo" src="../brand_assets/RE-SEARCH_LOGO_WHITE.png" alt="RE-SEARCH">
+        <p class="rs-showcase__tagline">In een oceaan van keuzes duiken wij gericht dieper.</p>
+        <div class="rs-showcase__search">
+          <div class="rs-showcase__search-tabs">
+            <span class="rs-showcase__search-tab active">Huren</span>
+            <span class="rs-showcase__search-tab">Kopen</span>
+          </div>
+          <div class="rs-showcase__search-divider"></div>
+          <span class="rs-showcase__search-field">Kantoorruimte ▾</span>
+          <div class="rs-showcase__search-divider"></div>
+          <span class="rs-showcase__search-field">Stad of regio...</span>
+          <span class="rs-showcase__search-btn">🔍 Zoeken</span>
         </div>
-        <button class="book-btn book-prev" id="bookPrev">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <button class="book-btn book-next" id="bookNext">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
-      </div>
-      <div class="book-footer">
-        <div class="book-dots" id="bookDots"></div>
-        <span class="book-counter" id="bookCounter">1 / 16</span>
-        <button class="book-fullscreen-btn" id="bookFullscreen">Fullscreen</button>
-      </div>
-    </div>
-
-    <!-- Book Lightbox -->
-    <div class="book-lightbox" id="bookLightbox">
-      <button class="book-lightbox__close" id="bookLightboxClose">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-      <div class="book-lightbox__inner">
-        <img id="bookLightboxImg" src="" alt="" />
-      </div>
-      <div class="book-lightbox__nav">
-        <button class="book-btn" id="bookLightboxPrev">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <span class="book-lightbox__counter" id="bookLightboxCounter">1 / 16</span>
-        <button class="book-btn" id="bookLightboxNext">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
+        <p class="rs-showcase__popular">Populair:<span>Huren in Amsterdam</span> · <span>Huren in Den Haag</span> · <span>Huren in Rotterdam</span></p>
       </div>
     </div>
 
