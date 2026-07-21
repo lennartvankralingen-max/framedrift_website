@@ -753,6 +753,40 @@
       color: rgba(255,255,255,0.2);
     }
 
+    /* ─── Red Bull thumbnail ─────────────────────────────────────── */
+    a[href="work/redbull.html"] img{transition:transform .9s var(--ease-out-expo)}
+    a[href="work/redbull.html"]:hover img{transform:translate(-50%,-50%) scale(1.08)!important}
+
+    /* ─── Red Bull thumbnail panels ─────────────────────────────── */
+    .rb-panels{position:absolute;inset:0}
+    .rb-panel{position:absolute;inset:0}
+    .rb-panel img{position:absolute;top:0;bottom:0;left:0;right:auto;height:100%;width:auto;display:block;transition:transform .9s var(--ease-out-expo)}
+    .work__item:hover .rb-panel img{transform:scale(1.06)}
+    .rb-panel--1{clip-path:polygon(0% 0%,12% 0%,7% 100%,0% 100%)}
+    .rb-panel--2{clip-path:polygon(12% 0%,24% 0%,19% 100%,7% 100%)}
+    .rb-panel--3{clip-path:polygon(24% 0%,37% 0%,32% 100%,19% 100%)}
+    .rb-panel--4{clip-path:polygon(37% 0%,50% 0%,45% 100%,32% 100%)}
+    .rb-panel--5{clip-path:polygon(50% 0%,63% 0%,58% 100%,45% 100%)}
+    .rb-panel--6{clip-path:polygon(63% 0%,76% 0%,71% 100%,58% 100%)}
+    .rb-panel--7{clip-path:polygon(76% 0%,88% 0%,83% 100%,71% 100%)}
+    .rb-panel--8{clip-path:polygon(88% 0%,100% 0%,100% 100%,83% 100%)}
+    .rb-panel--1 img{transform:translateX(-8%)}
+    .rb-panel--2 img{transform:translateX(-26%)}
+    .rb-panel--3 img{transform:translateX(-45%)}
+    .rb-panel--4 img{transform:translateX(14%)}
+    .rb-panel--5 img{transform:translateX(29%)}
+    .rb-panel--6 img{transform:translateX(63%) translateY(-4%)}
+    .rb-panel--7 img{transform:translateX(65%)}
+    .rb-panel--8 img{transform:translateX(82%)}
+    .work__item:hover .rb-panel--1 img{transform:translateX(-8%) scale(1.06)}
+    .work__item:hover .rb-panel--2 img{transform:translateX(-26%) scale(1.06)}
+    .work__item:hover .rb-panel--3 img{transform:translateX(-45%) scale(1.06)}
+    .work__item:hover .rb-panel--4 img{transform:translateX(14%) scale(1.06)}
+    .work__item:hover .rb-panel--5 img{transform:translateX(29%) scale(1.06)}
+    .work__item:hover .rb-panel--6 img{transform:translateX(63%) translateY(-4%) scale(1.06)}
+    .work__item:hover .rb-panel--7 img{transform:translateX(65%) scale(1.06)}
+    .work__item:hover .rb-panel--8 img{transform:translateX(82%) scale(1.06)}
+
     /* ─── Services ───────────────────────────────────────────────── */
     #services {
       background: var(--color-coal);
@@ -1512,6 +1546,15 @@
           <div class="work__item__overlay">
             <p class="work__item__category">Branding &amp; Packaging</p>
             <h3 class="work__item__title">Bennebroecks Bier</h3>
+          </div>
+        </a>
+        <a href="work/redbull.html" class="work__item reveal" style="aspect-ratio:16/9;background:#000;">
+          <img src="brand_assets/redbull_logo.png" alt="Red Bull" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:9%;pointer-events:none;mix-blend-mode:screen;transition:transform .9s var(--ease-out-expo);">
+          <div class="work__item__ghost">RB</div>
+          <span class="work__item__num">07</span>
+          <div class="work__item__overlay">
+            <p class="work__item__category">Art Direction, Print</p>
+            <h3 class="work__item__title">Red Bull — One Pagers</h3>
           </div>
         </a>
         <a href="work/data-expert.html" class="work__item reveal reveal-d1" style="aspect-ratio:3/2;">
