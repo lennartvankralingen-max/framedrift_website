@@ -87,7 +87,7 @@
     .hero-panel--5 img{transform:translateX(29%)}
     .hero-panel--6 img{transform:translateX(63%) translateY(-4%)}
     .hero-panel--7 img{transform:translateX(65%)}
-    .hero-panel--8 img{transform:translateX(82%)}
+    .hero-panel--8 img{transform:translateX(133%) translateY(-12%)}
     .hero-panel--1{clip-path:polygon(0% 0%,12% 0%,7% 100%,0% 100%)}
     .hero-panel--2{clip-path:polygon(12% 0%,24% 0%,19% 100%,7% 100%)}
     .hero-panel--3{clip-path:polygon(24% 0%,37% 0%,32% 100%,19% 100%)}
@@ -109,15 +109,13 @@
 
     @media(max-width:768px){
       .hero-panel-line{display:none}
-      .hero-panel--1{clip-path:polygon(0% 0%,26% 0%,18% 100%,0% 100%)}
-      .hero-panel--2{clip-path:polygon(26% 0%,51% 0%,43% 100%,18% 100%)}
-      .hero-panel--3{clip-path:polygon(51% 0%,76% 0%,68% 100%,43% 100%)}
-      .hero-panel--4{clip-path:polygon(76% 0%,100% 0%,100% 100%,68% 100%)}
-      .hero-panel--5,.hero-panel--6,.hero-panel--7,.hero-panel--8{display:none}
-      .hero-panel--1 img{transform:translateX(-37%)}
-      .hero-panel--2 img{transform:translateX(-12%)}
-      .hero-panel--3 img{transform:translateX(14%)}
-      .hero-panel--4 img{transform:translateX(38%)}
+      .hero-panel--1{clip-path:polygon(0% 0%,36% 0%,26% 100%,0% 100%)}
+      .hero-panel--2{clip-path:polygon(36% 0%,70% 0%,60% 100%,26% 100%)}
+      .hero-panel--3{clip-path:polygon(70% 0%,100% 0%,100% 100%,60% 100%)}
+      .hero-panel--4,.hero-panel--5,.hero-panel--6,.hero-panel--7,.hero-panel--8{display:none}
+      .hero-panel--1 img{transform:translateX(-45%)}
+      .hero-panel--2 img{transform:translateX(-35%) translateY(4%)}
+      .hero-panel--3 img{transform:translateX(1%) translateY(-10%)}
     }
     .project-hero__content{position:relative;z-index:3;padding:4.8rem;padding-bottom:7.2rem}
     .project-hero__tags{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2.8rem}
@@ -238,14 +236,14 @@
   <!-- Hero -->
   <section class="project-hero">
     <div class="hero-panels">
-      <div class="hero-panel hero-panel--1"><img src="../brand_assets/redbull_01_batalla.jpg" alt="" /></div>
-      <div class="hero-panel hero-panel--2"><img src="../brand_assets/redbull_02_calles.jpg" alt="" /></div>
-      <div class="hero-panel hero-panel--3"><img src="../brand_assets/redbull_03_laliga.jpg" alt="" /></div>
-      <div class="hero-panel hero-panel--4"><img src="../brand_assets/redbull_04_amapiano.jpg" alt="" /></div>
-      <div class="hero-panel hero-panel--5"><img src="../brand_assets/redbull_05_celebrity.jpg" alt="" /></div>
-      <div class="hero-panel hero-panel--6"><img src="../brand_assets/redbull_06_symphonic.jpg" alt="" /></div>
-      <div class="hero-panel hero-panel--7"><img src="../brand_assets/redbull_07_letsile.jpg" alt="" /></div>
-      <div class="hero-panel hero-panel--8"><img src="../brand_assets/redbull_08_ufm.jpg" alt="" /></div>
+      <div class="hero-panel hero-panel--1"><picture><source media="(max-width:768px)" srcset="../brand_assets/redbull_letsile_clean.jpg"><img src="../brand_assets/redbull_batalla_clean.jpg" alt="" /></picture></div>
+      <div class="hero-panel hero-panel--2"><img src="../brand_assets/redbull_calles_clean.jpg" alt="" /></div>
+      <div class="hero-panel hero-panel--3"><picture><source media="(max-width:768px)" srcset="../brand_assets/redbull_ufm_clean.jpg"><img src="../brand_assets/redbull_laliga_clean.jpg" alt="" /></picture></div>
+      <div class="hero-panel hero-panel--4"><img src="../brand_assets/redbull_amapiano_clean.jpg" alt="" /></div>
+      <div class="hero-panel hero-panel--5"><img src="../brand_assets/redbull_celebrity_clean.jpg" alt="" /></div>
+      <div class="hero-panel hero-panel--6"><img src="../brand_assets/redbull_symphonic_clean.jpg" alt="" /></div>
+      <div class="hero-panel hero-panel--7"><img src="../brand_assets/redbull_letsile_clean.jpg" alt="" /></div>
+      <div class="hero-panel hero-panel--8"><img src="../brand_assets/redbull_ufm_clean.jpg" alt="" /></div>
     </div>
     <div class="hero-panel-line hero-panel-line--1"></div>
     <div class="hero-panel-line hero-panel-line--2"></div>
