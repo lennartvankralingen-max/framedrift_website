@@ -91,17 +91,134 @@
     .meta-value{display:block;font-size:1.4rem;font-weight:300;color:var(--color-coal)}
     .project-desc{font-size:clamp(1.8rem,1.5vw,2.6rem);font-weight:300;line-height:1.7;color:rgba(36,36,36,.65)}
 
+    /* Animations */
+    @keyframes itlSpin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+
     /* Section label */
     .section-label{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.1rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;color:rgba(36,36,36,.28);padding:4.8rem 4.8rem 0}
 
-    /* Brand split — wordmark */
-    .brand-split{display:grid;grid-template-columns:1fr 1fr;min-height:56vh}
-    .brand-split__half{display:flex;align-items:center;justify-content:center;padding:8rem 6rem}
-    .brand-split__half--dark{background:#0a0a0a}
-    .brand-split__half--light{background:var(--color-ivory)}
-    .brand-split__half img{width:72%;height:auto;display:block}
+    /* Quote */
+    .project-quote{padding:7.2rem 4.8rem;background:#0a0a0a;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:0}
+    .project-quote__ring{position:absolute;bottom:-8rem;right:10%;border:1px solid rgba(255,255,255,.05);border-radius:50%;transform:translateX(50%);pointer-events:none}
+    .project-quote__ring--1{width:44rem;height:44rem;animation:itlSpin 90s linear infinite}
+    .project-quote__ring--2{width:30rem;height:30rem;animation:itlSpin 60s linear infinite reverse}
+    .project-quote__mark{position:absolute;bottom:-6rem;right:6%;transform:translateX(50%);z-index:2;width:30rem;height:30rem;pointer-events:none;opacity:.1}
+    .project-quote__mark img{width:100%;height:100%;display:block}
+    .project-quote p{position:relative;z-index:2;font-family:'Joyride',"Azeret Mono",monospace;font-size:clamp(2.4rem,3.6vw,5.2rem);font-weight:400;line-height:1.2;color:var(--color-ivory);text-transform:uppercase;letter-spacing:.01em;text-align:center}
+    .project-quote .ql{display:block;overflow:hidden;white-space:nowrap}
+    .project-quote .ql__inner{display:block;transform:translateY(110%);transition:transform 1s var(--ease-out-expo)}
+    .project-quote.in-view .ql__inner{transform:translateY(0)}
+    .project-quote .ql:nth-child(1) .ql__inner{transition-delay:0s}
+    .project-quote .ql:nth-child(2) .ql__inner{transition-delay:.1s}
+    .project-quote .ql:nth-child(3) .ql__inner{transition-delay:.2s}
 
-    /* Editorial block — foto + badge */
+    /* Brand split */
+    .brand-panel{min-height:56vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:7rem 6rem;background:#0a0a0a;transition:background .5s ease;position:relative}
+    .brand-panel.is-light{background:var(--color-ivory)}
+    .brand-panel__img{width:52%;max-width:56rem;height:auto;display:block;transition:opacity .3s ease}
+    .brand-panel__img--wit{position:absolute}
+    .brand-panel__img--zwart{position:absolute;opacity:0}
+    .brand-panel.is-light .brand-panel__img--wit{opacity:0}
+    .brand-panel.is-light .brand-panel__img--zwart{opacity:1}
+    .brand-panel__toggle{position:absolute;bottom:3.2rem;left:50%;transform:translateX(-50%);display:flex;gap:.4rem;background:rgba(128,128,128,.15);border-radius:10rem;padding:.4rem}
+    .brand-panel__toggle button{border:none;background:none;cursor:none;font-family:'Joyride',"Azeret Mono",monospace;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;padding:.6rem 1.6rem;border-radius:10rem;color:rgba(128,128,128,.6);transition:background .3s,color .3s}
+    .brand-panel__toggle button.active{background:#0a0a0a;color:var(--color-ivory)}
+    .brand-panel.is-light .brand-panel__toggle button.active{background:var(--color-ivory);color:#0a0a0a}
+    .brand-panel.is-light .brand-panel__toggle button:not(.active){color:rgba(36,36,36,.4)}
+
+    /* Concept banner */
+    .concept-banner{background:#0a0a0a;overflow:hidden;position:relative}
+    .concept-banner__inner{max-width:120rem;margin:0 auto;padding:6rem 4.8rem;display:grid;grid-template-columns:2fr 3fr;gap:6.4rem;align-items:start;position:relative;z-index:2}
+    .concept-banner__heading{font-family:'Joyride',"Azeret Mono",monospace;font-size:clamp(1.8rem,2.2vw,3rem);font-weight:400;line-height:1.35;color:var(--color-ivory);text-transform:uppercase;letter-spacing:.01em}
+    .concept-banner__accent{height:2px;width:6rem;background:rgba(255,255,255,.2);margin-top:2.4rem;transform:scaleX(0);transform-origin:left;transition:transform 1s var(--ease-out-expo) .3s}
+    .concept-banner.in-view .concept-banner__accent{transform:scaleX(1)}
+    .concept-banner__body{font-size:clamp(1.6rem,1.5vw,2rem);font-weight:300;line-height:1.75;color:rgba(255,251,242,.55);padding-left:3.6rem;border-left:1px solid rgba(255,251,242,.1)}
+    .concept-banner__photo{width:100%;height:52vh;overflow:hidden}
+    .concept-banner__photo img{width:100%;height:100%;object-fit:cover;display:block;object-position:center 40%;filter:brightness(.85)}
+
+    /* Cert scale */
+    .cert-scale{background:var(--color-ivory);padding:5.6rem 4.8rem}
+    .cert-scale__header{display:flex;align-items:center;justify-content:space-between;padding-bottom:3.2rem;border-bottom:1px solid rgba(36,36,36,.08);margin-bottom:3.2rem}
+    .cert-scale__logo{height:3.2rem;width:auto;display:block}
+    .cert-scale__subtitle{font-size:1rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(36,36,36,.28);text-align:right;line-height:1.7}
+    .cert-scale__bars{display:flex;flex-direction:column;gap:1.2rem}
+    .cert-scale__bar{display:flex;align-items:center;height:5.6rem;position:relative}
+    .cert-scale__fill{position:absolute;left:0;top:0;bottom:0;border-radius:10rem;display:flex;align-items:center;padding:0 2.2rem;gap:1.4rem;clip-path:inset(0 100% 0 0 round 10rem);transition:clip-path 1s cubic-bezier(0.22,1,0.36,1);white-space:nowrap;overflow:hidden}
+    .cert-scale__bar:nth-child(1) .cert-scale__fill{width:95%;background:linear-gradient(90deg,#3DCFC0,#58DDD2)}
+    .cert-scale__bar:nth-child(2) .cert-scale__fill{width:79%;background:linear-gradient(90deg,#2E9E85,#3CB298)}
+    .cert-scale__bar:nth-child(3) .cert-scale__fill{width:63%;background:linear-gradient(90deg,#5CAA42,#6CBB4A)}
+    .cert-scale__bar:nth-child(4) .cert-scale__fill{width:52%;background:linear-gradient(90deg,#D4C82C,#EAD838)}
+    .cert-scale__bar:nth-child(5) .cert-scale__fill{width:41%;background:linear-gradient(90deg,#E89028,#F0A038)}
+    .cert-scale__bar:nth-child(6) .cert-scale__fill{width:32%;background:linear-gradient(90deg,#7A8FA5,#8EA0B5)}
+    .cert-scale.in-view .cert-scale__bar:nth-child(1) .cert-scale__fill{clip-path:inset(0 0% 0 0 round 10rem);transition-delay:.05s}
+    .cert-scale.in-view .cert-scale__bar:nth-child(2) .cert-scale__fill{clip-path:inset(0 0% 0 0 round 10rem);transition-delay:.22s}
+    .cert-scale.in-view .cert-scale__bar:nth-child(3) .cert-scale__fill{clip-path:inset(0 0% 0 0 round 10rem);transition-delay:.39s}
+    .cert-scale.in-view .cert-scale__bar:nth-child(4) .cert-scale__fill{clip-path:inset(0 0% 0 0 round 10rem);transition-delay:.56s}
+    .cert-scale.in-view .cert-scale__bar:nth-child(5) .cert-scale__fill{clip-path:inset(0 0% 0 0 round 10rem);transition-delay:.73s}
+    .cert-scale.in-view .cert-scale__bar:nth-child(6) .cert-scale__fill{clip-path:inset(0 0% 0 0 round 10rem);transition-delay:.9s}
+    .cert-scale__code{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.8rem;font-weight:700;color:#fff;letter-spacing:.04em;min-width:5rem}
+    .cert-scale__name{font-size:1.2rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.9)}
+    .cert-scale__ext{font-size:1.2rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;color:rgba(36,36,36,.3);opacity:0;transition:opacity .4s ease}
+    .cert-scale__bar:nth-child(5) .cert-scale__ext{margin-left:calc(41% + 1.8rem)}
+    .cert-scale__bar:nth-child(6) .cert-scale__ext{margin-left:calc(32% + 1.8rem)}
+    .cert-scale.in-view .cert-scale__bar:nth-child(5) .cert-scale__ext{opacity:1;transition-delay:1.5s}
+    .cert-scale.in-view .cert-scale__bar:nth-child(6) .cert-scale__ext{opacity:1;transition-delay:1.67s}
+    @media(max-width:768px){
+      .cert-scale{padding:4rem 2.4rem}
+      .cert-scale__code{font-size:1.4rem;min-width:4rem}
+      .cert-scale__name{font-size:1rem}
+    }
+
+    /* Level cards */
+    .level-cards{background:#0a0a0a;padding:6rem 4.8rem}
+    .level-cards__header{max-width:120rem;margin:0 auto 4rem;text-align:center}
+    .level-cards__heading{font-family:'Joyride',"Azeret Mono",monospace;font-size:clamp(2.4rem,3.2vw,4.4rem);font-weight:400;text-transform:uppercase;letter-spacing:.01em;color:var(--color-ivory);margin-bottom:1.2rem}
+    .level-cards__sub{font-size:1.4rem;font-weight:300;line-height:1.7;color:rgba(255,251,242,.4)}
+    .level-cards__grid{max-width:120rem;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+    .level-card{border:1px solid rgba(255,255,255,.08);border-radius:1.2rem;padding:2.4rem 3.2rem;display:flex;align-items:center;gap:2.4rem;transition:border-color .3s}
+    .level-card:hover{border-color:rgba(255,255,255,.18)}
+    .level-card__badge{width:6rem;height:6rem;flex-shrink:0}
+    .level-card__badge img{width:100%;height:100%;object-fit:contain;display:block;filter:invert(1)}
+    .level-card__title{font-family:'Joyride',"Azeret Mono",monospace;font-size:1.2rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.8rem}
+    .level-card__desc{font-size:1.3rem;font-weight:300;line-height:1.65;color:rgba(255,251,242,.42)}
+    .level-card--it1plus .level-card__title{color:#3DCFC0}
+    .level-card--it1 .level-card__title{color:#3BAD95}
+    .level-card--it2 .level-card__title{color:#6CBB4A}
+    .level-card--it3 .level-card__title{color:#D4C82C}
+    .level-card--it4 .level-card__title{color:#E89028}
+    .level-card--it5 .level-card__title{color:#8EA0B5}
+
+    /* Process steps */
+    .process-section{background:var(--color-ivory);padding:8rem 4.8rem}
+    .process-section__label{font-family:'Joyride',"Azeret Mono",monospace;font-size:1rem;letter-spacing:.15em;text-transform:uppercase;color:#3DCFC0;margin-bottom:1.2rem;display:block;text-align:center}
+    .process-section__heading{font-family:'Joyride',"Azeret Mono",monospace;font-size:clamp(2rem,2.8vw,3.8rem);font-weight:400;text-transform:uppercase;letter-spacing:.01em;color:var(--color-coal);margin-bottom:6rem;text-align:center}
+    .process-section__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3.2rem;position:relative}
+    .process-section__grid::before{content:'';position:absolute;top:2.4rem;left:calc(12.5% + 1rem);right:calc(12.5% + 1rem);height:1px;background:rgba(36,36,36,.1)}
+    .process-step{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.6rem}
+    .process-step__num{width:4.8rem;height:4.8rem;border-radius:50%;background:#0a0a0a;display:flex;align-items:center;justify-content:center;font-family:'Joyride',"Azeret Mono",monospace;font-size:1.4rem;font-weight:700;color:#fff;flex-shrink:0;position:relative;z-index:2}
+    .process-step__title{font-size:1.4rem;font-weight:700;letter-spacing:.04em;color:var(--color-coal)}
+    .process-step__desc{font-size:1.2rem;font-weight:300;line-height:1.65;color:rgba(36,36,36,.45)}
+
+    /* Audience */
+    .audience-section{background:var(--color-ivory);padding:0 4.8rem 8rem}
+    .audience-section__heading{font-family:'Joyride',"Azeret Mono",monospace;font-size:clamp(2rem,2.8vw,3.8rem);font-weight:400;text-transform:uppercase;letter-spacing:.01em;color:var(--color-coal);margin-bottom:3.2rem;text-align:center}
+    .audience-section__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+    .audience-card{border:1px solid rgba(36,36,36,.1);padding:3.2rem;transition:border-color .3s}
+    .audience-card:hover{border-color:rgba(36,36,36,.25)}
+    .audience-card__icon{margin-bottom:1.6rem;color:#3DCFC0}
+    .audience-card__title{font-size:1.4rem;font-weight:700;letter-spacing:.04em;color:var(--color-coal);margin-bottom:.8rem}
+    .audience-card__desc{font-size:1.2rem;font-weight:300;line-height:1.65;color:rgba(36,36,36,.45)}
+
+    @media(max-width:768px){
+      .level-cards{padding:4rem 2.4rem}
+      .process-section{padding:6rem 2.4rem}
+      .process-section__grid{grid-template-columns:1fr 1fr;gap:2.4rem}
+      .process-section__grid::before{display:none}
+      .audience-section{padding:0 2.4rem 6rem}
+      .audience-section__grid{grid-template-columns:1fr}
+    }
+
+    /* Editorial block */
     .editorial-block{display:grid;grid-template-columns:60fr 40fr;height:80vh}
     .editorial-block__photo{overflow:hidden;position:relative}
     .editorial-block__photo img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.06);transition:transform 1.4s var(--ease-out-expo)}
@@ -110,26 +227,42 @@
     .editorial-block__badge img{height:clamp(24rem,42vh,50rem);width:auto;display:block;transition:transform 1s var(--ease-out-expo)}
     .editorial-block__badge img:hover{transform:scale(1.05)}
 
-    /* Badges row */
+    /* Badges */
     .brand-badges{background:#0a0a0a;padding:7rem 4.8rem 9rem;display:flex;align-items:center;justify-content:center;gap:4rem;flex-wrap:wrap}
     .brand-badges img{height:11rem;width:auto;display:block;transition:transform .6s var(--ease-out-expo)}
     .brand-badges img:hover{transform:scale(1.08)}
 
+    /* Palette */
+    .palette-wrap{padding:.8rem 4.8rem 5.6rem}
+    .palette{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+    .palette__swatch{height:20rem;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;cursor:none;position:relative;overflow:hidden;transition:transform .4s var(--ease-out-expo)}
+    .palette__swatch:hover{transform:translateY(-.6rem)}
+    .palette__name{font-size:1.1rem;font-weight:400;letter-spacing:.05em;text-transform:uppercase}
+    .palette__hex{font-size:1.1rem;font-weight:300;opacity:.6;letter-spacing:.05em}
+    .palette__copied{position:absolute;top:1.6rem;right:1.6rem;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;opacity:0;transition:opacity .3s}
+    .palette__swatch.copied .palette__copied{opacity:.8}
+
     /* Closing photo */
-    .photo-closer{height:70vh;overflow:hidden;position:relative}
-    .photo-closer img{width:100%;height:100%;object-fit:cover;display:block;object-position:center 30%;filter:contrast(1.08) brightness(.95)}
+    .photo-closer{height:40vh;overflow:hidden;position:relative}
+    .photo-closer img{width:100%;height:100%;object-fit:cover;display:block;object-position:center 20%;filter:contrast(1.1) brightness(.9)}
 
     @media(max-width:768px){
       .section-label{padding:4.8rem 2.4rem 0}
-      .brand-split{grid-template-columns:1fr;min-height:auto}
-      .brand-split__half{padding:6rem 3.2rem}
-      .brand-split__half img{width:60%}
+      .project-quote{padding:4rem 2.4rem;min-height:0}
+      .project-quote__mark,.project-quote__ring{display:none}
+      .brand-panel{min-height:0;padding:6rem 3.2rem}
+      .brand-panel__img{width:70%}
+      .concept-banner__inner{grid-template-columns:1fr;gap:3.2rem;padding:4rem 2.4rem}
+      .concept-banner__body{padding-left:0;border-left:none}
+      .concept-banner__photo{height:56vw}
       .editorial-block{grid-template-columns:1fr;height:auto}
       .editorial-block__photo{height:70vw}
       .editorial-block__badge{padding:5rem 3.2rem}
       .editorial-block__badge img{height:clamp(18rem,36vw,32rem)}
       .brand-badges{padding:5.6rem 2.4rem 7rem;gap:2.4rem}
       .brand-badges img{height:8rem}
+      .palette-wrap{padding:.8rem 2.4rem 4rem}
+      .palette__swatch{height:14rem}
       .photo-closer{height:60vw}
     }
 
@@ -247,41 +380,146 @@
           <a href="https://www.it-label.com/nl" target="_blank" rel="noopener" style="display:block;font-size:1.1rem;color:rgba(36,36,36,.4);text-decoration:underline;text-underline-offset:2px;margin-top:.4rem;cursor:pointer;position:relative;z-index:10">www.it-label.com</a>
         </div>
       </div>
-      <p class="project-desc reveal reveal-d1"></p>
+      <p class="project-desc reveal reveal-d1">We developed a complete visual identity for IT-Label. A system that translates complex digital infrastructure into clear, standardised certifications. Direct, scalable, and built to be understood at a glance.</p>
     </div>
 
-    <p class="section-label reveal">Identiteit</p>
+    <div class="project-quote" id="quoteSection">
+      <p>
+        <span class="ql"><span class="ql__inner">IT-Label: De standaard voor</span></span>
+        <span class="ql"><span class="ql__inner">de digitale kwaliteit van</span></span>
+        <span class="ql"><span class="ql__inner">commercieel vastgoed.</span></span>
+      </p>
+    </div>
 
-    <div class="brand-split">
-      <div class="brand-split__half brand-split__half--dark reveal">
-        <img src="../brand_assets/IT-LABEL/wordmark-wit.svg" alt="IT-Label wordmark wit" />
-      </div>
-      <div class="brand-split__half brand-split__half--light reveal reveal-d1">
-        <img src="../brand_assets/IT-LABEL/wordmark-zwart.svg" alt="IT-Label wordmark zwart" />
+
+
+    <div class="brand-panel reveal is-light" id="brandPanel">
+      <img class="brand-panel__img brand-panel__img--wit" src="../brand_assets/IT-LABEL/wordmark-wit.svg" alt="IT-Label wordmark wit" />
+      <img class="brand-panel__img brand-panel__img--zwart" src="../brand_assets/IT-LABEL/wordmark-zwart.svg" alt="IT-Label wordmark zwart" />
+      <div class="brand-panel__toggle">
+        <button id="btnDark">Zwart</button>
+        <button class="active" id="btnLight">Wit</button>
       </div>
     </div>
 
-    <div class="editorial-block">
-      <div class="editorial-block__photo">
-        <img src="../brand_assets/IT-LABEL/foto-glas.jpg" alt="" />
+
+
+    <div class="level-cards">
+      <div class="level-cards__header reveal">
+        <h2 class="level-cards__heading">Zes opleverniveaus</h2>
+        <p class="level-cards__sub">Elk niveau past bij een andere doelgroep en situatie — van casco gebouw tot volledig beheerde infrastructuur.</p>
       </div>
-      <div class="editorial-block__badge reveal">
-        <img src="../brand_assets/IT-LABEL/badge-it1plus.svg" alt="IT1+" />
+      <div class="level-cards__grid">
+      <div class="level-card level-card--it1plus reveal">
+        <div class="level-card__badge"><img src="../brand_assets/IT-LABEL/badge-it1plus.svg" alt="IT1+" /></div>
+        <div><p class="level-card__title">IT1+ Premium</p><p class="level-card__desc">Volledig toekomstbestendig en AI-proof. Verhuurder regelt alles.</p></div>
+      </div>
+      <div class="level-card level-card--it1 reveal reveal-d1">
+        <div class="level-card__badge"><img src="../brand_assets/IT-LABEL/badge-it1.svg" alt="IT1" /></div>
+        <div><p class="level-card__title">IT1 High Performance</p><p class="level-card__desc">Direct gebruiksklaar. Huurder sluit alleen eigen apparatuur aan.</p></div>
+      </div>
+      <div class="level-card level-card--it2 reveal">
+        <div class="level-card__badge"><img src="../brand_assets/IT-LABEL/badge-it2.svg" alt="IT2" /></div>
+        <div><p class="level-card__title">IT2 Plug &amp; Play</p><p class="level-card__desc">Direct gebruiksklaar. Glasvezel en bekabeling aanwezig.</p></div>
+      </div>
+      <div class="level-card level-card--it3 reveal reveal-d1">
+        <div class="level-card__badge"><img src="../brand_assets/IT-LABEL/badge-it3.svg" alt="IT3" /></div>
+        <div><p class="level-card__title">IT3 Ready</p><p class="level-card__desc">Goede basis, nog eigen inrichting nodig.</p></div>
+      </div>
+      <div class="level-card level-card--it4 reveal">
+        <div class="level-card__badge"><img src="../brand_assets/IT-LABEL/badge-it4.svg" alt="IT4" /></div>
+        <div><p class="level-card__title">IT4 Core</p><p class="level-card__desc">Basis tot in het gebouw, interne IT nog aanleggen.</p></div>
+      </div>
+      <div class="level-card level-card--it5 reveal reveal-d1">
+        <div class="level-card__badge"><img src="../brand_assets/IT-LABEL/badge-it5.svg" alt="IT5" /></div>
+        <div><p class="level-card__title">IT5 Shell</p><p class="level-card__desc">Casco, volledig transparant over benodigde investering.</p></div>
+      </div>
       </div>
     </div>
 
-    <p class="section-label reveal">Certificering</p>
+    <p class="section-label reveal">Kleurenpalet</p>
 
-    <div class="brand-badges">
-      <img src="../brand_assets/IT-LABEL/badge-it1.svg" alt="IT1" class="reveal" />
-      <img src="../brand_assets/IT-LABEL/badge-it2.svg" alt="IT2" class="reveal reveal-d1" />
-      <img src="../brand_assets/IT-LABEL/badge-it3.svg" alt="IT3" class="reveal reveal-d1" />
-      <img src="../brand_assets/IT-LABEL/badge-it4.svg" alt="IT4" class="reveal reveal-d2" />
-      <img src="../brand_assets/IT-LABEL/badge-it5.svg" alt="IT5" class="reveal reveal-d2" />
+    <div class="palette-wrap">
+      <div class="palette" id="palette">
+        <div class="palette__swatch" data-hex="#0A0A0A" style="background:#0a0a0a;color:#fff">
+          <span class="palette__copied">Copied</span>
+          <span class="palette__name">Zwart</span>
+          <span class="palette__hex">#0A0A0A</span>
+        </div>
+        <div class="palette__swatch" data-hex="#FFFFFF" style="background:#fff;color:#0a0a0a;border:1px solid rgba(0,0,0,.06)">
+          <span class="palette__copied">Copied</span>
+          <span class="palette__name">Wit</span>
+          <span class="palette__hex">#FFFFFF</span>
+        </div>
+        <div class="palette__swatch" data-hex="#4DB8A4" style="background:#4db8a4;color:#fff">
+          <span class="palette__copied">Copied</span>
+          <span class="palette__name">Teal</span>
+          <span class="palette__hex">#4DB8A4</span>
+        </div>
+        <div class="palette__swatch" data-hex="#21212D" style="background:#21212d;color:#fff">
+          <span class="palette__copied">Copied</span>
+          <span class="palette__name">Navy</span>
+          <span class="palette__hex">#21212D</span>
+        </div>
+      </div>
     </div>
 
     <div class="photo-closer">
-      <img src="../brand_assets/IT-LABEL/foto-monoliet.jpg" alt="" />
+      <img src="../brand_assets/IT-LABEL/foto-hq.jpg" alt="" />
+    </div>
+
+    <div class="process-section">
+      <span class="process-section__label reveal">Van aanvraag tot certificaat</span>
+      <h2 class="process-section__heading reveal">Zo komt een IT-Label tot stand</h2>
+      <div class="process-section__grid">
+        <div class="process-step reveal">
+          <div class="process-step__num">1</div>
+          <p class="process-step__title">Aanvragen</p>
+          <p class="process-step__desc">U meldt uw gebouw aan bij een gecertificeerde partner.</p>
+        </div>
+        <div class="process-step reveal reveal-d1">
+          <div class="process-step__num">2</div>
+          <p class="process-step__title">Audit</p>
+          <p class="process-step__desc">De partner beoordeelt de infrastructuur én meet de daadwerkelijke prestaties.</p>
+        </div>
+        <div class="process-step reveal reveal-d1">
+          <div class="process-step__num">3</div>
+          <p class="process-step__title">Classificatie</p>
+          <p class="process-step__desc">De uitkomst wordt vertaald naar een IT-Label van IT1+ tot IT5.</p>
+        </div>
+        <div class="process-step reveal reveal-d2">
+          <div class="process-step__num">4</div>
+          <p class="process-step__title">Certificaat</p>
+          <p class="process-step__desc">U ontvangt het certificaat, twee jaar geldig.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="audience-section">
+      <h2 class="audience-section__heading reveal">Voor wie is het IT-Label?</h2>
+      <div class="audience-section__grid">
+        <div class="audience-card reveal">
+          <div class="audience-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M9 22V12h6v10M3 9h18"/></svg>
+          </div>
+          <p class="audience-card__title">Vastgoedeigenaren</p>
+          <p class="audience-card__desc">Maak de digitale kwaliteit van uw portefeuille zichtbaar en onderscheid uw pand op wat huurders vandaag eisen.</p>
+        </div>
+        <div class="audience-card reveal reveal-d1">
+          <div class="audience-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <p class="audience-card__title">Huurders</p>
+          <p class="audience-card__desc">Weet vooraf wat u krijgt en welke investering nog nodig is, voordat u tekent.</p>
+        </div>
+        <div class="audience-card reveal reveal-d2">
+          <div class="audience-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <p class="audience-card__title">Partners</p>
+          <p class="audience-card__desc">Voer als gecertificeerde partner onafhankelijke audits uit volgens de IT-Label-methodologie.</p>
+        </div>
+      </div>
     </div>
 
     <footer>
@@ -356,6 +594,21 @@
       entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');obs.unobserve(e.target)}});
     },{threshold:.1,rootMargin:'0px 0px -4% 0px'});
     $$('.reveal').forEach(el=>obs.observe(el));
+    qs('#quoteSection') && obs.observe(qs('#quoteSection'));
+
+    $$('.palette__swatch').forEach(sw=>{
+      sw.addEventListener('click',()=>{
+        const hex=sw.dataset.hex;
+        navigator.clipboard && navigator.clipboard.writeText(hex).catch(()=>{});
+        sw.classList.add('copied');
+        setTimeout(()=>sw.classList.remove('copied'),1200);
+      });
+    });
+    const brandPanel=qs('#brandPanel');
+    if(brandPanel){
+      qs('#btnDark').addEventListener('click',()=>{brandPanel.classList.remove('is-light');qs('#btnDark').classList.add('active');qs('#btnLight').classList.remove('active')});
+      qs('#btnLight').addEventListener('click',()=>{brandPanel.classList.add('is-light');qs('#btnLight').classList.add('active');qs('#btnDark').classList.remove('active')});
+    }
   })();
   </script>
 </body>
