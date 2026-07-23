@@ -250,7 +250,9 @@
       .project-hero__content{padding:2.4rem;padding-bottom:5.6rem}
       .project-hero__video,.project-hero__overlay{display:none}
       .project-hero__video--mobile,.project-hero__filter--mobile,.project-hero__logo--mobile{display:block}
-      .project-hero__title,.project-hero__tags{display:none}
+      .project-hero__tags{display:none}
+      .project-hero__title{overflow:visible}
+      .project-hero__title span{transform:translateY(0)!important;transition:none}
       .project-intro{grid-template-columns:1fr;gap:4rem;padding:5.6rem 2.4rem}
       .project-quote{padding:3.6rem 2.4rem;min-height:0;flex-direction:column;gap:0;text-align:center}
       .project-quote__mark,.project-quote__ring{display:none}
@@ -570,8 +572,8 @@ zijn wij de gids</h3>
   <script>
   (function(){
     const qs=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-    const lenis=new Lenis({duration:1.25,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothTouch:false});
-    (function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0);
+    document.body.classList.add('loaded');
+    let lenis;try{lenis=new Lenis({duration:1.25,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)),smoothTouch:false});(function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0)}catch(e){}
     const cursor=qs('#cursor'),ring=qs('#cursorRing');
     let mx=0,my=0,rx=0,ry=0;
     document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px'});
@@ -587,11 +589,10 @@ zijn wij de gids</h3>
     navItems.forEach((li,i)=>setTimeout(()=>li.classList.add('in'),80*i));
     const menuBtn=qs('#menuBtn'),menuOverlay=qs('#menuOverlay');
     $$('[data-menu-link]').forEach((a,i)=>{a.style.transitionDuration=(1200-i*60)+'ms';a.style.transitionDelay=(i*70)+'ms'});
-    const openMenu=()=>{nav.classList.add('nav--open');menuOverlay.classList.add('open');lenis.stop()};
-    const closeMenu=()=>{nav.classList.remove('nav--open');menuOverlay.classList.remove('open');lenis.start()};
+    const openMenu=()=>{nav.classList.add('nav--open');menuOverlay.classList.add('open');lenis&&lenis.stop()};
+    const closeMenu=()=>{nav.classList.remove('nav--open');menuOverlay.classList.remove('open');lenis&&lenis.start()};
     menuBtn.addEventListener('click',()=>menuOverlay.classList.contains('open')?closeMenu():openMenu());
     $$('[data-menu-link]').forEach(a=>a.addEventListener('click',closeMenu));
-    document.body.classList.add('loaded');
     const obs=new IntersectionObserver(entries=>{
       entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');obs.unobserve(e.target)}});
     },{threshold:.1,rootMargin:'0px 0px -4% 0px'});
