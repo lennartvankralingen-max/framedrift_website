@@ -407,17 +407,6 @@
       right: 0;
       z-index: 10;
     }
-    .hero__bottom::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 27%; right: 27%;
-      height: 1px;
-      background: rgba(255,255,0,0.4);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 1.2s var(--ease-out-expo) 1.5s;
-    }
-    body.loaded .hero__bottom::before { transform: scaleX(1); }
     .hero__bottom__inner {
       display: flex;
       align-items: center;
