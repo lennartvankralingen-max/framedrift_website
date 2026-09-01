@@ -425,11 +425,10 @@
       width: 46vw;
       margin-left: auto;
       margin-right: auto;
-      opacity: 0;
       transform: translateY(16px);
-      transition: opacity 1.8s ease 1s, transform 1.8s var(--ease-out-expo) 1s;
+      transition: transform 1.8s var(--ease-out-expo) 1s;
     }
-    body.loaded .hero__subtitle { opacity: 1; transform: translateY(-7rem); }
+    body.loaded .hero__subtitle { transform: translateY(-7rem); }
     .hero__studio-label {
       font-family: 'Joyride', "Azeret Mono", monospace;
       font-size: 1.4rem;
@@ -449,7 +448,20 @@
       align-items: center;
       gap: 0.8rem;
     }
-    .hero__disciplines .dot { opacity: 0.4; }
+    .hero__discipline-word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+    }
+    body.loaded .hero__discipline-word { opacity: 1; transform: translateY(0); }
+    .hero__disciplines .dot {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+    }
+    body.loaded .hero__disciplines .dot { opacity: 0.4; transform: translateY(0); }
 
     .hero__locations {
       font-size: 1.2rem;
@@ -1398,7 +1410,7 @@
     <ul class="nav__links" id="navLinks">
       <li><a href="#">Home</a></li>
       <li class="nav__dropdown" id="workDropdown">
-        <a href="#work" class="nav__dropdown__trigger">Work</a>
+        <a href="work/projects.html" class="nav__dropdown__trigger">Work</a>
         <ul class="nav__dropdown__menu">
           <li><a href="work/projects.html">Projects</a></li>
           <li><a href="work/keyart.html">Key-art</a></li>
@@ -1417,7 +1429,7 @@
   <div class="menu-overlay" id="menuOverlay">
     <ul class="menu-overlay__links">
       <li><a href="#"        data-menu-link>Home</a></li>
-      <li><a href="#work"    data-menu-link>Work</a></li>
+      <li><a href="work/projects.html"    data-menu-link>Work</a></li>
       <li><a href="work/projects.html" data-menu-link>Projects</a></li>
       <li><a href="work/keyart.html" data-menu-link>Keyart</a></li>
       <li><a href="about.html"   data-menu-link>About</a></li>
@@ -1443,7 +1455,7 @@
       </video>
       <div class="hero__subtitle">
         <div class="hero__disciplines">
-          Motion Graphics <span class="dot">·</span> Brand Identity <span class="dot">·</span> Events <span class="dot">·</span> Print <span class="dot">·</span> Social Media <span class="dot">·</span> Leader Packages
+          <span class="hero__discipline-word" style="transition-delay:1s">Motion Graphics</span> <span class="dot" style="transition-delay:1s">·</span> <span class="hero__discipline-word" style="transition-delay:1.08s">Brand Identity</span> <span class="dot" style="transition-delay:1.08s">·</span> <span class="hero__discipline-word" style="transition-delay:1.16s">Events</span> <span class="dot" style="transition-delay:1.16s">·</span> <span class="hero__discipline-word" style="transition-delay:1.24s">Print</span> <span class="dot" style="transition-delay:1.24s">·</span> <span class="hero__discipline-word" style="transition-delay:1.32s">Social Media</span> <span class="dot" style="transition-delay:1.32s">·</span> <span class="hero__discipline-word" style="transition-delay:1.4s">Leader Packages</span>
         </div>
       </div>
     </div>
