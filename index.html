@@ -425,10 +425,8 @@
       width: 46vw;
       margin-left: auto;
       margin-right: auto;
-      transform: translateY(16px);
-      transition: transform 1.8s var(--ease-out-expo) 1s;
+      transform: translateY(-7rem);
     }
-    body.loaded .hero__subtitle { transform: translateY(-7rem); }
     .hero__studio-label {
       font-family: 'Joyride', "Azeret Mono", monospace;
       font-size: 1.4rem;
@@ -451,17 +449,15 @@
     .hero__discipline-word {
       display: inline-block;
       opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+      transition: opacity 1.6s var(--ease-out-expo);
     }
-    body.loaded .hero__discipline-word { opacity: 1; transform: translateY(0); }
+    body.loaded .hero__discipline-word { opacity: 1; }
     .hero__disciplines .dot {
       display: inline-block;
       opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+      transition: opacity 1.6s var(--ease-out-expo);
     }
-    body.loaded .hero__disciplines .dot { opacity: 0.4; transform: translateY(0); }
+    body.loaded .hero__disciplines .dot { opacity: 0.4; }
 
     .hero__locations {
       font-size: 1.2rem;
@@ -1351,8 +1347,7 @@
       #contact { padding: 6rem 2.4rem; }
       .hero__content { padding: 0 2.4rem 5.6rem; }
       .hero__logo-video { width: 110vw; margin-top: -16rem; }
-      .hero__subtitle { width: 88vw; margin-top: 2.4rem; gap: 1.2rem; }
-      body.loaded .hero__subtitle { transform: translateY(-3rem); }
+      .hero__subtitle { width: 88vw; margin-top: 2.4rem; gap: 1.2rem; transform: translateY(-3rem); }
       .hero__disciplines { font-size: 11px; flex-wrap: wrap; justify-content: center; row-gap: 0.8rem; }
       .hero__bottom { bottom: 28rem; left: -15%; right: -15%; }
       .hero__bottom::before { left: 17%; right: 17%; }
@@ -1457,7 +1452,7 @@
       </video>
       <div class="hero__subtitle">
         <div class="hero__disciplines">
-          <span class="hero__discipline-word" style="transition-delay:1s">Motion Graphics</span> <span class="dot" style="transition-delay:1s">·</span> <span class="hero__discipline-word" style="transition-delay:1.08s">Brand Identity</span> <span class="dot" style="transition-delay:1.08s">·</span> <span class="hero__discipline-word" style="transition-delay:1.16s">Events</span> <span class="dot" style="transition-delay:1.16s">·</span> <span class="hero__discipline-word" style="transition-delay:1.24s">Print</span> <span class="dot" style="transition-delay:1.24s">·</span> <span class="hero__discipline-word" style="transition-delay:1.32s">Social Media</span> <span class="dot" style="transition-delay:1.32s">·</span> <span class="hero__discipline-word" style="transition-delay:1.4s">Leader Packages</span>
+          <span class="hero__discipline-word" style="transition-delay:1s">Motion Graphics</span> <span class="dot" style="transition-delay:1s">·</span> <span class="hero__discipline-word" style="transition-delay:1.18s">Brand Identity</span> <span class="dot" style="transition-delay:1.18s">·</span> <span class="hero__discipline-word" style="transition-delay:1.36s">Events</span> <span class="dot" style="transition-delay:1.36s">·</span> <span class="hero__discipline-word" style="transition-delay:1.54s">Print</span> <span class="dot" style="transition-delay:1.54s">·</span> <span class="hero__discipline-word" style="transition-delay:1.72s">Social Media</span> <span class="dot" style="transition-delay:1.72s">·</span> <span class="hero__discipline-word" style="transition-delay:1.9s">Leader Packages</span>
         </div>
       </div>
     </div>
