@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Framedrift - A Creative Studio</title>
   <!-- Open Graph -->
 <meta property="og:title" content="Framedrift — A Creative Studio" />
@@ -15,6 +15,13 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://framedrift.nl/brand_assets/LINKEDIN_2.jpg" />
   <link rel="icon" type="image/png" href="brand_assets/Favicon.png" />
+  <link rel="apple-touch-icon" href="brand_assets/icons/apple-touch-icon.png" />
+  <link rel="apple-touch-startup-image" href="brand_assets/icons/splash-1206x2622.png" media="screen and (device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Framedrift" />
+  <meta name="theme-color" content="#000000" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
@@ -138,10 +145,13 @@
       justify-content: center;
       align-items: center;
       padding: 3.2rem 4.8rem;
+      padding-top: calc(3.2rem + env(safe-area-inset-top));
+      padding-left: calc(4.8rem + env(safe-area-inset-left));
+      padding-right: calc(4.8rem + env(safe-area-inset-right));
       transition: padding 0.6s var(--ease-out-expo);
     }
-    
-    .nav--light   { padding: 2rem 4.8rem; }
+
+    .nav--light   { padding: 2rem 4.8rem; padding-top: calc(2rem + env(safe-area-inset-top)); }
 
     .nav__logo {
       text-decoration: none;
@@ -252,6 +262,8 @@
       flex-direction: column;
       justify-content: center;
       padding: 4.8rem;
+      padding-top: calc(4.8rem + env(safe-area-inset-top));
+      padding-bottom: calc(4.8rem + env(safe-area-inset-bottom));
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.5s var(--ease-out-expo), visibility 0.5s ease;
@@ -283,7 +295,7 @@
 
     .menu-overlay__footer {
       position: absolute;
-      bottom: 4rem; left: 4.8rem; right: 4.8rem;
+      bottom: calc(4rem + env(safe-area-inset-bottom)); left: 4.8rem; right: 4.8rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1339,7 +1351,7 @@
     @media (max-width: 768px) {
       html { font-size: 1.4vw; }
       .contact__cta-heading { font-size: 6.2vw; }
-      .nav { padding: 2.4rem; }
+      .nav { padding: 2.4rem; padding-top: calc(2.4rem + env(safe-area-inset-top)); padding-left: calc(2.4rem + env(safe-area-inset-left)); padding-right: calc(2.4rem + env(safe-area-inset-right)); }
       .nav__logo img { height: 22vw; }
       .nav__menu-btn { display: flex; width: 28px; height: 28px; }
       .nav__links { display: none; }
@@ -1362,7 +1374,7 @@
       .how__grid { grid-template-columns: 1fr 1fr; gap: 4.8rem; }
       .how__step { border-right: none; padding: 0 !important; }
       .thoughts__grid { grid-template-columns: 1fr; }
-      footer{display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:center;gap:0;padding:2.4rem 2.4rem;text-align:left}.footer__logo{flex:0 0 auto;display:flex;position:static;transform:none}.footer__logo img{height:5rem}.footer__copy{flex:1;font-size:.9rem;text-align:center}.footer__links{justify-content:flex-end;gap:1.6rem}
+      footer{display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:center;gap:0;padding:2.4rem 2.4rem calc(2.4rem + env(safe-area-inset-bottom));text-align:left}.footer__logo{flex:0 0 auto;display:flex;position:static;transform:none}.footer__logo img{height:5rem}.footer__copy{flex:1;font-size:.9rem;text-align:center}.footer__links{justify-content:flex-end;gap:1.6rem}
     }
     @media (max-width: 480px) {
       html { font-size: 2vw; }
@@ -1448,7 +1460,7 @@
 
     <div class="hero__content">
       <video autoplay muted loop playsinline preload="auto" class="hero__logo-video">
-        <source src="brand_assets/FD_WHITE_V3.mp4" type="video/mp4">
+        <source src="brand_assets/FD_WHITE_V3_h264.mp4" type="video/mp4">
       </video>
       <div class="hero__subtitle">
         <div class="hero__disciplines">
